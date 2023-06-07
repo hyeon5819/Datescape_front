@@ -1,29 +1,16 @@
 const urlParams = new URLSearchParams(window.location.search);
 const emoticonId = urlParams.get("emoticon_id");
 
-// const userId = JSON.parse(localStorage.getItem("payload")).user_id;
+const userId = JSON.parse(localStorage.getItem("payload")).user_id;
 
 // 이모티콘 가져오기
 async function getEmoticon(emoticon_id) {
-    const response = await fetch(`${back_base_url}/emoticons/${emoticon_id}/`);
+    const access = localStorage.getItem("access");
 
-    if (response.status == 200) {
-        response_json = await response.json();
-        return response_json;
-    } else {
-        alert(response.status);
-    }
-}
-
-// 유저가 가진 이모티콘들 가져오기
-async function getUserEmoticon(user_id) {
-    // const access = localStorage.getItem("access");
-
-    const response = await fetch(`${back_base_url}/emoticons/`, {
-        // headers: {
-        //     Authorization: `Bearer ${access}`,
-        // },
-        method: "GET",
+    const response = await fetch(`${back_base_url}/emoticons/${emoticon_id}/`, {
+        headers: {
+            Authorization: `Bearer ${access}`,
+        },
     });
 
     if (response.status == 200) {
@@ -40,18 +27,21 @@ async function emoticonDelete(emoticon_id, creator) {
 
     if (userId == creator) {
         if (confirm("삭제하시겠습니까?")) {
-            const response = await fetch(
-                `${back_base_url}/comments/emoticon/detail/${emoticon_id}/`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${access}`,
-                    },
-                    method: "DELETE",
-                }
+            const formData = new FormData()
+
+            formData.append("emoticon_id", emoticonId)
+
+            const response = await fetch(`${back_base_url}/emoticons/`, {
+                headers: {
+                    Authorization: `Bearer ${access}`,
+                },
+                method: "DELETE",
+                body: formData,
+            }
             );
             if (response.status == 204) {
                 alert("삭제되었습니다.");
-                window.location.href = `${front_base_url}/templates/emoticon_list.html`
+                window.location.href = `${front_base_url}/templates/emoticon_templist.html`
             } else {
                 alert("권한이 없습니다!");
             }
@@ -134,12 +124,13 @@ async function emoticonUpdateConfirm(emoticon_id) {
     const formData = new FormData()
 
     formData.append("title", title)
+    formData.append("emoticon_id", emoticonId)
     formData.append("remove_images", removeImagesList)
     for (let i = 0; i < addImages.length; i++) {
         formData.append("images", addImages[i]);
     }
 
-    const response = await fetch(`${back_base_url}/comments/emoticon/detail/${emoticon_id}/`, {
+    const response = await fetch(`${back_base_url}/emoticons/`, {
         headers: {
             Authorization: `Bearer ${access}`,
         },
@@ -150,42 +141,7 @@ async function emoticonUpdateConfirm(emoticon_id) {
 
     if (response.status == 200) {
         alert("수정 완료!");
-        window.location.href = `${front_base_url}/templates/emoticon_detail.html?emoticon_id=${emoticon_id}`;
-    } else {
-        alert("잘못 된 요청입니다.");
-    }
-}
-
-// 유저 사용가능 저장
-async function emoticonSelect(emoticon_id) {
-    const access = localStorage.getItem("access");
-
-    const select = document.getElementById('select_input').checked
-
-    let requestMethod = ''
-    if (select == true) {
-        requestMethod = "POST"
-    } else {
-        requestMethod = "DELETE"
-    }
-
-    const formData = new FormData();
-
-    // formData.append('buyer', userId)
-    formData.append('emoticon', emoticon_id)
-
-    const response = await fetch(`${back_base_url}/comments/emoticon/${userId}/`, {
-        headers: {
-            Authorization: `Bearer ${access}`,
-        },
-        method: requestMethod,
-        body: formData,
-    });
-
-    if (response.status == 200) {
-        alert("사용 이모티콘에 추가했습니다")
-    } else if (response.status == 204) {
-        alert("사용 이모티콘에서 제외했습니다")
+        window.location.href = `${front_base_url}/templates/emoticon_temp_detail.html?emoticon_id=${emoticon_id}`;
     } else {
         alert("잘못 된 요청입니다.");
     }
@@ -236,9 +192,6 @@ window.onload = async function () {
     selectInput.setAttribute('value', 'True')
     selectInput.setAttribute('type', 'checkbox')
 
-    const selectlabel = document.createElement('label')
-    selectlabel.innerText = '사용하기'
-
     const idList = userEmoticon.map(obj => obj.id);
     if (idList.includes(parseInt(emoticonId))) {
         selectInput.setAttribute('checked', 'True')
@@ -246,6 +199,5 @@ window.onload = async function () {
     selectInput.addEventListener('click', function () {
         emoticonSelect(emoticonId)
     })
-    parentsDiv.appendChild(selectlabel)
     parentsDiv.appendChild(selectInput)
 }

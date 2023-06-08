@@ -47,12 +47,12 @@ async function loadMyPosition(position) {
 
     // 주변 데이터 표시하기
     const nearPositions = await getNearPosition(position)
-    console.log(nearPositions)
     // 주변 마커 생성
     nearPositions.forEach(point => {
         console.log(point)
+        console.log(point.coordinate_x)
         // 마커를 표시할 위치입니다 
-        var position = new kakao.maps.LatLng(33.450701, 126.570667);
+        var position = new kakao.maps.LatLng(point.coordinate_y, point.coordinate_x);
 
         // 마커를 생성합니다
         var marker = new kakao.maps.Marker({

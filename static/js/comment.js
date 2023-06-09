@@ -405,9 +405,17 @@ window.onload = async function () {
             commentContent.appendChild(cardDiv)
 
             const nicknameDiv = document.createElement("div")
-            nicknameDiv.setAttribute('style', 'width: 15%;')
+            nicknameDiv.setAttribute('style', 'width: 15%;display: flex; flex-direction: column;')
             nicknameDiv.innerText = element.username
             cardDiv.appendChild(nicknameDiv)
+
+            //신고하기
+            //위치만 넣어놈
+            const reportButton = document.createElement("button")
+            reportButton.setAttribute('style', 'width: 50%; margin: auto auto 5px auto; font-size: 20px; border: none;')
+            reportButton.innerText = '🚨'
+            nicknameDiv.appendChild(reportButton)
+            //신고하기
 
             const commentDiv = document.createElement("div")
             commentDiv.setAttribute('class', 'card-body')
@@ -428,6 +436,7 @@ window.onload = async function () {
 
             const commentP = document.createElement("p")
             commentP.innerText = element.comment
+            commentP.setAttribute('style', 'font-size: 20px;')
             commentDiv.appendChild(commentP)
             cardDiv.appendChild(commentDiv)
 
@@ -452,8 +461,64 @@ window.onload = async function () {
                     buttonDiv.appendChild(deleteButton)
                 }
             }
+
+            // 댓글 좋아요
+            console.log('좋아요 수', element.likers.length)
+
+            const userId = JSON.parse(localStorage.getItem("payload")).user_id
+
+            let likeButton = document.createElement("button")
+            cardDiv.appendChild(likeButton)
+            likeButton.setAttribute('style', 'width: 10%; border: none;')
+
+            likeButton.innerText = `🤍\n${element.likers.length}`
+
+
+
+            for (let i = 0; i < element.likers.length; i++) {
+                if(userId == element.likers[i].likers){
+                    likeButton.innerText = `❤️\n${element.likers.length}`
+                    break;
+                }else{
+                    likeButton.innerText = `🤍\n${element.likers.length}`
+                }
+            }
+
+            likeButton.setAttribute('onclick', `commentLike(${element.id})`)
+            likeButton.setAttribute('id', `like${element.id}`)
+
         });
     } catch (err) {
         console.log('err')
     }
 };
+
+
+async function commentLike(comment_id){
+    const access = localStorage.getItem("access")
+
+    const formData = new FormData()
+
+    formData.append('comment_id', comment_id)
+
+    const responseLike = await fetch(`${back_base_url}/articles/comments/like/`, {
+        headers: {
+            Authorization: `Bearer ${access}`,
+        },
+        method: "POST",
+        body: formData,
+    })
+    const data = await responseLike.json();
+
+    if (responseLike.status == 200) {
+        alert(data['message'])
+        const heart = document.getElementById(`like${comment_id}`)
+        if (data.message == "좋아요!"){
+            heart.innerText = `❤️\n${data.comment_likes}`
+        }else if(data.message == "좋아요 취소!"){
+            heart.innerText = `🤍\n${data.comment_likes}`
+        }
+    } else {
+        alert("잘못 된 요청입니다.");
+    }
+}

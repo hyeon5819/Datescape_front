@@ -60,6 +60,8 @@ function requestPay() {
             } else {
                 alert("잘못 된 요청입니다.");
             }
+        } else if (rsp.success == false) {
+            alert(rsp.error_msg)
         } else {
             alert('뭔가 잘못됐을걸요.. 이거 만나면 알려주세요..')
             console.log(rsp);

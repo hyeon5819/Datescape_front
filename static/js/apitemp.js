@@ -104,7 +104,7 @@ async function handleLogin() {
     const password = document.getElementById("password").value
     console.log(username, password)
 
-    const response = await fetch(`${back_base_url}/users/api/token/`, {
+    const response = await fetch(`${back_base_url}/users/token/`, {
         headers: {
             "Content-Type": "application/json",
 

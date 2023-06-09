@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kakao API</title>
+    <script src="../components/urls.js"></script>
+    <script src="../static/js/map_search.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+</head>
+
+<body>
+    <table border="1">
+        <tr>
+            <th>주소</th>
+            <td><input type="text" id="address_kakao_input" name="address" readonly /></td>
+            <th>지번주소</th>
+            <td><input type="text" id="jibunAddress" name="jibun_address" readonly /></td>
+            <th>도로명주소</th>
+            <td><input type="text" id="roadAddress" name="road_address" readonly /></td>
+            <td><button type="text" id="address_kakao" name="address">주소검색</button></td>
+            <td><button type="button" id="save_db">db저장</button></td>
+        </tr>
+        <tr>
+            <th>상세 주소</th>
+            <td><input type="text" name="address_detail" /></td>
+        </tr>
+    </table>
+</body>
+
+
+</html>

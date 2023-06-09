@@ -1,10 +1,10 @@
-// if (!localStorage.getItem("access")) {
-//     alert("로그인이 필요합니다.")
-//     window.location.href = `${front_base_url}/templates/login.html`
-// }
+if (!localStorage.getItem("access")) {
+    alert("로그인이 필요합니다.")
+    window.location.href = `${front_base_url}/templates/logintemp.html`
+}
 
 async function emoticonCreate() {
-    // const access = localStorage.getItem("access");
+    const access = localStorage.getItem("access");
 
     const emoticonTitle = document.getElementById('title').value
     const emoticonImage = document.getElementById('image').files
@@ -20,9 +20,9 @@ async function emoticonCreate() {
         }
 
         const response = await fetch(`${back_base_url}/emoticons/`, {
-            // headers: {
-            //     Authorization: `Bearer ${access}`,
-            // },
+            headers: {
+                Authorization: `Bearer ${access}`,
+            },
             method: "POST",
             body: formData,
         });

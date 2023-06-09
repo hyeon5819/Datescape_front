@@ -512,7 +512,6 @@ async function commentLike(comment_id){
     const data = await responseLike.json();
 
     if (responseLike.status == 200) {
-        alert(data['message'])
         const heart = document.getElementById(`like${comment_id}`)
         if (data.message == "좋아요!"){
             heart.innerText = `❤️\n${data.comment_likes}`

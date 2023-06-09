@@ -413,6 +413,7 @@ window.onload = async function () {
             //위치만 넣어놈
             const reportButton = document.createElement("button")
             reportButton.setAttribute('style', 'width: 50%; margin: auto auto 5px auto; font-size: 20px; border: none;')
+            reportButton.setAttribute('onclick', `commentReport(${element.id})`)
             reportButton.innerText = '🚨'
             nicknameDiv.appendChild(reportButton)
             //신고하기

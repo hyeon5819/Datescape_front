@@ -64,12 +64,13 @@ async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbt
     if (localStorage.getItem("access")) {
         const userId = JSON.parse(localStorage.getItem("payload")).user_id
 
+        //리스트 첫번째에 이모지 넣어주기
+        baseEmojiList(user_emoticon_list, emoticon_popup, emoticonbtn, emoticon_images, comment_content)
+
         // 유저가 가진 이모티콘 리스트 추가
         const response_useremoticon = await getUserEmoticon();
         const userEmoticonList = document.getElementById(user_emoticon_list)
 
-        //리스트 첫번째에 이모지 넣어주기
-        baseEmojiList(user_emoticon_list, emoticon_popup, emoticon_images, comment_content)
 
         response_useremoticon.forEach(user_emoticon => {
             const userEmoticon = document.createElement('li')

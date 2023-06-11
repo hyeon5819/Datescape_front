@@ -101,7 +101,7 @@ async function handleEmailValify() {
 // 로그인
 async function handleLogin() {
     const username = document.getElementById("username").value
-    const password = document.getElementById("password").value
+    const password = document.getElementById("password1").value
     console.log(username, password)
 
     const response = await fetch(`${back_base_url}/users/token/`, {

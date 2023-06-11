@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 | 도미노피자</title>
+    <link rel="shortcut icon" href="images/logo/favicon3.ico" type="image/x-icon">
+    <link rel="icon" href="images/logo/favicon3.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/sub_login.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+    <script src="script/sub_login.js"></script>
+</head>
+<body>
+    <?php include('header.php') ?>
+    <main class="sub_order_main">
+        <div class="title">
+            <h2>LOG-IN</h2>
+        </div><!-- e:title -->
+        <div id="login">
+            <form action="#" method="post" id="login_frm">
+                <fieldset>
+                    <legend class="skip">로그인양식</legend>
+                    <div class="main_login">
+                        <h3>반갑습니다.<br>로그인 하고 더 큰 혜택을 즐기세요!</h3>
+                        <dl class="user_info">
+                            <dt>이메일(ID)</dt>
+                            <dd><input type="text" placeholder="이메일(ID) 주소를 입력해 주세요." name="user_id"></dd>
+                            <dt>비밀번호(PW)</dt>
+                            <dd><input type="password" placeholder="비밀번호(PW)를 입력해 주세요." name="user_pw"></dd>
+                        </dl><!-- e:user_info -->
+                        <label for="auto_login">
+                            <a href="#"><img src="images/sub_login/chk_bg1.png" alt="자동로그인"><span>자동로그인</span></a>
+                        </label>
+                        <button type="button">로그인</button>
+                        <div class="find">
+                            <a href="#">이메일(ID) 찾기</a>
+                            <a href="#">비밀번호 재설정</a>
+                            <a href="#">회원가입</a>
+                            <a href="#">비회원주문조회</a>
+                        </div><!-- e:find -->
+                        <div class="m_find">
+                            <a href="#">이메일(ID)<br>찾기</a>
+                            <a href="#">비밀번호<br>재설정</a>
+                            <a href="#">회원가입</a>
+                            <a href="#">비회원<br>주문조회</a>
+                        </div><!-- e:find -->
+                    </div><!-- e:main_login -->
+                </fieldset>
+            </form><!-- e:login_frm -->
+            <dl>
+                <dt>이제 쉽고 간편하게 로그인하세요!</dt>
+                <dd><a href="#"><img src="images/sub_login/logo_naver.png" alt=""><span>로그인</span></a></dd>
+                <dd><a href="#"><img src="images/sub_login/logo_kakao.png" alt=""><span>로그인</span></a></dd>
+                <dd><a href="#"><img src="images/sub_login/logo_apple.png" alt=""><span>Sign in with Apple</span></a></dd>
+            </dl>
+        </div><!-- e:login -->
+    </main>
+    <?php include('footer.php') ?>
+</body>
+</html>

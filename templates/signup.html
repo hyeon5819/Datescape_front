@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../components/urls.js"></script>
     <script src="../static/js/apitemp.js"></script>
-    <title>DateScape | LogIn</title>
+    <title>DateScape | sign_up</title>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -16,20 +16,20 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../static/css/reset.css">
-    <link rel="stylesheet" href="../static/css/login.css">
+    <link rel="stylesheet" href="../static/css/signup.css">
 </head>
 
 <body>
     <main class="order_main">
         <div class="title">
-            <h2>LOG-IN</h2>
+            <h2>SIGN-UP</h2>
         </div><!-- e:title -->
-        <div class="login">
-            <form action="#" method="post" id="login_frm" class="form-floating">
+        <div class="sign_up">
+            <form action="#" method="post" id="sign_up_frm" class="form-floating">
                 <fieldset>
-                    <legend class="skip">로그인양식</legend>
-                    <div class="main_login">
-                        <h3>반갑습니다.<br>소개글? ex : 로그인하고 다양한 기능을 즐기세요~</h3>
+                    <legend class="skip">회원가입양식</legend>
+                    <div class="main_sign_up">
+                        <h3>반갑습니다.<br>소개글? ex : 회원가입하고 다양한 기능을 즐기세요~</h3>
                         <dl class="user_info">
                             <dt>아이디(ID)</dt>
                             <dd><input type="text" id="username" placeholder="아이디(ID)를 입력해 주세요." name="user_id"
@@ -38,26 +38,31 @@
                             <dd><input type="password" id="password1" placeholder="비밀번호(PW)를 입력해 주세요." name="user_pw"
                                     required>
                             </dd>
+                            <dt>비밀번호 확인(PW Verify)</dt>
+                            <dd><input type="password" id="password2" placeholder="비밀번호(PW)를 다시 입력해 주세요." name="user_pw"
+                                    required>
+                            </dd>
                         </dl><!-- e:user_info -->
-                        <button type="button" onclick="handleLogin()">로그인</button>
+                        <button type="button" onclick="">회원가입</button>
                         <div class="find">
                             <a href="#">ex:이메일(ID) 찾기</a>
                             <a href="#">ex:비밀번호 재설정</a>
-                            <a href="#">ex:회원가입</a>
+                            <a href="#">ex:뭘해야할까요?</a>
                             <a href="#">ex:넣고싶은기능넣기</a>
                         </div><!-- e:find -->
-                    </div><!-- e:main_login -->
+                    </div><!-- e:main_sign_up -->
                 </fieldset>
-            </form><!-- e:login_frm -->
+            </form><!-- e:sign_up_frm -->
             <dl>
-                <dt>이제 쉽고 간편하게 로그인하세요!</dt>
-                <dd><a href="#"><img src="../static/images/logo_naver.png" alt=""><span>네이버 로그인</span></a></dd>
-                <dd><a href="#"><img src="../static/images/logo_kakao.png" alt=""><span>카카오톡 로그인</span></a></dd>
-                <dd><a href="#"><img src="../static/images/logo_git_25px.png" alt=""><span>GitHub Login</span></a>
-                <dd><a href="#"><img src="../static/images/logo_google_25px.png" alt=""><span>GooGle Login</span></a>
+                <dt>이제 쉽고 간편하게 회원가입 하세요!</dt>
+                <dd><a href="#"><img src="../static/images/logo_naver.png" alt=""><span>네이버 계정으로 회원가입</span></a></dd>
+                <dd><a href="#"><img src="../static/images/logo_kakao.png" alt=""><span>카카오톡 계정으로 회원가입</span></a></dd>
+                <dd><a href="#"><img src="../static/images/logo_git_25px.png" alt=""><span>GitHub 계정으로 회원가입</span></a>
+                <dd><a href="#"><img src="../static/images/logo_google_25px.png" alt=""><span>GooGle 계정으로
+                            회원가입</span></a>
                 </dd>
             </dl>
-        </div><!-- e:login -->
+        </div><!-- e:sign_up -->
     </main>
 
 </body>

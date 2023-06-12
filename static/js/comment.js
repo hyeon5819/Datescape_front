@@ -496,6 +496,7 @@ window.onload = async function () {
 };
 
 
+// 댓글 좋아요
 async function commentLike(comment_id){
     const access = localStorage.getItem("access")
 
@@ -523,3 +524,30 @@ async function commentLike(comment_id){
         alert("잘못 된 요청입니다.");
     }
 }
+
+const commentInputBox = document.getElementById("comment_content");
+
+// 이모지 텍스트로 넣어주기
+commentInputBox.addEventListener("input", function () {
+    const valueSplit = commentInputBox.value.split(":")
+    if (valueSplit.length >= 2){
+        for (let i = 1; i < valueSplit.length; i++) {
+            if(valueSplit[i-1] in emojiTagDic){
+                valueSplit[i-1] = emojiTagDic[valueSplit[i-1]]
+
+                // 리스트 마지막 '' 제거
+                valueSplit.splice(i,1)
+
+                commentInputBox.value = ''
+                for (let i = 0; i < valueSplit.length; i++) {
+                        if(i >= valueSplit.length-2){
+                            commentInputBox.value += valueSplit[i]
+                        } else {
+                            commentInputBox.value += valueSplit[i] + ":"
+                        }
+                };
+                break
+            }
+        };
+    }
+});

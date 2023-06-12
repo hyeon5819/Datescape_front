@@ -23,16 +23,17 @@ window.onload = function () {
             if (tagname == '') {
                 alert('태그를 작성해주세요!')
             } else {
-                const tagli = document.createElement('li')
-                tagli.addEventListener('click', function () {
-                    tagli.remove()
-                })
-                tagli.textContent = tagname
-                ul.appendChild(tagli)
-                searchInput.value = ''
-
-                //태그 리스트 전체 문자열 찍어주기
-                testListTextGet()
+                if (tagname in testListTextGet().split('#')){
+                    searchInput.value = ''
+                } else {
+                    const tagli = document.createElement('li')
+                    tagli.addEventListener('click', function () {
+                        tagli.remove()
+                    })
+                    tagli.textContent = tagname
+                    ul.appendChild(tagli)
+                    searchInput.value = ''
+                }
             }
         }
     });

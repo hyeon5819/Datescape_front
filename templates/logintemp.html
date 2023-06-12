@@ -6,8 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../components/urls.js"></script>
+
     <script src="../static/js/apitemp.js"></script>
-    <title>대신러닝 | 로그인</title>
+    <script type="module" src="../static/js/login.js"></script>
+    
+    
+    
+    
+    <title>DateScape | LogIn</title>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -15,49 +21,50 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <link rel="stylesheet" href="../static/css/login.css">
 </head>
 
 <body>
-    <div class="login-form">
-        <div class="h1">
-            <h1 class="mb-5 mt-5">로그인 페이지</h1>
-        </div><!-- e:h1 -->
+    <main class="order_main">
+        <div class="title">
+            <h2>LOG-IN</h2>
+        </div><!-- e:title -->
         <div class="login">
-            <form method="post" class="form-floating">
-                <div class="row mb-3">
-                    <label for="username" class="col-sm-2 col-form-label">아이디(ID) :</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="username" name="username" placeholder="아이디(ID)"
-                            required>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="password" class="col-sm-2 col-form-label" name="password1">비밀번호(PW) :</label>
-                    <div class="col-sm-10 right">
-                        <input type="password" placeholder="비밀번호(PW)" class="form-control" id="password" required>
-                        <button class="btn btn-outline-secondary mt-5" type="button" onclick="handleLogin()">제출</button>
-                    </div>
-            </form>
+            <form action="#" method="post" id="login_frm" class="form-floating">
+                <fieldset>
+                    <legend class="skip">로그인양식</legend>
+                    <div class="main_login">
+                        <h3>반갑습니다.<br>소개글? ex : 로그인하고 다양한 기능을 즐기세요~</h3>
+                        <dl class="user_info">
+                            <dt>아이디(ID)</dt>
+                            <dd><input type="text" id="username" placeholder="아이디(ID)를 입력해 주세요." name="user_id"
+                                    required></dd>
+                            <dt>비밀번호(PW)</dt>
+                            <dd><input type="password" id="password1" placeholder="비밀번호(PW)를 입력해 주세요." name="user_pw"
+                                    required>
+                            </dd>
+                        </dl><!-- e:user_info -->
+                        <button type="button" onclick="handleLogin()">로그인</button>
+                        <div class="find">
+                            <a href="#">ex:이메일(ID) 찾기</a>
+                            <a href="#">ex:비밀번호 재설정</a>
+                            <a href="/templates/signup.html">ex:회원가입</a>
+                            <a href="#">ex:넣고싶은기능넣기</a>
+                        </div><!-- e:find -->
+                    </div><!-- e:main_login -->
+                </fieldset>
+            </form><!-- e:login_frm -->
+            <dl>
+                <dt>이제 쉽고 간편하게 로그인하세요!</dt>
+                <dd><a href="#" id='naver'><img src="../static/images/logo_naver.png" alt=""><span>네이버 로그인</span></a></dd>
+                <dd><a href="#" id='kakao'><img src="../static/images/logo_kakao.png" alt=""><span>카카오톡 로그인</span></a></dd>
+                <dd><a href="#" id='github'><img src="../static/images/logo_git_25px.png" alt=""><span>GitHub Login</span></a>
+                <dd><a href="#" id='google'><img src="../static/images/logo_google_25px.png" alt=""><span>GooGle Login</span></a>
+                </dd>
+            </dl>
         </div><!-- e:login -->
-        <div class="test_class">
-            <div class="sign_up_class">
-                "회원가입 하시겠습니까?
-                <a href="/templates/signup.html">회원가입</a>
-                "
-            </div><!-- e:sign_up_class -->
-            <div class="logout_class">
-                "로그아웃 하시겠습니까?
-                <a href="javascript:void(0);" onclick="handleLogout()">로그아웃</a>
-                "
-            </div><!-- e:logout_class -->
-            <div class="certification">
-                "인증이메일을 못받으셨다면
-                <a href="/templates/emailresent.html">이메일 재전송</a>
-                하세요."
-            </div><!-- e:certification -->
-        </div><!-- e:test_class -->
-    </div>
-
+    </main>
 </body>
 
 </html>

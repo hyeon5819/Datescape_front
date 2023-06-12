@@ -64,12 +64,13 @@ async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbt
     if (localStorage.getItem("access")) {
         const userId = JSON.parse(localStorage.getItem("payload")).user_id
 
+        //리스트 첫번째에 이모지 넣어주기
+        baseEmojiList(user_emoticon_list, emoticon_popup, emoticonbtn, emoticon_images, comment_content)
+
         // 유저가 가진 이모티콘 리스트 추가
         const response_useremoticon = await getUserEmoticon();
         const userEmoticonList = document.getElementById(user_emoticon_list)
 
-        //리스트 첫번째에 이모지 넣어주기
-        baseEmojiList(user_emoticon_list, emoticon_popup, emoticon_images, comment_content)
 
         response_useremoticon.forEach(user_emoticon => {
             const userEmoticon = document.createElement('li')
@@ -495,6 +496,7 @@ window.onload = async function () {
 };
 
 
+// 댓글 좋아요
 async function commentLike(comment_id){
     const access = localStorage.getItem("access")
 
@@ -522,3 +524,30 @@ async function commentLike(comment_id){
         alert("잘못 된 요청입니다.");
     }
 }
+
+const commentInputBox = document.getElementById("comment_content");
+
+// 이모지 텍스트로 넣어주기
+commentInputBox.addEventListener("input", function () {
+    const valueSplit = commentInputBox.value.split(":")
+    if (valueSplit.length >= 2){
+        for (let i = 1; i < valueSplit.length; i++) {
+            if(valueSplit[i-1] in emojiTagDic){
+                valueSplit[i-1] = emojiTagDic[valueSplit[i-1]]
+
+                // 리스트 마지막 '' 제거
+                valueSplit.splice(i,1)
+
+                commentInputBox.value = ''
+                for (let i = 0; i < valueSplit.length; i++) {
+                        if(i >= valueSplit.length-2){
+                            commentInputBox.value += valueSplit[i]
+                        } else {
+                            commentInputBox.value += valueSplit[i] + ":"
+                        }
+                };
+                break
+            }
+        };
+    }
+});

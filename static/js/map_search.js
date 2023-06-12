@@ -1,4 +1,43 @@
+const searchInput = document.getElementById("tags");
+const ul = document.getElementById("tag_ul")
+
+// 문자열 형식
+function testListTextGet() {
+    let tagListText = ''
+    const tagList = ul.childNodes
+    for (let i = 1; i < tagList.length; i++) {
+        tagListText += '#' + tagList[i].textContent
+    }
+
+    return tagListText
+}
+
+
 window.onload = function () {
+    // 엔터로 태그 추가
+    searchInput.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            // 엔터 키 입력
+            let tagname = searchInput.value.trim()
+
+            if (tagname == '') {
+                alert('태그를 작성해주세요!')
+            } else {
+                const tagli = document.createElement('li')
+                tagli.addEventListener('click', function () {
+                    tagli.remove()
+                })
+                tagli.textContent = tagname
+                ul.appendChild(tagli)
+                searchInput.value = ''
+
+                //태그 리스트 전체 문자열 찍어주기
+                testListTextGet()
+            }
+        }
+    });
+    
+    //주소가져오기
     document.getElementById("address_kakao").addEventListener("click", function () { //주소입력칸을 클릭하면
         //카카오 지도 발생
         new daum.Postcode({
@@ -10,17 +49,28 @@ window.onload = function () {
             }
         }).open()
     })
+    //저장
     document.getElementById("save_db").addEventListener("click", function () { //주소입력칸을 클릭하면
-        //카카오 지도 발생
+        const access = localStorage.getItem("access");
         // 데이터 전송을 위한 변수 선언
         const formData = new FormData();
-        data = document.getElementById("jibunAddress").value
-        formData.append('query', data)
-
+        data = document.getElementById("jibunAddress").value;
+        title = document.getElementById("title").value;
+        image = document.getElementById("image").files;
+        content = document.getElementById("content").value;
+        score = document.getElementById("score").value;
+        tags = testListTextGet();
+        //formData.append('query', data)
+        formData.append('query', data);
+        formData.append('title', title);
+        formData.append('content', content);
+        formData.append('image', image);
+        formData.append('score', score);
+        formData.append('tags', tags);
         fetch(`${back_base_url}/articles/search/`, {
-            // headers: {
-            //     Authorization: `Bearer ${access}`,
-            // },
+            headers: {
+                Authorization: `Bearer ${access}`,
+            },
             method: "POST",
             body: formData,
         })
@@ -41,6 +91,4 @@ window.onload = function () {
             });
 
     })
-
 }
-

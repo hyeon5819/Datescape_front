@@ -38,7 +38,6 @@ async function loadSearch() {
         </div>
         `
     });
-    console.log(response.results)
 }
 loadSearch()
 

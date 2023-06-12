@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kakao API</title>
     <script src="../components/urls.js"></script>
-    <script src="../static/js/map_search.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 
@@ -42,8 +41,15 @@
         <tr>
             <th>태그</th>
             <td><input type="text" id="tags" /></td>
+            <th>태그 리스트</th>
+            <td>
+                <ul id="tag_ul">
+                </ul>
+            </td>
         </tr>
     </table>
+
+    <script src="../static/js/map_search.js"></script>
 </body>
 
 

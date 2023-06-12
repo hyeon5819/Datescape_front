@@ -1,4 +1,42 @@
+const searchInput = document.getElementById("tags");
+const ul = document.getElementById("tag_ul")
+
+// 문자열 형식
+function testListTextGet() {
+    let tagListText = ''
+    const tagList = ul.childNodes
+    for (let i = 1; i < tagList.length; i++) {
+        tagListText += '#' + tagList[i].textContent
+    }
+
+    return tagListText
+}
+
+
 window.onload = function () {
+    // 엔터로 태그 추가
+    searchInput.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            // 엔터 키 입력
+            let tagname = searchInput.value.trim()
+
+            if (tagname == '') {
+                alert('태그를 작성해주세요!')
+            } else {
+                const tagli = document.createElement('li')
+                tagli.addEventListener('click', function () {
+                    tagli.remove()
+                })
+                tagli.textContent = tagname
+                ul.appendChild(tagli)
+                searchInput.value = ''
+
+                //태그 리스트 전체 문자열 찍어주기
+                testListTextGet()
+            }
+        }
+    });
+    
     //주소가져오기
     document.getElementById("address_kakao").addEventListener("click", function () { //주소입력칸을 클릭하면
         //카카오 지도 발생
@@ -21,7 +59,7 @@ window.onload = function () {
         image = document.getElementById("image").files;
         content = document.getElementById("content").value;
         score = document.getElementById("score").value;
-        tags = document.getElementById("tags").value;
+        tags = testListTextGet();
         //formData.append('query', data)
         formData.append('query', data);
         formData.append('title', title);
@@ -54,4 +92,3 @@ window.onload = function () {
 
     })
 }
-

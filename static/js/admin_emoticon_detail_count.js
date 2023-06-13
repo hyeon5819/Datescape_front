@@ -7,7 +7,7 @@ const userId = JSON.parse(localStorage.getItem("payload")).user_id;
 async function getEmoticon(emoticon_id) {
     const access = localStorage.getItem("access");
 
-    const response = await fetch(`${back_base_url}/emoticons/${emoticon_id}/`, {
+    const response = await fetch(`${back_base_url}/emoticons/payment/admin/${emoticon_id}/`, {
         headers: {
             Authorization: `Bearer ${access}`,
         },
@@ -22,29 +22,14 @@ async function getEmoticon(emoticon_id) {
     }
 }
 
-// 유저가 가진 이모티콘들 가져오기
-async function getUserEmoticon() {
-    const access = localStorage.getItem("access");
 
-    const response = await fetch(`${back_base_url}/emoticons/`, {
-        headers: {
-            Authorization: `Bearer ${access}`,
-        },
-        method: "GET",
-    });
+// 그 뭐냐 판매량 관련 구현 필요
 
-    if (response.status == 200) {
-        response_json = await response.json();
-        return response_json;
-    } else {
-        alert(response.status);
-    }
-}
+//
+
 
 window.onload = async function () {
     const response = await getEmoticon(emoticonId)
-
-    console.log(response.buy)
     
     const emoticonTitle = document.getElementById('title')
     emoticonTitle.innerText = response.title
@@ -52,24 +37,9 @@ window.onload = async function () {
     const emoticonImages = document.getElementById('images')
     response.images.forEach(element => {
         const emoticonImage = document.createElement('img')
-        emoticonImage.src = `${image_url}${element.image}`
+        emoticonImage.src = `${back_base_url}${element.image}`
         emoticonImage.setAttribute('alt', `${element.id}`)
         emoticonImage.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover;')
         emoticonImages.appendChild(emoticonImage)
     });
-
-    //구매했는지 여부 표시하기
-    const boughtEmoticon = document.getElementById('buy_emoticon')
-    if (response.buy == true){
-        boughtEmoticon.innerText = '구매완료'
-        boughtEmoticon.disabled = true
-    }
-    
-    // 구매자 정보
-    const user_email = response.req_user_email
-    const username = response.req_username
-
-    const buyButton = document.getElementById('buy_emoticon')
-    buyButton.setAttribute('onclick', `kcpRequestPay('${user_email}', '${username}')`)
-
 }

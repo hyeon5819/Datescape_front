@@ -88,7 +88,7 @@ async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbt
                 }
                 user_emoticon.images.forEach(image => {
                     const emoticonImage = document.createElement('img')
-                    emoticonImage.setAttribute('src', `${back_base_url}${image.image}`)
+                    emoticonImage.setAttribute('src', `${image_url}${image.image}`)
                     emoticonImage.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover;')
                     // 이모티콘 클릭했을때 입력창에 넣어주기
                     const image_input_box = document.getElementById(use_emoticon)
@@ -98,7 +98,7 @@ async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbt
                             image_input_box.removeAttribute('alt')
                             image_input_box.removeAttribute('style')
 
-                            image_input_box.setAttribute('src', `${back_base_url}${image.image}`)
+                            image_input_box.setAttribute('src', `${image_url}${image.image}`)
                             image_input_box.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover; margin: auto;')
                             image_input_box.setAttribute('id', use_emoticon)
                             image_input_box.setAttribute('alt', `${image.id}`)
@@ -108,7 +108,7 @@ async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbt
                                 image_input_box.removeAttribute('style')
                             })
                         } else {
-                            image_input_box.setAttribute('src', `${back_base_url}${image.image}`)
+                            image_input_box.setAttribute('src', `${image_url}${image.image}`)
                             image_input_box.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover; margin: auto;')
                             image_input_box.setAttribute('id', use_emoticon)
                             image_input_box.setAttribute('alt', `${image.id}`)
@@ -427,7 +427,7 @@ window.onload = async function () {
 
             data.forEach(usedImage => {
                 if (usedImage.id == element.use_emoticon) {
-                    const usedemoticonimage = `${back_base_url}${usedImage.image}`
+                    const usedemoticonimage = `${image_url}${usedImage.image}`
                     commentEmoticon.setAttribute('src', usedemoticonimage)
                     commentEmoticon.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover;')
                     commentEmoticon.setAttribute('id', `comment_use_emoticon${usedImage.id}`)

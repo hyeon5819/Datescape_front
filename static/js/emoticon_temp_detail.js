@@ -156,7 +156,7 @@ window.onload = async function () {
     const emoticonImages = document.getElementById('images')
     response.images.forEach(element => {
         const emoticonImage = document.createElement('img')
-        emoticonImage.src = `${back_base_url}${element.image}`
+        emoticonImage.src = `${image_url}${element.image}`
         emoticonImage.setAttribute('alt', `${element.id}`)
         emoticonImage.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover;')
         emoticonImages.appendChild(emoticonImage)

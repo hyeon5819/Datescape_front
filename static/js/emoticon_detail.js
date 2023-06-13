@@ -7,7 +7,7 @@ const userId = JSON.parse(localStorage.getItem("payload")).user_id;
 async function getEmoticon(emoticon_id) {
     const access = localStorage.getItem("access");
 
-    const response = await fetch(`${back_base_url}/emoticons/${emoticon_id}`, {
+    const response = await fetch(`${back_base_url}/emoticons/${emoticon_id}/`, {
         headers: {
             Authorization: `Bearer ${access}`,
         },

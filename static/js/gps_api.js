@@ -69,24 +69,68 @@ async function loadMyPosition(position) {
             position: position,
         });
         // 커스텀 오버레이에 표시할 컨텐츠
-        var content = '<div class="wrap">' +
-            '    <div class="info">' +
-            '        <div class="title">' +
-            `            장소 이름` +
-            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
-            '        </div>' +
-            '        <div class="body">' +
-            '            <div class="img">' +
-            '                <img src="#" width="73" height="70">' +
-            '           </div>' +
-            '            <div class="desc">' +
-            `                <div class="ellipsis">${point.road_address}</div > ` +
-            `                <div class= "jibun ellipsis">(지번) ${point.jibun_address}</div > ` +
-            `                <div><a href="#" onclick="loadMyList(${point.id})" class="link">리뷰보기</a></div>` +
-            '            </div>' +
-            '        </div>' +
-            '    </div>' +
-            '</div>';
+        // var content = '<div class="wrap">' +
+        //     '    <div class="info">' +
+        //     '        <div class="title">' +
+        //     `            장소 이름` +
+        //     '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
+        //     '        </div>' +
+        //     '        <div class="body">' +
+        //     '            <div class="img">' +
+        //     '                <img src="#" width="73" height="70">' +
+        //     '           </div>' +
+        //     '            <div class="desc">' +
+        //     `                <div class="ellipsis">${point.road_address}</div > ` +
+        //     `                <div class= "jibun ellipsis">(지번) ${point.jibun_address}</div > ` +
+        //     `                <div><a href="#" onclick="loadMyList(${point.id})" class="link">리뷰보기</a></div>` +
+        //     '            </div>' +
+        //     '        </div>' +
+        //     '    </div>' +
+        //     '</div>';
+
+        var content = document.createElement('div')
+        content.setAttribute("class", "wrap")
+        var info = document.createElement('div')
+        info.setAttribute("class", "info")
+        content.appendChild(info)
+        var title = document.createElement('div')
+        title.setAttribute("class", "title")
+        title.innerHTML = '장소 이름'
+        var close = document.createElement('div')
+        close.setAttribute("class", "close")
+        close.setAttribute("title", "닫기")
+        close.onclick = function () { overlay.setMap(null); };
+        title.appendChild(close)
+        info.appendChild(title)
+        var body = document.createElement('div')
+        body.setAttribute("class", "body")
+        var img = document.createElement('div')
+        img.setAttribute("class", "img")
+        var newImg = document.createElement("img")
+        newImg.setAttribute("src", "#")
+        newImg.style.cssText = 'width: 73; height:70;';
+        img.appendChild(newImg)
+        body.appendChild(img)
+        var desc = document.createElement('div')
+        desc.setAttribute("class", "desc")
+        var ellipsis = document.createElement('div')
+        ellipsis.setAttribute("class", "ellipsis")
+        ellipsis.innerHTML = point.road_address
+        desc.appendChild(ellipsis)
+        var jibun = document.createElement('div')
+        jibun.setAttribute("class", "jibun ellipsis")
+        jibun.innerHTML = `(지번) ${point.jibun_address}`
+        desc.appendChild(jibun)
+        var link = document.createElement('div')
+        var link_a = document.createElement('a')
+        link_a.setAttribute("class", "link")
+        link_a.setAttribute("onclick", `loadMyList(${point.id})`)
+        link_a.setAttribute("href", "#")
+        link_a.innerHTML = "리뷰보기"
+        link.appendChild(link_a)
+        desc.appendChild(link)
+        body.appendChild(desc)
+        info.appendChild(body)
 
         // 마커 위에 커스텀오버레이를 표시
         var overlay = new kakao.maps.CustomOverlay({
@@ -95,14 +139,12 @@ async function loadMyPosition(position) {
             position: marker.getPosition()
         });
         // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
-        kakao.maps.event.addListener(marker, 'click', function () {
-            overlay.setMap(map);
-        });
+        kakao.maps.event.addListener(marker, 'click', function () { overlay.setMap(map); });
     });
 }
 // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
 function closeOverlay() {
-    overlay.setMap(null);
+    overlay.setMap(null)
 }
 
 
@@ -110,7 +152,6 @@ function closeOverlay() {
 async function loadMyList(location) {
     // 리뷰 데이터 가져오기
     const response = await getNearAritcle(location)
-    console.log(response)
     const location_list = document.getElementById('location-list')
     location_list.innerHTML = ''
     response.results.forEach(article => {

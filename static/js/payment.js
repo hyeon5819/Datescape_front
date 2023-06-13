@@ -5,9 +5,9 @@ var hours = today.getHours(); // 시
 var minutes = today.getMinutes();  // 분
 var seconds = today.getSeconds();  // 초
 var milliseconds = today.getMilliseconds();
-var makeMerchantUid = hours + minutes + seconds + milliseconds;
+var makeMerchantUid = `${hours}` + `${minutes}` + `${seconds}` + `${milliseconds}`;
 
-function kcpRequestPay() {
+function kcpRequestPay(useremail, username) {
     const emoticonName = document.getElementById('title').innerText
 
     IMP.init("imp55467334"); // 가맹점 식별코드
@@ -17,11 +17,12 @@ function kcpRequestPay() {
         merchant_uid: "IMP"+makeMerchantUid, // 결제 고유 번호
         name : `${emoticonName}`, // 제품명
         amount : 100, // 가격
-        buyer_email : 'Iamport@chai.finance',
-        buyer_name : '아임포트 기술지원팀',
-        buyer_tel : '010-1234-5678',
-        buyer_addr : '서울특별시 강남구 삼성동',
-        buyer_postcode : '123-456'
+        //구매자 정보 ↓
+        buyer_email : `${useremail}`,
+        buyer_name : `${username}`,
+        // buyer_tel : '010-1234-5678',
+        // buyer_addr : '서울특별시 강남구 삼성동',
+        // buyer_postcode : '123-456'
     }, async function (rsp) { // callback
         if (rsp.success) {
             console.log(rsp);

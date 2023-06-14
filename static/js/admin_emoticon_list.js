@@ -60,7 +60,7 @@ async function getAdminEmoticonList(){
             if (element.sold_count == null){
                 soldCount.innerText = '누적 판매량: ' + 0
             } else {
-                soldCount.innerText = '누적 판매량: ' + element.sold_count
+                soldCount.innerText = '누적 판매량: ' + element.sold_count.length
             }
             soldCount.setAttribute('class', 'mt-3 mb-0')
 
@@ -68,12 +68,16 @@ async function getAdminEmoticonList(){
             detailCount.setAttribute('onclick', `location.href='${front_base_url}/templates/admin_emoticon_detail_count.html?emoticon_id=${element.id}'`)
             detailCount.innerText = '상세'
 
+            let price = document.createElement('p')
+            price.innerText = '💳' + element.price
+
             emoticons.appendChild(col)
             col.appendChild(card)
             card.appendChild(emoticonImage)
             card.appendChild(cardBody)
             cardBody.appendChild(emoticonTitle)
             cardBody.appendChild(emoticonCreator)
+            cardBody.appendChild(price)
             cardBody.appendChild(detailButton)
             cardBody.appendChild(soldCount)
             cardBody.appendChild(detailCount)

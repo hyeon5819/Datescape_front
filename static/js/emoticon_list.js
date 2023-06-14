@@ -62,7 +62,6 @@ async function getEmoticonList(){
             card.appendChild(cardBody)
             cardBody.appendChild(emoticonTitle)
             cardBody.appendChild(emoticonCreator)
-            cardBody.appendChild(detailButton)
             cardBody.appendChild(price)
             cardBody.appendChild(detailButton)
         });

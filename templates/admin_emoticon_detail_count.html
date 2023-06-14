@@ -29,8 +29,23 @@
         <button onclick="location.href='/'">홈</button>
     </div>
     <div class="container text-center mt-3">
-        <h2 class="mt-5">누적 판매량<h2>
-            
+        <h2 class="mt-5">누적 판매량</h2>
+        <table class="container text-center mt-3" style="border-collapse: collapse; border: 1px solid black;">
+            <tbody id="amount_div">
+                <th>년/월</th>
+                <th>가격</th>
+                <th>판매량</th>
+                <th>월 판매 금액</th>
+                <tr></tr>
+            </tbody>
+        </table>
+        <div>
+            <br>
+            <h3>월별 검색</h3>
+            년도<input type="text" id="year">
+            월<input type="text" id="month">
+            <button id="searchButton">검색</button>
+        </div>
     </div>
 
 

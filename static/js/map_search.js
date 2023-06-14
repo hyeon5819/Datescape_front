@@ -55,6 +55,7 @@ window.onload = function () {
         const data = document.getElementById("roadAddress").value;
         const title = document.getElementById("title").value;
         const image = document.getElementById("images").files;
+        const main_image = document.getElementById("main_image").files;
         const content = document.getElementById("content").value;
         const score = document.getElementById("score").value;
         const tags = testListTextGet();
@@ -64,6 +65,9 @@ window.onload = function () {
         formData.append('content', content);
         for (let i = 0; i < image.length; i++) {
             formData.append("images", image[i]);
+        }
+        for (let i = 0; i < image.length; i++) {
+            formData.append("main_image", main_image[i]);
         }
         formData.append('score', score);
         formData.append('tags', tags);
@@ -92,5 +96,47 @@ window.onload = function () {
             });
 
     })
+    function createPagination(totalPages, currentPage) {
+        const wrapper = document.querySelector('.pagination-wrapper');
+        const pagination = document.createElement('ul');
+        pagination.className = 'pagination';
+        wrapper.appendChild(pagination);
+
+        const prev = document.createElement('li');
+        prev.className = 'previous';
+        pagination.appendChild(prev);
+
+        const prevLink = document.createElement('a');
+        prevLink.href = '#';
+        prevLink.innerHTML = '&laquo;';
+        prev.appendChild(prevLink);
+
+        const next = document.createElement('li');
+        next.className = 'next';
+        pagination.appendChild(next);
+
+        const nextLink = document.createElement('a');
+        nextLink.href = '#';
+        nextLink.innerHTML = '&raquo;';
+        next.appendChild(nextLink);
+
+        for (let i = 1; i <= totalPages; i++) {
+            const page = document.createElement('li');
+            if (currentPage === i) {
+                page.className = 'active';
+            }
+            pagination.insertBefore(page, next);
+
+            const link = document.createElement('a');
+            link.href = '#';
+            link.innerHTML = i;
+            page.insertBefore(link, null);
+        }
+    }
+
+    const totalPages = 5;
+    const currentPage = 1;
+
+    createPagination(totalPages, currentPage);
 }
 

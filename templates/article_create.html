@@ -31,11 +31,17 @@
             </div>
             <div class="mb-3">
                 <label for="content" class="form-label" accept="image/*">이미지</label>
-                <input type="file" class="form-control" id="images" multiple>
+                <input type="file" class="form-control" id="images" aria-describedby="imageHelp" multiple>
+                <div id="imageHelp" class="form-text">
+                    <p class="fs-6" style="color:red;font-weight:700;">복수 선택 가능</p>
+                </div><!-- e:tagHelp -->
             </div>
             <div class="mb-3">
                 <label for="content" class="form-label" accept="image/*">대표이미지</label>
-                <input type="file" class="form-control" id="images" multiple>
+                <input type="file" class="form-control" id="main_image" aria-describedby="mainImageHelp">
+                <div id="mainImageHelp" class="form-text">
+                    <p class="fs-6" style="color:red;font-weight:700;">복수 선택 불가능</p>
+                </div><!-- e:tagHelp -->
             </div>
             <div class="mb-3">
                 <label for="content" class="form-label">평점</label>

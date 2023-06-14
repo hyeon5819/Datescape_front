@@ -3,7 +3,9 @@ if (!localStorage.getItem("access")) {
     window.location.href = `${front_base_url}/templates/logintemp.html`
 }
 
-window.onload = async function () {
+
+// 이모티콘 리스트 가져오기
+async function getEmoticonList(){
     const access = localStorage.getItem("access");
 
     const response = await fetch(`${back_base_url}/emoticons/list/`, {
@@ -51,6 +53,9 @@ window.onload = async function () {
             detailButton.setAttribute('onclick', `location.href='${front_base_url}/templates/emoticon_detail.html?emoticon_id=${element.id}'`)
             detailButton.innerText = '보러가기'
 
+            let price = document.createElement('p')
+            price.innerText = '💳' + element.price
+
             emoticons.appendChild(col)
             col.appendChild(card)
             card.appendChild(emoticonImage)
@@ -58,8 +63,14 @@ window.onload = async function () {
             cardBody.appendChild(emoticonTitle)
             cardBody.appendChild(emoticonCreator)
             cardBody.appendChild(detailButton)
+            cardBody.appendChild(price)
+            cardBody.appendChild(detailButton)
         });
     } else {
         alert(response.status);
     }
+}
+
+window.onload = async function () {
+    getEmoticonList()
 }

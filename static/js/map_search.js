@@ -23,7 +23,7 @@ window.onload = function () {
             if (tagname == '') {
                 alert('태그를 작성해주세요!')
             } else {
-                if (tagname in testListTextGet().split('#')){
+                if (tagname in testListTextGet().split('#')) {
                     searchInput.value = ''
                 } else {
                     const tagli = document.createElement('li')
@@ -37,7 +37,7 @@ window.onload = function () {
             }
         }
     });
-    
+
     //주소가져오기
     document.getElementById("address_kakao").addEventListener("click", function () { //주소입력칸을 클릭하면
         //카카오 지도 발생
@@ -55,20 +55,22 @@ window.onload = function () {
         const access = localStorage.getItem("access");
         // 데이터 전송을 위한 변수 선언
         const formData = new FormData();
-        data = document.getElementById("jibunAddress").value;
-        title = document.getElementById("title").value;
-        image = document.getElementById("image").files;
-        content = document.getElementById("content").value;
-        score = document.getElementById("score").value;
-        tags = testListTextGet();
+        const data = document.getElementById("jibunAddress").value;
+        const title = document.getElementById("title").value;
+        const image = document.getElementById("images").files;
+        const content = document.getElementById("content").value;
+        const score = document.getElementById("score").value;
+        const tags = testListTextGet();
         //formData.append('query', data)
         formData.append('query', data);
         formData.append('title', title);
         formData.append('content', content);
-        formData.append('image', image);
+        for (let i = 0; i < image.length; i++) {
+            formData.append("images", image[i]);
+        }
         formData.append('score', score);
         formData.append('tags', tags);
-        fetch(`${back_base_url}/articles/search/`, {
+        fetch(`${back_base_url}/articles/`, {
             headers: {
                 Authorization: `Bearer ${access}`,
             },

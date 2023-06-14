@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DateScape | 게시글 작성 페이지</title>
+    <script src="../components/urls.js"></script>
+    <script src="../static/js/apitemp.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+</head>
+
+<body style="background-color:#fffff5;">
+    <div>
+        <h1 style="text-align:center; margin-top:50px">게시글 작성</h1>
+        <form class="w-50 m-auto mb-5">
+            <div class="mb-3">
+                <label for="title" class="form-label">제목</label>
+                <input type="text" class="form-control" id="title">
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">내용</label>
+                <input type="text" class="form-control" id="content">
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label" accept="image/*">이미지</label>
+                <input type="file" class="form-control" id="images" multiple>
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label" accept="image/*">대표이미지</label>
+                <input type="file" class="form-control" id="images" multiple>
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">평점</label>
+                <input type="number" min="0" max="10" step="0.1" id="score" class="form-control"
+                    aria-describedby="contentHelp" />
+                <div id="contentHelp" class="form-text">
+                    <p class="fs-5">평점은 0부터 10까지 0.1단위로 입력가능합니다.</p>
+                    <p class="fs-6" style="color:red;font-weight:700;">숫자만 입력 가능합니다.</p>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="tag" class="form-label">태그</label>
+                <input type="text" class="form-control" id="tags" aria-describedby="tagHelp" />
+                <div id="tagHelp" class="form-text">
+                    <p class="fs-6" style="color:red;font-weight:700;">태그작성후 엔터</p>
+                </div><!-- e:tagHelp -->
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">태그리스트</label>
+                <ul id="tag_ul">
+                </ul><!-- e:tag_ul -->
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">주소</label>
+                <input type="text" class="form-control" id="roadAddress" name="road_address" readonly />
+            </div>
+            <div class="text-end">
+                <button type="button" id="save_db" class="btn btn-primary mt-3">저장</button>
+            </div>
+
+        </form>
+        <div id="add_h2"></div>
+        <div class="row row-cols-1 row-cols-md-3 g-5" id="result"></div>
+    </div>
+    <script src="../static/js/map_search.js"></script>
+</body>
+
+</html>

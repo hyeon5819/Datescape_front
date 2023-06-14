@@ -1,3 +1,32 @@
+function oauthSignIn(key, redirecturi) {
+    var oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+
+    var form = document.createElement('form');
+    form.setAttribute('method', 'GET');
+    form.setAttribute('action', oauth2Endpoint);
+    var params = {
+        'client_id': key,
+        'redirect_uri': redirecturi,
+        'response_type': 'token',
+        'scope': 'openid email profile',
+        'include_granted_scopes': 'true',
+        'state': 'pass-through value',
+        'prompt': 'consent'
+    };
+
+    for (var p in params) {
+        var input = document.createElement('input');
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('name', p);
+        input.setAttribute('value', params[p]);
+        form.appendChild(input);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}
+
+
 // login에서 import
 export async function socialLogin(social) {
     // console.log("인가코드 받기")
@@ -18,12 +47,16 @@ export async function socialLogin(social) {
             console.log('카카오')
             window.location.href = responseJson.url;
         }
-        if (social == 'google') {
+        if (social == 'google-login') {
             console.log('google')
             oauthSignIn(responseJson.key, responseJson.redirecturi)
         }
-        if (social == 'naver') {
+        if (social == 'naver-login') {
             console.log('naver')
+            window.location.href = responseJson.url;
+        }
+        if (social == 'github-login') {
+            console.log('github')
             window.location.href = responseJson.url;
         }
     }
@@ -49,7 +82,7 @@ export async function sendCode() {
         }
     }
     else {
-        social = 'google'
+        social = 'google-login'
         urlWithoutQuery = currentUrl.split('#')[0]
         code = new URLSearchParams(location.href).get('access_token')
     }
@@ -86,14 +119,14 @@ export async function sendCode() {
 
 
 
-    // var currentUrl = window.location.href
-    // var urlWithoutQuery = currentUrl.split('?')[0]
-    // if (response.status == 200) {
-    //     var currentUrl = window.location.href
-    //     let code = new URL(window.location.href)
-    //     let code_ = code.searchParams.get('code')
-    //     // let code = new URLSearchParams(window.location.search).get('code')
-    //     console.log(currentUrl)
-    //     console.log(code)
-    //     console.log(code_)
-    // }
+// var currentUrl = window.location.href
+// var urlWithoutQuery = currentUrl.split('?')[0]
+// if (response.status == 200) {
+//     var currentUrl = window.location.href
+//     let code = new URL(window.location.href)
+//     let code_ = code.searchParams.get('code')
+//     // let code = new URLSearchParams(window.location.search).get('code')
+//     console.log(currentUrl)
+//     console.log(code)
+//     console.log(code_)
+// }

@@ -1,27 +1,11 @@
-
-async function getSearch(option, search) {
-    const response = await fetch(`${back_base_url}/articles/article-search?option=${option}&search=${search}`)
-
-    if (response.status == 200) {
-        const response_json = await response.json()
-        return response_json
-    } else {
-        alert("불러오는데 실패하였습니다.")
-    }
-}
-
-async function submitSearch() {
-    const urlParams = new URLSearchParams(location.search);
-    option = urlParams.get('option');
-    const search = document.getElementById('search').value
-    window.location.href = `${front_base_url}/templates/search_list.html?option=${option}&search=${search}`
-}
-
 async function loadSearch() {
     const urlParams = new URLSearchParams(location.search);
-    search = urlParams.get('search');
-    option = urlParams.get('option');
+    const search = urlParams.get('search');
+    const option = urlParams.get('option');
     const response = await getSearch(option, search)
+    const searched = document.getElementById('search')
+    searched.value = search
+    document.getElementById('option').innerHTML = option
     const search_list = document.getElementById('search-list')
     search_list.innerHTML = ''
     response.results.forEach(article => {
@@ -32,7 +16,7 @@ async function loadSearch() {
         <div class="card-img-overlay img-cover p-4">
         <h5 class="card-title">${article.title}</h5>
         <p class="card-text content">${article.content}</p>
-        <p class="card-text"><small>${article.user} | ${article.created_at}</small></p>
+        <p class="card-text text-end"><small>${article.user} | ${article.created_at}</small></p>
         </div>
         </div>
         </div>

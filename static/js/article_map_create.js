@@ -1,6 +1,6 @@
 const searchInput = document.getElementById("tags");
 const ul = document.getElementById("tag_ul")
-
+let page_num = 0
 // 문자열 형식
 function testListTextGet() {
     let tagListText = ''
@@ -23,7 +23,7 @@ window.onload = function () {
             if (tagname == '') {
                 alert('태그를 작성해주세요!')
             } else {
-                if (tagname in testListTextGet().split('#')){
+                if (tagname in testListTextGet().split('#')) {
                     searchInput.value = ''
                 } else {
                     const tagli = document.createElement('li')
@@ -37,38 +37,54 @@ window.onload = function () {
             }
         }
     });
-    
     //주소가져오기
-    document.getElementById("address_kakao").addEventListener("click", function () { //주소입력칸을 클릭하면
+    //게시글을저장하면 작성한 게시글 페이지로 이동 시키기
+    document.getElementById("roadAddress").addEventListener("click", function () { //주소입력칸을 클릭하면
         //카카오 지도 발생
         new daum.Postcode({
             oncomplete: function (data) { //선택시 입력값 세팅
-                document.getElementById("address_kakao_input").value = data.address // 주소 넣기
-                document.getElementById("jibunAddress").value = data.jibunAddress // 지번 주소 넣기
                 document.getElementById("roadAddress").value = data.roadAddress // 도로명 주소 넣기
-
             }
         }).open()
     })
+    const access = localStorage.getItem("access");
+    async function GetArticleId(article_id) {
+        const response = await fetch(`${back_base_url}/articles/`, {
+            headers: {
+                Authorization: `Bearer ${access}`,
+            },
+            method: 'GET',
+        })
+        const data = await response.json()
+        page_num = data.count
+        window.location.href = `${front_base_url}/templates/article_detail.html?id=${page_num}`
+    }
+    // GetArticleId(page_num)
     //저장
     document.getElementById("save_db").addEventListener("click", function () { //주소입력칸을 클릭하면
-        const access = localStorage.getItem("access");
+
         // 데이터 전송을 위한 변수 선언
         const formData = new FormData();
-        data = document.getElementById("jibunAddress").value;
-        title = document.getElementById("title").value;
-        image = document.getElementById("image").files;
-        content = document.getElementById("content").value;
-        score = document.getElementById("score").value;
-        tags = testListTextGet();
+        const data = document.getElementById("roadAddress").value;
+        const title = document.getElementById("title").value;
+        const image = document.getElementById("images").files;
+        const main_image = document.getElementById("main_image").files;
+        const content = document.getElementById("content").value;
+        const score = document.getElementById("score").value;
+        const tags = testListTextGet();
         //formData.append('query', data)
         formData.append('query', data);
         formData.append('title', title);
         formData.append('content', content);
-        formData.append('image', image);
+        for (let i = 0; i < image.length; i++) {
+            formData.append("images", image[i]);
+        }
+        for (let i = 0; i < image.length; i++) {
+            formData.append("main_image", main_image[i]);
+        }
         formData.append('score', score);
         formData.append('tags', tags);
-        fetch(`${back_base_url}/articles/search/`, {
+        fetch(`${back_base_url}/articles/`, {
             headers: {
                 Authorization: `Bearer ${access}`,
             },
@@ -81,11 +97,13 @@ window.onload = function () {
                 if (!response.ok) {
                     throw new Error('저장실패');
                 }
-                return document.getElementById("jibunAddress").value;
+                return document.getElementById("roadAddress").value;
             })
             .then(data => {
                 console.log('data', data);
                 console.log('저장완료', data);
+                GetArticleId(page_num)
+                alert("게시완료")
             })
             .catch(error => {
                 console.error(error);
@@ -93,3 +111,4 @@ window.onload = function () {
 
     })
 }
+

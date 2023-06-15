@@ -81,16 +81,39 @@ async function emoticonUpdate(emoticon_id, creator) {
             })
         });
 
+        // 수정할때 이미지만 받기 검증
+        // 용량 확인하기
+
         const imageInput = document.getElementById('image_input')
         const updateImageInput = document.createElement('input')
         updateImageInput.setAttribute('type', 'file')
         updateImageInput.setAttribute('id', 'image')
+        updateImageInput.setAttribute('accept', 'image/*')
+        // 이모티콘 이미지파일만 받기
+        const acceptFile = ['xbm', 'tif', 'pjp', 'apng', 'svgz', 'jpg', 'jpeg', 'ico', 'tiff', 'gif', 'svg', 'jfif', 'webp', 'png', 'bmp', 'pjpeg', 'avif']
+
+        updateImageInput.addEventListener("change", function () {
+            let fileList = updateImageInput.files;
+
+            // 이미지 파일인지 검증
+            for (let i = 0; i < fileList.length; i++) {
+                let fileName = fileList[i].name.split('.')
+
+                if (acceptFile.includes(fileName[fileName.length - 1])) {
+                } else {
+                    alert(`이미지 파일만 가능합니다!\n가능 확장자명: ${acceptFile}`)
+                    updateImageInput.value = []
+                }
+            }
+        });
+
         updateImageInput.setAttribute('multiple', 'true')
         const updateImageLabel = document.createElement('label')
         updateImageLabel.innerText = '추가할 이미지 : '
         updateImageLabel.setAttribute('class', 'mb-3')
         imageInput.appendChild(updateImageLabel)
         imageInput.appendChild(updateImageInput)
+
 
 
         let updateConfirmButton = document.getElementById('update_button')
@@ -128,6 +151,8 @@ async function emoticonUpdateConfirm(emoticon_id) {
     formData.append("remove_images", removeImagesList)
     for (let i = 0; i < addImages.length; i++) {
         formData.append("images", addImages[i]);
+        console.log(addImages[i].size)
+        formData.append("file_size", addImages[i].size);
     }
 
     const response = await fetch(`${back_base_url}/emoticons/`, {
@@ -147,7 +172,7 @@ async function emoticonUpdateConfirm(emoticon_id) {
     }
 }
 
-window.onload = async function () {
+async function emoticonTempDetail() {
     const response = await getEmoticon(emoticonId)
 
     const emoticonTitle = document.getElementById('title')
@@ -167,6 +192,7 @@ window.onload = async function () {
     const updateButton = document.createElement('button')
     updateButton.innerText = '수정'
     updateButton.setAttribute('onclick', `emoticonUpdate(${emoticonId}, ${response.creator})`)
+    updateButton.setAttribute('class', 'btn btn-primary mt-3 me-1')
     updateButton.setAttribute('id', 'update_button')
     if (response.creator == userId) {
         updateButton.setAttribute('style', 'display:inline')
@@ -178,6 +204,7 @@ window.onload = async function () {
     const deleteButton = document.createElement('button')
     deleteButton.innerText = '삭제'
     deleteButton.setAttribute('onclick', `emoticonDelete(${emoticonId}, ${response.creator})`)
+    deleteButton.setAttribute('class', 'btn btn-primary mt-3 ms-1')
     deleteButton.setAttribute('id', 'delete_button')
     if (response.creator == userId) {
         deleteButton.setAttribute('style', 'display:inline')
@@ -185,19 +212,7 @@ window.onload = async function () {
         deleteButton.setAttribute('style', 'display:none')
     }
     parentsDiv.appendChild(deleteButton)
-
-    const userEmoticon = await getUserEmoticon(userId)
-    const selectInput = document.createElement('input')
-    selectInput.setAttribute('id', 'select_input')
-    selectInput.setAttribute('value', 'True')
-    selectInput.setAttribute('type', 'checkbox')
-
-    const idList = userEmoticon.map(obj => obj.id);
-    if (idList.includes(parseInt(emoticonId))) {
-        selectInput.setAttribute('checked', 'True')
-    }
-    selectInput.addEventListener('click', function () {
-        emoticonSelect(emoticonId)
-    })
-    parentsDiv.appendChild(selectInput)
 }
+
+
+emoticonTempDetail()

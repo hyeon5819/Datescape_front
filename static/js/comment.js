@@ -2,6 +2,9 @@
 const urlGetParams = new URLSearchParams(window.location.search);
 const articleId = urlGetParams.get("id");
 
+// 토큰
+const access = localStorage.getItem("access");
+
 
 // 이모티콘 보이기/숨기기
 function emoticonToggle(emoticon_popup) {
@@ -17,8 +20,6 @@ function emoticonToggle(emoticon_popup) {
 
 // 댓글 불러오기
 async function getComment() {
-    const access = localStorage.getItem("access");
-
     const response = await fetch(`${back_base_url}/articles/${articleId}/comments/`,{
         headers: {
             Authorization: `Bearer ${access}`,
@@ -38,8 +39,6 @@ async function getComment() {
 
 // 유저가 가진 이모티콘들 가져오기
 async function getUserEmoticon() {
-    const access = localStorage.getItem("access");
-
     const response = await fetch(`${back_base_url}/emoticons/`, {
         headers: {
             Authorization: `Bearer ${access}`,
@@ -147,8 +146,6 @@ async function commentCreate() {
                 alert("내용을 입력해주세요!")
             }
             else {
-                const access = localStorage.getItem("access");
-
                 const formData = new FormData();
                 formData.append("comment", commentContent);
                 formData.append("use_emoticon", commentEmoticon);
@@ -170,8 +167,6 @@ async function commentCreate() {
                 }
             }
         } else {
-            const access = localStorage.getItem("access");
-
             const formData = new FormData();
             formData.append("comment", commentContent);
             formData.append("use_emoticon", commentEmoticon);
@@ -297,8 +292,6 @@ async function commentUpdateConfirm(comment_id) {
         if (commentUpdateEmoticon == "") {
             alert("내용을 입력해주세요!")
         } else {
-            const access = localStorage.getItem("access");
-
             const formData = new FormData();
             formData.append("comment", commentUpdateContent);
             formData.append("comment_id", `${comment_id}`);
@@ -320,8 +313,6 @@ async function commentUpdateConfirm(comment_id) {
             }
         }
     } else {
-        const access = localStorage.getItem("access");
-
         const formData = new FormData();
         formData.append("comment", commentUpdateContent);
         formData.append("comment_id", `${comment_id}`);
@@ -347,8 +338,6 @@ async function commentUpdateConfirm(comment_id) {
 
 // 댓글 삭제
 async function commentDelete(comment_id) {
-    const access = localStorage.getItem("access");
-
     if (confirm("삭제하시겠습니까?")) {
         const formData = new FormData()
         formData.append('comment_id', comment_id)
@@ -376,9 +365,8 @@ async function commentDelete(comment_id) {
 }
 
 
-window.onload = async function () {    
-    const access = localStorage.getItem("access");
-
+// 댓글 보여주기
+async function commentView() {
     const response_comment = await getComment();
 
     // 이모티콘 이미지 보기
@@ -411,13 +399,12 @@ window.onload = async function () {
             cardDiv.appendChild(nicknameDiv)
 
             //신고하기
-            //위치만 넣어놈
             const reportButton = document.createElement("button")
-            reportButton.setAttribute('style', 'width: 50%; margin: auto auto 5px auto; font-size: 20px; border: none;')
+            reportButton.setAttribute('style', 'width: 30%; margin: auto auto 5px auto; border: none;')
             reportButton.setAttribute('onclick', `commentReport(${element.id})`)
+            reportButton.setAttribute('class', "btn btn-light btn-sm mt-3")
             reportButton.innerText = '🚨'
             nicknameDiv.appendChild(reportButton)
-            //신고하기
 
             const commentDiv = document.createElement("div")
             commentDiv.setAttribute('class', 'card-body')
@@ -452,31 +439,25 @@ window.onload = async function () {
                 if (element.writer == userId) {
                     const updateButton = document.createElement("button")
                     updateButton.setAttribute('onclick', `commentUpdate(${element.id})`)
-                    updateButton.setAttribute('class', 'mt-3')
+                    updateButton.setAttribute('class', 'btn btn-light btn-sm mt-1')
                     updateButton.innerText = '수정'
                     buttonDiv.appendChild(updateButton)
 
                     const deleteButton = document.createElement("button")
                     deleteButton.setAttribute('onclick', `commentDelete(${element.id})`)
-                    deleteButton.setAttribute('class', 'mt-3')
+                    deleteButton.setAttribute('class', 'btn btn-light btn-sm mt-1')
                     deleteButton.innerText = '삭제'
                     buttonDiv.appendChild(deleteButton)
                 }
             }
 
             // 댓글 좋아요
-            console.log('좋아요 수', element.likers.length)
-
             const userId = JSON.parse(localStorage.getItem("payload")).user_id
 
             let likeButton = document.createElement("button")
             cardDiv.appendChild(likeButton)
             likeButton.setAttribute('style', 'width: 10%; border: none;')
-
             likeButton.innerText = `🤍\n${element.likers.length}`
-
-
-
             for (let i = 0; i < element.likers.length; i++) {
                 if(userId == element.likers[i].likers){
                     likeButton.innerText = `❤️\n${element.likers.length}`
@@ -485,21 +466,17 @@ window.onload = async function () {
                     likeButton.innerText = `🤍\n${element.likers.length}`
                 }
             }
-
             likeButton.setAttribute('onclick', `commentLike(${element.id})`)
             likeButton.setAttribute('id', `like${element.id}`)
-
         });
     } catch (err) {
         console.log('err')
     }
-};
+}
 
 
 // 댓글 좋아요
 async function commentLike(comment_id){
-    const access = localStorage.getItem("access")
-
     const formData = new FormData()
 
     formData.append('comment_id', comment_id)
@@ -525,9 +502,10 @@ async function commentLike(comment_id){
     }
 }
 
-const commentInputBox = document.getElementById("comment_content");
 
 // 이모지 텍스트로 넣어주기
+const commentInputBox = document.getElementById("comment_content");
+
 commentInputBox.addEventListener("input", function () {
     const valueSplit = commentInputBox.value.split(":")
     if (valueSplit.length >= 2){
@@ -551,3 +529,6 @@ commentInputBox.addEventListener("input", function () {
         };
     }
 });
+
+
+commentView()

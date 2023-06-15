@@ -28,7 +28,7 @@ window.onload = async () => {
                 articleHtml += `
                 <div class="col article_detail me-5" onclick="detail_page(${article.id})">
                     <div class="card h-50">
-                        <img text-align:center;" src="${back_base_url}${article.main_image}" class="card-img-top" alt="...">
+                        <img text-align:center;" src="${image_url}${article.main_image}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">${article.title}</h5>
                             <p class="card-text">${article.content}</p>

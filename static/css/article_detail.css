@@ -42,6 +42,12 @@ body {
     height: 300px;
 }
 
+.map_box {}
+
+.map_box .map_title {
+    text-align: right;
+}
+
 .comment_box {
     background-color: red;
     height: 300px;

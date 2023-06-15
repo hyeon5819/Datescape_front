@@ -38,20 +38,25 @@ window.onload = async () => {
                     </div><!-- e:title_right -->
                 </div><!-- e:title_box -->
                 <div id="image_box">
-                    
+
                 </div><!-- e:image_box -->
                 <div class="content_box">
                     ${data.content}
                 </div><!-- e:content_box -->
                 <div class="map_box">
-                    위도 : ${data.coordinate_x}
-                    경도 : ${data.coordinate_y}
+                    <div class="map_title">
+                        주소 : ${data.road_address}
+                    </div>
+                    <div class="map_content">
+                        위도 : ${data.coordinate_x}
+                        경도 : ${data.coordinate_y}
+                    </div>
                 </div><!-- e:map_box -->
                 <div class="comment_box">
                     댓글
                 </div><!-- e:comment_box -->
             </div><!-- e:detail_box -->
-            `
+                `
     }
     add_html.innerHTML = articleHtml
     //다중이미지 출력부분

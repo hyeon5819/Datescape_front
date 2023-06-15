@@ -7,13 +7,19 @@ const access = localStorage.getItem("access");
 
 
 // 이모티콘 보이기/숨기기
-function emoticonToggle(emoticon_popup) {
+function emoticonToggle(emoticon_popup, emoticonbtn) {
     const emoticonPopup = document.getElementById(emoticon_popup.id)
 
     if (emoticonPopup.style.display == 'none') {
-        emoticonPopup.setAttribute('style', 'position: relative; z-index: 1; margin-top: -17px; display: block;')
+        emoticonPopup.style.display = 'block'
+        const emotiBtn = document.getElementById(emoticonbtn.id)
+        emotiBtn.setAttribute('class', 'btn btn-secondary')
+        emotiBtn.innerText = '닫기'
     } else if (emoticonPopup.style.display == 'block') {
-        emoticonPopup.setAttribute('style', 'position: relative; z-index: 1; margin-top: -17px; display: none;')
+        emoticonPopup.style.display = 'none'
+        const emotiBtn = document.getElementById(emoticonbtn.id)
+        emotiBtn.setAttribute('class', 'btn btn-outline-secondary')
+        emotiBtn.innerText = '이모티콘'
     }
 }
 
@@ -58,13 +64,15 @@ async function getUserEmoticon() {
 
 // 이모티콘 버튼에 리스트 만들기
 async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbtn, emoticon_images, use_emoticon, comment_content) {
+    if (document.getElementById("update_emojis")){
+        const updateEmojis = "update_emojis"
+        const updateCommentId = document.getElementById("update_emojis").getAttribute('name')
+        putEmoji(updateEmojis, updateCommentId)
+    }
     const emoticonPopup = document.getElementById(emoticon_popup)
     // 유저가 가진 이모티콘 가져오기
     if (localStorage.getItem("access")) {
         const userId = JSON.parse(localStorage.getItem("payload")).user_id
-
-        //리스트 첫번째에 이모지 넣어주기
-        baseEmojiList(user_emoticon_list, emoticon_popup, emoticonbtn, emoticon_images, comment_content)
 
         // 유저가 가진 이모티콘 리스트 추가
         const response_useremoticon = await getUserEmoticon();
@@ -117,7 +125,7 @@ async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbt
                                 image_input_box.removeAttribute('style')
                             })
                         }
-                        emoticonToggle(emoticonPopup)
+                        // emoticonToggle(emoticonPopup)
                     })
                     emoticonImages.appendChild(emoticonImage)
                 });
@@ -132,7 +140,9 @@ async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbt
     }
     emoticonPopup.style.display = 'block'
     const emotiBtn = document.getElementById(emoticonbtn)
-    emotiBtn.setAttribute('onclick', `emoticonToggle(${emoticonPopup.id})`)
+    emotiBtn.setAttribute('onclick', `emoticonToggle(${emoticonPopup.id}, ${emotiBtn.id})`)
+    emotiBtn.setAttribute('class', 'btn btn-secondary')
+    emotiBtn.innerText = '닫기'
 }
 
 // 댓글 등록
@@ -230,7 +240,7 @@ async function commentUpdate(comment_id) {
 
     const updateEmoticonButton = document.createElement('button')
     updateEmoticonButton.innerText = '이모티콘'
-    updateEmoticonButton.setAttribute('class', 'mb-3')
+    updateEmoticonButton.setAttribute('class', 'btn btn-outline-secondary')
     updateEmoticonButton.setAttribute('id', 'update_emoticon_button')
     updateEmoticonButton.setAttribute('onclick', `emoticonButtonList("update_emoticon_list", "update_emoticon_popup", "update_emoticon_button", "update_emoticon_images", "update_use_emoticon", "update_input${comment_id}")`)
 
@@ -239,7 +249,7 @@ async function commentUpdate(comment_id) {
 
     const popupDiv = document.createElement('div')
     popupDiv.setAttribute('class', 'card text-center;')
-    popupDiv.setAttribute('style', 'position: relative; z-index: 1; margin-top: -17px; display: none;')
+    popupDiv.setAttribute('style', 'position: relative; z-index: 1; display: none;')
     popupDiv.setAttribute('id', 'update_emoticon_popup')
     popupParentsDiv.appendChild(popupDiv)
 
@@ -252,23 +262,36 @@ async function commentUpdate(comment_id) {
     updateEmoticonList.setAttribute('id', 'update_emoticon_list')
     chDiv.appendChild(updateEmoticonList)
 
+    const kkkk = document.createElement('div')
+    kkkk.setAttribute('class','row row-cols-1 row-cols-md-2')
+    chDiv.appendChild(kkkk)
+
     const updateEmoticonImages = document.createElement('div')
     updateEmoticonImages.setAttribute('class', 'row row-cols-5 row-cols-md-5')
-    updateEmoticonImages.setAttribute('style', 'overflow-y: scroll; height: 220px;')
+    updateEmoticonImages.setAttribute('style', 'overflow-y: scroll; width: 53%;height: 220px;')
     updateEmoticonImages.setAttribute('id', 'update_emoticon_images')
-    chDiv.appendChild(updateEmoticonImages)
+    kkkk.appendChild(updateEmoticonImages)
+
+    const llll = document.createElement('div')
+    llll.setAttribute('style', 'overflow-y: scroll; width: 47%;height: 220px;')
+    llll.setAttribute('id','update_emojis')
+    llll.setAttribute('name',`${comment_id}`)
+    kkkk.appendChild(llll)
+    // const update_emojis = "update_emojis"
+    // putEmoji(update_emojis)
+
 
     emoticonDiv.appendChild(updateEmoticonButton)
     emoticonDiv.appendChild(popupParentsDiv)
 
-    comment.childNodes[1].appendChild(emoticonDiv)
-
+    
     const updateCommentInput = document.createElement('input')
     updateCommentInput.setAttribute('type', 'text')
     updateCommentInput.setAttribute('class', 'form-control')
     updateCommentInput.setAttribute('id', `update_input${comment_id}`)
     updateCommentInput.value = commentPValue
     comment.childNodes[1].appendChild(updateCommentInput)
+    comment.childNodes[1].appendChild(emoticonDiv)
     commentP.style.display = 'none'
 
     const updateButton = comment.childNodes[2].firstChild

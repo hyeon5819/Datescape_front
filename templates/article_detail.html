@@ -27,53 +27,53 @@
     <div id="add_html">
 
     </div><!-- e:add_html -->
+
+
     <div class="container text-center mt-5">
-        <!--댓글 입력창-->
         <div class="row row-cols-1 row-cols-md-2">
-            <!--이모티콘 보일곳-->
-            <div id="comment-image" class="col"></div>
-            <!--댓글 입력창-->
+            <div id="comment-image" class="col">
+            </div><!--이모티콘 보일곳-->
             <div class="card" style="padding: 10px 10px 10px 10px; width: 100%; flex-direction: column;">
-                <!--사용 된 이모티콘-->
                 <div>
                     <img style="width: 200px;" src="" alt="" id="use_emoticon">
-                </div>
-                <!--댓글 입력 칸 / 이모티콘 버튼-->
+                </div><!--사용 된 이모티콘-->
+                <div class="mt-3 mb-3" style="display: flex; justify-content: center;" id="emoji">
+                    <div class="card text-center;" style="display: flex; flex-direction: column; width: 50%;" id="emoji">
+                        <div class="card-header">
+                            이모지
+                        </div>
+                        <div style="padding-right: 12px;">
+                            <div class="row row-cols-5 row-cols-md-5" style="padding:0px 0px 0px 20px; overflow-y: scroll; height: 220px; font-size: 30px;" id="emojiIcons">
+                            </div>
+                        </div>
+                    </div>
+                </div><!--기본이모지-->
                 <div>
-                    <div id="emoji">
-                    </div>
-                    <input type="text" class="form-control" placeholder="댓글 입력" id="comment_content"
-                        aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" style="width: 105px;" type="button"
-                        onclick="emoticonButtonList('user_emoticon_list' , 'emoticon_popup', 'emoticonbtn', 'emoticon_images', 'use_emoticon', 'comment_content')"
-                        id="emoticonbtn">이모티콘</button>
-                    <button class="btn btn-outline-secondary" style="width: 70px;" type="button"
-                        id="comment_create">등록</button>
-                </div>
+                    <input type="text" class="form-control" placeholder="댓글 입력" id="comment_content" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary" style="width: 105px;" type="button" id="emoticonbtn">이모티콘</button>
+                    <button class="btn btn-outline-secondary" style="width: 70px;" type="button" id="comment_create">등록</button>
+                </div><!--댓글 데이터 입력-->
             </div>
-            <div></div>
-            <div style="height: 0px;">
-                <!--이모티콘 팝업-->
-                <div class="card text-center;" style="position: relative; z-index: 1; margin-top: -17px; display: none;"
-                    id="emoticon_popup"> <!--이모티콘-->
-                    <div class="card-header">
-                        <ul class="nav nav-tabs card-header-tabs" id="user_emoticon_list">
-                            <!-- <li class="nav-item"><button style="border: none;" id="emoji"><span>이모지</span></button></li> -->
-                        </ul>
-                    </div>
-                    <div class="row row-cols-5 row-cols-md-5" style="padding:0px 0px 0px 20px; overflow-y: scroll; height: 220px;"
-                        id="emoticon_images">
-                        <!--기본이모지-->
-                        
-                        <!--기본이모지-->
-                    </div>
+            <div></div><!--이모티콘 팝업 위치 지정용 빈 div-->
+            <div>
+                <div style="height: 0px;">
+                    <div class="card text-center;" style="position: relative; z-index: 1; margin-top: -17px; display: none;" id="emoticon_popup">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs" id="user_emoticon_list">
+                            </ul><!--이모티콘 리스트-->
+                        </div><!--이모티콘 선택지-->
+                        <div class="row row-cols-5 row-cols-md-5"
+                            style="padding:0px 0px 0px 20px; overflow-y: scroll; height: 220px;" id="emoticon_images">
+                        </div><!--이모티콘 이미지들-->
+                    </div><!--이모티콘 팝업-->
                 </div>
-            </div>
-        </div>
-        <!--댓글 보이는 곳-->
+            </div><!--여기까지 이모티콘 팝업 위치 지정용 div-->
+        </div><!--댓글 입력창 전체-->
+
         <div class="row row-cols-1 row-cols-md-1" id="comment">
-        </div>
-    </div>
+        </div><!--댓글 조회-->
+    </div><!--댓글입력 + 댓글 조회-->
+
     <footer></footer>
     <script src="../static/js/navbar.js"></script>
     <script type="text/javascript"

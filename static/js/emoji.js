@@ -1,69 +1,34 @@
-function baseEmojiList(user_emoticon_list, emoticon_popup, emoticonbtn, emoticon_images, comment_content){
-    const userEmoticonList = document.getElementById(user_emoticon_list)
-    console.log(userEmoticonList)
-    const emoticonPopup = document.getElementById(emoticon_popup)
+// 이모지 넣기
+function putEmoji(emojidiv_id, input_id){
+    console.log('확인용ㅇㅇㅇㅇㅇㅇㅇ',parseInt(input_id), isNaN(parseInt(input_id)))
+    const emojiBox = document.getElementById(emojidiv_id)
 
-    // 댓글입력 이모티콘버튼 이모지생성
-    let emojiDiv = document.querySelector(`#${emoticon_images}`)
+    //이모지 넣을때 split해서 넣기
     const emojiInstance = baseEmoji.split(' ')
     emojiInstance.forEach(element => {
-        const emojiSpan = document.createElement('span')
-        emojiSpan.textContent = element
-        // emojiSpan.setAttribute('style','cursor: pointer;')
-        emojiDiv.appendChild(emojiSpan)
+        const emojiIconSpan = document.createElement('span')
+        emojiIconSpan.textContent = element
+        emojiIconSpan.setAttribute('style','font-size: 30px')
+        emojiBox.appendChild(emojiIconSpan)
     });
 
-    // 이모지 클릭시 인풋에 입력
-    let emojis = emojiDiv.childNodes
-    emojis.forEach(element => {
+    //이모지 클릭시 인풋에 넣기
+    let emojiIcons = emojiBox.childNodes
+    emojiIcons.forEach(element => {
         element.addEventListener('click', function () {
-            let commentInput = document.getElementById(comment_content)
-            let nowInput = commentInput.value
-            commentInput.value = nowInput + element.innerText
-            emoticonToggle(emoticonPopup)
-        })
-    });
-
-    // 
-    const emoji = document.createElement('li')
-    emoji.setAttribute('class', 'nav-item')
-    userEmoticonList.appendChild(emoji)
-
-    const emojiButton = document.createElement('button')
-    emojiButton.setAttribute('style', 'border: none;')
-    emoji.appendChild(emojiButton)
-    emojiButton.addEventListener('click', function() {
-        const emoticonImages = document.getElementById(emoticon_images)
-
-        while (emoticonImages.firstChild) {
-            emoticonImages.firstChild.remove();
-        }
-        let emojiDiv = document.querySelector(`#${emoticon_images}`)
-        //이모지 넣을때 split해서 넣기
-        const emojiInstance = baseEmoji.split(' ')
-        emojiInstance.forEach(element => {
-        const emojiSpan = document.createElement('span')
-        emojiSpan.textContent = element
-        // emojiSpan.setAttribute('style','cursor: pointer;')
-        emojiDiv.appendChild(emojiSpan)
-    });
-
-        let emojis = emojiDiv.childNodes
-        emojis.forEach(element => {
-            element.addEventListener('click', function () {
-                let commentInput = document.getElementById(comment_content)
+            if(isNaN(parseInt(input_id))){
+                let commentInput = document.getElementById(input_id)
                 let nowInput = commentInput.value
                 commentInput.value = nowInput + element.innerText
-                emoticonToggle(emoticonPopup)
-            })
-        });
-    })
-
-    const emojiButtonSpan = document.createElement('span')
-    emojiButtonSpan.innerText = '이모지'
-    emojiButton.appendChild(emojiButtonSpan)
-
-    emoticonPopup.style.display = 'block'
-    const emotiBtn = document.getElementById(emoticonbtn)
-    emotiBtn.setAttribute('onclick', `emoticonToggle(${emoticonPopup.id})`)
+            } else{
+                let commentInput = document.getElementById(`update_input${input_id}`)
+                let nowInput = commentInput.value
+                commentInput.value = nowInput + element.innerText
+            }
+        })
+    });
 }
+
+const emojidiv_id = 'emojiIcons' 
+const input_id = 'comment_content' 
+putEmoji(emojidiv_id, input_id)

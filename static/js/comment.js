@@ -400,8 +400,9 @@ async function commentView() {
 
             //신고하기
             const reportButton = document.createElement("button")
-            reportButton.setAttribute('style', 'width: 50%; margin: auto auto 5px auto; font-size: 20px; border: none;')
+            reportButton.setAttribute('style', 'width: 30%; margin: auto auto 5px auto; border: none;')
             reportButton.setAttribute('onclick', `commentReport(${element.id})`)
+            reportButton.setAttribute('class', "btn btn-light btn-sm mt-3")
             reportButton.innerText = '🚨'
             nicknameDiv.appendChild(reportButton)
 
@@ -438,13 +439,13 @@ async function commentView() {
                 if (element.writer == userId) {
                     const updateButton = document.createElement("button")
                     updateButton.setAttribute('onclick', `commentUpdate(${element.id})`)
-                    updateButton.setAttribute('class', 'mt-3')
+                    updateButton.setAttribute('class', 'btn btn-light btn-sm mt-1')
                     updateButton.innerText = '수정'
                     buttonDiv.appendChild(updateButton)
 
                     const deleteButton = document.createElement("button")
                     deleteButton.setAttribute('onclick', `commentDelete(${element.id})`)
-                    deleteButton.setAttribute('class', 'mt-3')
+                    deleteButton.setAttribute('class', 'btn btn-light btn-sm mt-1')
                     deleteButton.innerText = '삭제'
                     buttonDiv.appendChild(deleteButton)
                 }

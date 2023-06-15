@@ -28,25 +28,19 @@
 
 <body>
     <header></header>
-
+    
     <div class="container text-center mt-5">
-
         <h3 class="mb-1">댓글</h1>
-
         <!--댓글 입력창-->
         <div class="row row-cols-1 row-cols-md-2">
-
             <!--이모티콘 보일곳-->
             <div id="comment-image" class="col"></div>
-
             <!--댓글 입력창-->
             <div class="card" style="padding: 10px 10px 10px 10px; width: 100%; flex-direction: column;">
-
                 <!--사용 된 이모티콘-->
                 <div>
                     <img style="width: 200px;" src="" alt="" id="use_emoticon">
                 </div>
-
                 <!--댓글 입력 칸 / 이모티콘 버튼-->
                 <div>
                     <input type="text" class="form-control" placeholder="댓글 입력" id="comment_content"
@@ -57,42 +51,29 @@
                     <button class="btn btn-outline-secondary" style="width: 70px;" type="button"
                         id="comment_create">등록</button>
                 </div>
-
             </div>
-            
             <div></div>
-
             <div style="height: 0px;">
-
                 <!--이모티콘 팝업-->
                 <div class="card text-center;" style="position: relative; z-index: 1; margin-top: -17px; display: none;"
                     id="emoticon_popup"> <!--이모티콘-->
-
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs" id="user_emoticon_list">
                             <!-- <li class="nav-item"><button style="border: none;" id="emoji"><span>이모지</span></button></li> -->
                         </ul>
                     </div>
-
                     <div class="row row-cols-5 row-cols-md-5" style="padding:0px 0px 0px 20px; overflow-y: scroll; height: 220px;"
                         id="emoticon_images">
                         <!--기본이모지-->
                         
                         <!--기본이모지-->
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
         <!--댓글 보이는 곳-->
         <div class="row row-cols-1 row-cols-md-1" id="comment">
         </div>
-        
-        <!--홈버튼-->
-        <button type="button" onclick="window.location.href='/'">홈</button>
     </div>
 
 

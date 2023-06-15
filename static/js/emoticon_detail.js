@@ -67,9 +67,11 @@ async function emoticonDetail() {
     // 결제창 함수 넣어주기
     const buyButton = document.getElementById('buy_emoticon')
     buyButton.setAttribute('onclick', `kcpRequestPay('${user_email}', '${username}')`)
-
+    buyButton.setAttribute('class', "btn btn-primary")
+    
     // 구매했는지 여부 표시하기
     if (response.buy == true){
+        buyButton.setAttribute('class', "btn btn-black")
         buyButton.innerText = '구매완료'
         buyButton.disabled = true
     } else{

@@ -6,9 +6,9 @@ async function injectNavbar() {
         .then(data => {
             document.querySelector("header").innerHTML = data;
         })
-    let navbarHtml = await fetch("../navbar.html")
-    let data = await navbarHtml.text()
-    document.querySelector("header").innerHTML = data;
+    // let navbarHtml = await fetch("../navbar.html")
+    // let data = await navbarHtml.text()
+    // document.querySelector("header").innerHTML = data;
 
 
     const payload = localStorage.getItem("payload");

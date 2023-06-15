@@ -1,59 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navbar</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-</head>
-
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark rounded-pill" style="background-color: #2FA4FF;">
-        <div class="container-fluid mx-4">
-            <a class="navbar-brand" href="../index.html">DateScape</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">리뷰보기</a>
-                        <!-- <a class="nav-link active" aria-current="page" href="#">리뷰보기</a> -->
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">리뷰쓰기</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="/templates/emoticon_list.html">이모티콘 상점</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto" id="navbar-right">
-                    <li class="nav-item" id="navbar-signin">
-                        <a class="nav-link text-white" href="/templates/logintemp.html">로그인</a>
-                    </li>
-                    <li class="nav-item" id="navbar-signup">
-                        <a class="nav-link text-white" href="/templates/signup.html">회원가입</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" id="intro"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" id="mypage" href="#"></a>
-                    </li>
-                </ul>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-dark rounded-pill" style="background-color: #2FA4FF;">
+    <div class="container-fluid mx-4">
+        <a class="navbar-brand" href="../index.html">DateScape</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">리뷰보기</a>
+                    <!-- <a class="nav-link active" aria-current="page" href="#">리뷰보기</a> -->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">리뷰쓰기</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/templates/emoticon_list.html">이모티콘 상점</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/gps.html">내 주변 명소</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto" id="navbar-right">
+                <li class="nav-item" id="navbar-signin">
+                    <a class="nav-link text-white" href="/templates/logintemp.html">로그인</a>
+                </li>
+                <li class="nav-item" id="navbar-signup">
+                    <a class="nav-link text-white" href="/templates/signup.html">회원가입</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" id="intro"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" id="mypage" href="#"></a>
+                </li>
+            </ul>
         </div>
-    </nav>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-</body>
-
-</html>
+    </div>
+</nav>

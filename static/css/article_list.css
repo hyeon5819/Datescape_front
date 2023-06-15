@@ -3,7 +3,11 @@
 }
 
 .pagination-wrapper {
-    text-align: center;
+    position: relative;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-25%);
+    margin-top: 100px;
 }
 
 .pagination {

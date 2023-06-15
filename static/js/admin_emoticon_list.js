@@ -99,6 +99,5 @@ async function getAdminEmoticonList(){
 }
 
 
-window.onload = async function () {
-    getAdminEmoticonList()
-}
+
+getAdminEmoticonList()

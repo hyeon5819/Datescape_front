@@ -1,6 +1,3 @@
-const urlParams = new URLSearchParams(window.location.search);
-const emoticonId = urlParams.get("emoticon_id");
-
 // 관리자 유저인지 확인
 if (!localStorage.getItem("access")) {
     alert("로그인이 필요합니다.")
@@ -15,7 +12,10 @@ if (!localStorage.getItem("access")) {
     }
 }
 
+const urlParams = new URLSearchParams(window.location.search);
+const emoticonId = urlParams.get("emoticon_id");
 const userId = JSON.parse(localStorage.getItem("payload")).user_id;
+
 
 // 이모티콘 가져오기
 async function getEmoticon(emoticon_id) {
@@ -72,7 +72,71 @@ function totalAmount(emoticon) {
 }
 
 
-window.onload = async function () {
+// 월별 판매량 검색
+async function searchMonth(rsp) {
+    const response = await rsp
+    // 입력으로 조회
+    const yearInput = document.getElementById('year')
+    const monthInput = document.getElementById('month')
+
+    console.log(yearInput.value)
+    console.log(monthInput.value)
+
+    console.log(response)
+    // console.log(response.sold_count[0].created_at.split('-'))
+
+    // 월별 판매량
+    let sellNum = 0
+
+    let alertStatus = ""
+
+    for (let i = 0; i < response.sold_count.length; i++) {
+        if (yearInput.value == response.sold_count[i].created_at.split('-')[0]) {
+            if (monthInput.value == parseInt(response.sold_count[i].created_at.split('-')[1])) {
+                sellNum += 1
+            } else {
+                alertStatus = "month_null"
+            }
+        } else {
+            alertStatus = "year_null"
+        }
+    }
+    if (alertStatus == "year_null"){
+        alert('해당 년도 기록 없음!')
+    } else if (alertStatus == "month_null"){
+        alert('해당 월 기록 없음!')
+    } else {
+        //
+        const amountTbody = document.getElementById('amount_div')
+
+        amountTbody.childNodes[3].remove()
+
+        const amountTr = document.createElement('tr')
+
+        const monthTd = document.createElement('td')
+
+        monthTd.innerText = yearInput.value + '/' + monthInput.value
+
+        const priceTd = document.createElement('td')
+        priceTd.innerText = response.price
+
+        const countTd = document.createElement('td')
+        countTd.innerText = response.sold_count.length
+
+        const saleAmountTd = document.createElement('td')
+        saleAmountTd.innerText = response.price * response.sold_count.length
+
+        amountTbody.appendChild(amountTr)
+        amountTr.appendChild(monthTd)
+        amountTr.appendChild(priceTd)
+        amountTr.appendChild(countTd)
+        amountTr.appendChild(saleAmountTd)
+    }
+}
+
+
+// 이모티콘 디테일
+async function emoticonDeail() {
     const response = await getEmoticon(emoticonId)
 
     const emoticonTitle = document.getElementById('title')
@@ -90,63 +154,14 @@ window.onload = async function () {
     totalAmount(response)
 
     const searchButton = document.getElementById('searchButton')
-    searchButton.addEventListener('click', function () {
-        // 입력으로 조회
-        const yearInput = document.getElementById('year')
-        const monthInput = document.getElementById('month')
-
-        console.log(yearInput.value)
-        console.log(monthInput.value)
-
-        console.log(response.sold_count[0].created_at.split('-'))
-
-        // 월별 판매량
-        let sellNum = 0
-
-        let alertStatus = ""
-
-        for (let i = 0; i < response.sold_count.length; i++) {
-            if (yearInput.value == response.sold_count[i].created_at.split('-')[0]) {
-                if (monthInput.value == parseInt(response.sold_count[i].created_at.split('-')[1])) {
-                    sellNum += 1
-                } else {
-                    alertStatus = "month_null"
-                }
-            } else {
-                alertStatus = "year_null"
-            }
-        }
-        if (alertStatus == "year_null"){
-            alert('해당 년도 기록 없음!')
-        } else if (alertStatus == "month_null"){
-            alert('해당 월 기록 없음!')
-        } else {
-            //
-            const amountTbody = document.getElementById('amount_div')
-
-            amountTbody.childNodes[3].remove()
-
-            const amountTr = document.createElement('tr')
-
-            const monthTd = document.createElement('td')
-
-            monthTd.innerText = yearInput.value + '/' + monthInput.value
-
-            const priceTd = document.createElement('td')
-            priceTd.innerText = response.price
-
-            const countTd = document.createElement('td')
-            countTd.innerText = response.sold_count.length
-
-            const saleAmountTd = document.createElement('td')
-            saleAmountTd.innerText = response.price * response.sold_count.length
-
-            amountTbody.appendChild(amountTr)
-            amountTr.appendChild(monthTd)
-            amountTr.appendChild(priceTd)
-            amountTr.appendChild(countTd)
-            amountTr.appendChild(saleAmountTd)
+    searchButton.addEventListener('click', function(){
+        if (response.sold_count == 0){
+            alert('판매 기록이 없습니다!')
+        } else{
+            searchMonth(response)
         }
     })
-
 }
+
+
+emoticonDeail()

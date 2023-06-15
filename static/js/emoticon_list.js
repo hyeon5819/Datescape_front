@@ -70,6 +70,5 @@ async function getEmoticonList(){
     }
 }
 
-window.onload = async function () {
-    getEmoticonList()
-}
+
+getEmoticonList()

@@ -22,6 +22,7 @@ async function injectNavbar() {
 
         const mypage = document.getElementById("mypage")
         mypage.innerText = "마이페이지"
+        mypage.setAttribute("href", "/templates/profile.html")
 
         let navbarRight = document.getElementById("navbar-right")
         let newLi = document.createElement("li")

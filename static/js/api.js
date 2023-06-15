@@ -1,5 +1,5 @@
 async function getSearch(option, search) {
-    const response = await fetch(`${back_base_url}/articles/article-search?option=${option}&search=${search}`)
+    const response = await fetch(`${back_base_url}/articles/article-search/?option=${option}&search=${search}`)
 
     if (response.status == 200) {
         const response_json = await response.json()

@@ -1,6 +1,6 @@
-// 게시글 id
-const urlGetParams = new URLSearchParams(window.location.search);
-const articleId = urlGetParams.get("id");
+// 게시글 아이디
+// const urlGetParams = new URLSearchParams(window.location.search);
+// const articleId = urlGetParams.get("id"); // article_detail에서 이미 불러옴
 
 // 토큰
 const access = localStorage.getItem("access");
@@ -379,11 +379,6 @@ async function commentView() {
     // 댓글 리스트 보여주기
     const commentContent = document.getElementById("comment");
 
-    // 이모티콘 이미지 다 가져오기
-    const response_emoticon = await fetch(`${back_base_url}/emoticons/images/`, {
-        method: "GET",
-    });
-    const data = await response_emoticon.json();
     try{
         response_comment.forEach(element => {
             const cardDiv = document.createElement("div")
@@ -402,7 +397,7 @@ async function commentView() {
             const reportButton = document.createElement("button")
             reportButton.setAttribute('style', 'width: 30%; margin: auto auto 5px auto; border: none;')
             reportButton.setAttribute('onclick', `commentReport(${element.id})`)
-            reportButton.setAttribute('class', "btn btn-light btn-sm mt-3")
+            reportButton.setAttribute('class', "btn btn-light btn-sm")
             reportButton.innerText = '🚨'
             nicknameDiv.appendChild(reportButton)
 
@@ -411,17 +406,14 @@ async function commentView() {
             commentDiv.setAttribute('style', 'width: 75%;')
 
             const commentEmoticon = document.createElement('img')
-
-            data.forEach(usedImage => {
-                if (usedImage.id == element.use_emoticon) {
-                    const usedemoticonimage = `${image_url}${usedImage.image}`
-                    commentEmoticon.setAttribute('src', usedemoticonimage)
-                    commentEmoticon.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover;')
-                    commentEmoticon.setAttribute('id', `comment_use_emoticon${usedImage.id}`)
-                    commentEmoticon.setAttribute('alt', `${usedImage.id}`)
-                    commentDiv.appendChild(commentEmoticon)
-                }
-            });
+            if(element.use_emoticon == null){
+            } else{
+                commentEmoticon.setAttribute('src', `${image_url}${element.emoticon_image}`)
+                commentEmoticon.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover;')
+                commentEmoticon.setAttribute('id', `comment_use_emoticon${element.use_emoticon}`)
+                commentEmoticon.setAttribute('alt', `${element.use_emoticon}`)
+                commentDiv.appendChild(commentEmoticon)
+            }
 
             const commentP = document.createElement("p")
             commentP.innerText = element.comment

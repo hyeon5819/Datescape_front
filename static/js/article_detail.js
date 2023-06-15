@@ -3,6 +3,8 @@ console.log("js연결!")
 token = localStorage.getItem("access")
 const urlParams = new URLSearchParams(window.location.search);
 const articleId = urlParams.get("id");
+console.log(urlParams)
+console.log(articleId)
 window.onload = async () => {
     const response = await fetch(`${back_base_url}/articles/${articleId}`, {
         headers: {

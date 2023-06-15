@@ -1,6 +1,6 @@
 const searchInput = document.getElementById("tags");
 const ul = document.getElementById("tag_ul")
-
+let page_num = 0
 // 문자열 형식
 function testListTextGet() {
     let tagListText = ''
@@ -37,7 +37,6 @@ window.onload = function () {
             }
         }
     });
-
     //주소가져오기
     document.getElementById("roadAddress").addEventListener("click", function () { //주소입력칸을 클릭하면
         //카카오 지도 발생
@@ -47,9 +46,26 @@ window.onload = function () {
             }
         }).open()
     })
+    //article_id가져오기 http://127.0.0.1:5500/templates/article_detail.html?id=23/
+    const access = localStorage.getItem("access");
+    async function GetArticleId(article_id) {
+        const response = await fetch(`${back_base_url}/articles/`, {
+            headers: {
+                Authorization: `Bearer ${access}`,
+            },
+            method: 'GET',
+        })
+        const data = await response.json()
+        console.log(article_id)
+        console.log("======================")
+        console.log(data.count)
+        page_num = data.count
+        window.location.href = `${front_base_url}/templates/article_detail.html?id=${page_num}`
+    }
+    // GetArticleId(page_num)
     //저장
     document.getElementById("save_db").addEventListener("click", function () { //주소입력칸을 클릭하면
-        const access = localStorage.getItem("access");
+
         // 데이터 전송을 위한 변수 선언
         const formData = new FormData();
         const data = document.getElementById("roadAddress").value;
@@ -89,6 +105,7 @@ window.onload = function () {
             .then(data => {
                 console.log('data', data);
                 console.log('저장완료', data);
+                GetArticleId(page_num)
                 alert("게시완료")
             })
             .catch(error => {
@@ -96,47 +113,5 @@ window.onload = function () {
             });
 
     })
-    function createPagination(totalPages, currentPage) {
-        const wrapper = document.querySelector('.pagination-wrapper');
-        const pagination = document.createElement('ul');
-        pagination.className = 'pagination';
-        wrapper.appendChild(pagination);
-
-        const prev = document.createElement('li');
-        prev.className = 'previous';
-        pagination.appendChild(prev);
-
-        const prevLink = document.createElement('a');
-        prevLink.href = '#';
-        prevLink.innerHTML = '&laquo;';
-        prev.appendChild(prevLink);
-
-        const next = document.createElement('li');
-        next.className = 'next';
-        pagination.appendChild(next);
-
-        const nextLink = document.createElement('a');
-        nextLink.href = '#';
-        nextLink.innerHTML = '&raquo;';
-        next.appendChild(nextLink);
-
-        for (let i = 1; i <= totalPages; i++) {
-            const page = document.createElement('li');
-            if (currentPage === i) {
-                page.className = 'active';
-            }
-            pagination.insertBefore(page, next);
-
-            const link = document.createElement('a');
-            link.href = '#';
-            link.innerHTML = i;
-            page.insertBefore(link, null);
-        }
-    }
-
-    const totalPages = 5;
-    const currentPage = 1;
-
-    createPagination(totalPages, currentPage);
 }
 

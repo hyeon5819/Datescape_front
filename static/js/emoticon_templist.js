@@ -3,7 +3,7 @@ if (!localStorage.getItem("access")) {
     window.location.href = `${front_base_url}/templates/logintemp.html`
 }
 
-window.onload = async function () {
+async function emoticonTempList() {
     const access = localStorage.getItem("access");
 
     const response = await fetch(`${back_base_url}/emoticons/temp/`, {
@@ -64,3 +64,6 @@ window.onload = async function () {
         alert(response.status);
     }
 }
+
+
+emoticonTempList()

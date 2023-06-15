@@ -41,6 +41,11 @@ async function injectNavbar() {
         signInButton.style.display = "none";
         let signUpButton = document.getElementById("navbar-signup")
         signUpButton.style.display = "none";
+
+        if (payload_parse.is_admin == true){
+            const adminButton = document.getElementById("admin")
+            adminButton.style.display = "block"
+        }
     }
 }
 

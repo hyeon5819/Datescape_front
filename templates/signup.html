@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../components/urls.js"></script>
     <script src="../static/js/apitemp.js"></script>
+    <script type="module" src="../static/js/login.js"></script>
     <title>DateScape | sign_up</title>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -52,19 +53,18 @@
                         <div class="find">
                             <a href="#">ex:이메일(ID) 찾기</a>
                             <a href="#">ex:비밀번호 재설정</a>
-                            <a href="#">ex:뭘해야할까요?</a>
+                            <a href="/templates/logintemp.html">로그인페이지로이동</a>
                             <a href="#">ex:넣고싶은기능넣기</a>
                         </div><!-- e:find -->
                     </div><!-- e:main_sign_up -->
                 </fieldset>
             </form><!-- e:sign_up_frm -->
             <dl>
-                <dt>이제 쉽고 간편하게 회원가입 하세요!</dt>
-                <dd><a href="#"><img src="../static/images/logo_naver.png" alt=""><span>네이버 계정으로 회원가입</span></a></dd>
-                <dd><a href="#"><img src="../static/images/logo_kakao.png" alt=""><span>카카오톡 계정으로 회원가입</span></a></dd>
-                <dd><a href="#"><img src="../static/images/logo_git_25px.png" alt=""><span>GitHub 계정으로 회원가입</span></a>
-                <dd><a href="#"><img src="../static/images/logo_google_25px.png" alt=""><span>GooGle 계정으로
-                            회원가입</span></a>
+                <dt>이제 쉽고 간편하게 로그인하세요!</dt>
+                <dd><a href="#" id='naver'><img src="../static/images/logo_naver.png" alt=""><span>네이버 로그인</span></a></dd>
+                <dd><a href="#" id='kakao'><img src="../static/images/logo_kakao.png" alt=""><span>카카오톡 로그인</span></a></dd>
+                <dd><a href="#" id='github'><img src="../static/images/logo_git_25px.png" alt=""><span>GitHub Login</span></a>
+                <dd><a href="#" id='google'><img src="../static/images/logo_google_25px.png" alt=""><span>GooGle Login</span></a>
                 </dd>
             </dl>
         </div><!-- e:sign_up -->

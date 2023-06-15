@@ -52,3 +52,13 @@ body {
     background-color: red;
     height: 300px;
 }
+
+span:hover {
+    cursor: pointer;
+    background-color: #f1da72
+}
+
+img:hover {
+    cursor: pointer;
+    background-color: #f1da72
+}

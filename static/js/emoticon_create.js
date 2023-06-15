@@ -10,8 +10,10 @@ async function emoticonCreate() {
 
     const emoticonTitle = document.getElementById('title').value
     const emoticonImage = document.getElementById('image').files
-
-    if (emoticonImage.length == 0) {
+    
+    if (emoticonTitle == '') {
+        alert('이모티콘 제목을 작성해주세요!')
+    } else if (emoticonImage.length == 0){
         alert('이미지를 등록해주세요!')
     } else {
         const formData = new FormData();

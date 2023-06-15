@@ -45,7 +45,7 @@ async function getUserEmoticon() {
 
 
 // 이모티콘 상세보기
-window.onload = async function () {
+async function emoticonDetail() {
     const response = await getEmoticon(emoticonId)
 
     const emoticonTitle = document.getElementById('title')
@@ -82,3 +82,6 @@ window.onload = async function () {
     console.log(response)
     price.innerText = `💳${response.price}`
 }
+
+
+emoticonDetail()

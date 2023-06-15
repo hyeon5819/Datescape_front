@@ -1,7 +1,7 @@
 
 //카테고리 가져요기
 access = localStorage.getItem("access")
-async function categoryGet(id) {
+async function categoryDetailGet(id) {
     var id_name = id
     const response = await fetch(`${back_base_url}/reports/category/?id=${id_name}`, {
         headers: {
@@ -12,7 +12,7 @@ async function categoryGet(id) {
 
     if (response.status == 200) {
         response_json = await response.json();
-        create_category = createCategory(response_json, 0)
+        create_category = createDetailCategory(response_json, 0)
         category.appendChild(create_category)
         return response_json;
     } else {
@@ -20,12 +20,12 @@ async function categoryGet(id) {
     }
 }
 
-category_class = document.getElementsByClassName("category")
+var category_class = document.getElementsByClassName("category-detail")
 for (var i = 0; i < category_class.length; i++) {
     var category = category_class[i]
-    categoryGet(category.id)
+    categoryDetailGet(category.id)
 }
-function createCategory(cateory_list, times) {
+function createDetailCategory(cateory_list, times) {
     var details = document.createElement('details')
     var summary = document.createElement('summary')
     summary.innerText = cateory_list[1]
@@ -38,7 +38,7 @@ function createCategory(cateory_list, times) {
 
         }
         else {
-            var child_category = createCategory(cateory_list[2][i], times + 1)
+            var child_category = createDetailCategory(cateory_list[2][i], times + 1)
             details.appendChild(child_category)
             // console.log(detail)
         }
@@ -48,6 +48,3 @@ function createCategory(cateory_list, times) {
     return details
 }
 
-
-
-window.onload = function () { }

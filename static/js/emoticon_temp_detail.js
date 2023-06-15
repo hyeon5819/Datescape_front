@@ -192,6 +192,7 @@ async function emoticonTempDetail() {
     const updateButton = document.createElement('button')
     updateButton.innerText = '수정'
     updateButton.setAttribute('onclick', `emoticonUpdate(${emoticonId}, ${response.creator})`)
+    updateButton.setAttribute('class', 'btn btn-primary mt-3 me-1')
     updateButton.setAttribute('id', 'update_button')
     if (response.creator == userId) {
         updateButton.setAttribute('style', 'display:inline')
@@ -203,6 +204,7 @@ async function emoticonTempDetail() {
     const deleteButton = document.createElement('button')
     deleteButton.innerText = '삭제'
     deleteButton.setAttribute('onclick', `emoticonDelete(${emoticonId}, ${response.creator})`)
+    deleteButton.setAttribute('class', 'btn btn-primary mt-3 ms-1')
     deleteButton.setAttribute('id', 'delete_button')
     if (response.creator == userId) {
         deleteButton.setAttribute('style', 'display:inline')

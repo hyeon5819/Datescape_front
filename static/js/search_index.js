@@ -19,7 +19,7 @@ async function loadMain() {
     response_1.results.forEach(article => {
         articles1.innerHTML += `
         <div class="col " >
-        <div class="card text-bg-dark border-light" style="height:19rem; justify-content: center;" onclick="location.href='${front_base_url}/index.html';">
+        <div class="card text-bg-dark border-light" style="height:17rem; justify-content: center;" onclick="location.href='${front_base_url}/index.html';">
         <img src="https://blog.kakaocdn.net/dn/0mySg/btqCUccOGVk/nQ68nZiNKoIEGNJkooELF1/img.jpg" class="card-img cardimg mh-100" alt="..." >
         <div class="card-img-overlay img-cover p-4 ">
         <h4 class="card-title">${article.title}</h4>
@@ -36,7 +36,7 @@ async function loadMain() {
     response_2.results.forEach(article => {
         articles2.innerHTML += `
         <div class="col " >
-        <div class="card text-bg-dark border-light" style="height:19rem; justify-content: center;" onclick="location.href='${front_base_url}/index.html';">
+        <div class="card text-bg-dark border-light" style="height:17rem; justify-content: center;" onclick="location.href='${front_base_url}/index.html';">
         <img src="https://blog.kakaocdn.net/dn/0mySg/btqCUccOGVk/nQ68nZiNKoIEGNJkooELF1/img.jpg" class="card-img cardimg mh-100" alt="..." >
         <div class="card-img-overlay img-cover p-4 ">
         <h4 class="card-title">${article.title}</h4>

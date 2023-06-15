@@ -65,3 +65,34 @@ imageInput.addEventListener("change", function () {
         }
     }
 });
+
+
+//////////////
+
+
+function loadFile(input) {
+    const files = input.files;
+    console.log(files)
+    var container = document.getElementById('image-show');
+
+    for (let i = 0; i < files.length; i++) {
+        console.log(files[i])
+
+        var newImage = document.createElement("img");
+        newImage.setAttribute("class", 'img');
+
+        newImage.src = URL.createObjectURL(files[i]);   
+
+        newImage.style.width = "100px";
+        newImage.style.height = "100px";
+        newImage.style.visibility = "hidden";   //버튼을 누르기 전까지는 이미지 숨기기
+        newImage.style.objectFit = "cover";
+
+        container.appendChild(newImage);
+    };
+
+    const newImages = document.getElementById('image-show').childNodes
+    for (let i = 0; i < newImages.length; i++) {
+        newImages[i].style.visibility = "visible";
+    }
+};

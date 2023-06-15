@@ -530,6 +530,4 @@ commentInputBox.addEventListener("input", function () {
 });
 
 
-window.onload = async function () {    
-    await commentView()
-};
+commentView()

@@ -172,7 +172,7 @@ async function emoticonUpdateConfirm(emoticon_id) {
     }
 }
 
-window.onload = async function () {
+async function emoticonTempDetail() {
     const response = await getEmoticon(emoticonId)
 
     const emoticonTitle = document.getElementById('title')
@@ -211,3 +211,6 @@ window.onload = async function () {
     }
     parentsDiv.appendChild(deleteButton)
 }
+
+
+emoticonTempDetail()

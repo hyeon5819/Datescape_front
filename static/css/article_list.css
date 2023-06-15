@@ -1,0 +1,48 @@
+.article_detail {
+    cursor: pointer;
+}
+
+.pagination-wrapper {
+    position: relative;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-25%);
+    margin-top: 100px;
+}
+
+.pagination {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.pagination li {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.pagination li a {
+    display: block;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    color: #333;
+}
+
+.pagination li a:hover {
+    background-color: #f5f5f5;
+}
+
+.pagination li.active a {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.pagination li.disabled a {
+    color: #ccc;
+}

@@ -3,7 +3,7 @@ if (!localStorage.getItem("access")) {
     window.location.href = `${front_base_url}/templates/logintemp.html`
 }
 
-window.onload = async function () {
+async function emoticonTempList() {
     const access = localStorage.getItem("access");
 
     const response = await fetch(`${back_base_url}/emoticons/temp/`, {
@@ -49,6 +49,7 @@ window.onload = async function () {
 
             let detailButton = document.createElement('button')
             detailButton.setAttribute('onclick', `location.href='${front_base_url}/templates/emoticon_temp_detail.html?emoticon_id=${element.id}'`)
+            detailButton.setAttribute('class', 'btn btn-primary mt-3')
             detailButton.innerText = '보러가기'
 
             emoticons.appendChild(col)
@@ -64,3 +65,6 @@ window.onload = async function () {
         alert(response.status);
     }
 }
+
+
+emoticonTempList()

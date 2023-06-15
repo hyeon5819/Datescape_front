@@ -3,13 +3,17 @@ if (!localStorage.getItem("access")) {
     window.location.href = `${front_base_url}/templates/logintemp.html`
 }
 
+
+// 이모티콘 생성
 async function emoticonCreate() {
     const access = localStorage.getItem("access");
 
     const emoticonTitle = document.getElementById('title').value
     const emoticonImage = document.getElementById('image').files
-
-    if (emoticonImage.length == 0) {
+    
+    if (emoticonTitle == '') {
+        alert('이모티콘 제목을 작성해주세요!')
+    } else if (emoticonImage.length == 0){
         alert('이미지를 등록해주세요!')
     } else {
         const formData = new FormData();
@@ -17,6 +21,8 @@ async function emoticonCreate() {
         formData.append('title', emoticonTitle)
         for (let i = 0; i < emoticonImage.length; i++) {
             formData.append("images", emoticonImage[i]);
+            console.log(emoticonImage[i].size)
+            formData.append("file_size", emoticonImage[i].size);
         }
 
         const response = await fetch(`${back_base_url}/emoticons/`, {
@@ -38,3 +44,55 @@ async function emoticonCreate() {
         }
     }
 }
+
+
+// 이모티콘 이미지파일만 받기
+const imageInput = document.getElementById("image");
+
+const acceptFile = ['xbm','tif','pjp','apng','svgz','jpg','jpeg','ico','tiff','gif','svg','jfif','webp','png','bmp','pjpeg','avif']
+
+imageInput.addEventListener("change", function () {
+    let fileList = imageInput.files;
+
+    // 이미지 파일인지 검증
+    for (let i = 0; i < fileList.length; i++) {
+        let fileName = fileList[i].name.split('.')
+
+        if(acceptFile.includes(fileName[fileName.length-1])){
+        } else{
+            alert(`이미지 파일만 가능합니다!\n가능 확장자명: ${acceptFile}`)
+            imageInput.value = []
+        }
+    }
+});
+
+
+//////////////
+
+
+function loadFile(input) {
+    const files = input.files;
+    console.log(files)
+    var container = document.getElementById('image-show');
+
+    for (let i = 0; i < files.length; i++) {
+        console.log(files[i])
+
+        var newImage = document.createElement("img");
+        newImage.setAttribute("class", 'img');
+
+        newImage.src = URL.createObjectURL(files[i]);   
+
+        newImage.style.width = "100px";
+        newImage.style.height = "100px";
+        newImage.style.visibility = "hidden";   //버튼을 누르기 전까지는 이미지 숨기기
+        newImage.style.objectFit = "cover";
+
+        container.appendChild(newImage);
+    };
+
+    const newImages = document.getElementById('image-show').childNodes
+    for (let i = 0; i < newImages.length; i++) {
+        newImages[i].style.visibility = "visible";
+    }
+};

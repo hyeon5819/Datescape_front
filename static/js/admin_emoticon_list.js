@@ -1,7 +1,17 @@
+// 관리자 유저인지 확인
 if (!localStorage.getItem("access")) {
     alert("로그인이 필요합니다.")
     window.location.href = `${front_base_url}/templates/logintemp.html`
+} else{
+    const payload = localStorage.getItem("payload");
+    const payloadParse = JSON.parse(payload)
+
+    if (payloadParse.is_admin == false){
+        alert("관리자만 접근 가능합니다.")
+        window.location.href = `${front_base_url}/`
+    }
 }
+
 
 
 // 이모티콘 리스트 가져오기
@@ -60,7 +70,7 @@ async function getAdminEmoticonList(){
             if (element.sold_count == null){
                 soldCount.innerText = '누적 판매량: ' + 0
             } else {
-                soldCount.innerText = '누적 판매량: ' + element.sold_count
+                soldCount.innerText = '누적 판매량: ' + element.sold_count.length
             }
             soldCount.setAttribute('class', 'mt-3 mb-0')
 
@@ -68,12 +78,16 @@ async function getAdminEmoticonList(){
             detailCount.setAttribute('onclick', `location.href='${front_base_url}/templates/admin_emoticon_detail_count.html?emoticon_id=${element.id}'`)
             detailCount.innerText = '상세'
 
+            let price = document.createElement('p')
+            price.innerText = '💳' + element.price
+
             emoticons.appendChild(col)
             col.appendChild(card)
             card.appendChild(emoticonImage)
             card.appendChild(cardBody)
             cardBody.appendChild(emoticonTitle)
             cardBody.appendChild(emoticonCreator)
+            cardBody.appendChild(price)
             cardBody.appendChild(detailButton)
             cardBody.appendChild(soldCount)
             cardBody.appendChild(detailCount)
@@ -85,6 +99,5 @@ async function getAdminEmoticonList(){
 }
 
 
-window.onload = async function () {
-    getAdminEmoticonList()
-}
+
+getAdminEmoticonList()

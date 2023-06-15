@@ -61,6 +61,9 @@ async function loadMyPosition(position) {
     const nearPositions = await getNearPosition(position)
     // 주변 마커 생성
     nearPositions.forEach(point => {
+        console.log(point)
+        var jibun = point.article_set[0].jibun_address
+        var placeName = jibun.split(' ')
         // 마커를 표시할 위치
         var position = new kakao.maps.LatLng(point.coordinate_y, point.coordinate_x);
         // 마커를 생성
@@ -69,25 +72,6 @@ async function loadMyPosition(position) {
             position: position,
         });
         // 커스텀 오버레이에 표시할 컨텐츠
-        // var content = '<div class="wrap">' +
-        //     '    <div class="info">' +
-        //     '        <div class="title">' +
-        //     `            장소 이름` +
-        //     '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
-        //     '        </div>' +
-        //     '        <div class="body">' +
-        //     '            <div class="img">' +
-        //     '                <img src="#" width="73" height="70">' +
-        //     '           </div>' +
-        //     '            <div class="desc">' +
-        //     `                <div class="ellipsis">${point.road_address}</div > ` +
-        //     `                <div class= "jibun ellipsis">(지번) ${point.jibun_address}</div > ` +
-        //     `                <div><a href="#" onclick="loadMyList(${point.id})" class="link">리뷰보기</a></div>` +
-        //     '            </div>' +
-        //     '        </div>' +
-        //     '    </div>' +
-        //     '</div>';
-
         var content = document.createElement('div')
         content.setAttribute("class", "wrap")
         var info = document.createElement('div')
@@ -95,7 +79,7 @@ async function loadMyPosition(position) {
         content.appendChild(info)
         var title = document.createElement('div')
         title.setAttribute("class", "title")
-        title.innerHTML = '장소 이름'
+        title.innerHTML = placeName.slice(-1)
         var close = document.createElement('div')
         close.setAttribute("class", "close")
         close.setAttribute("title", "닫기")
@@ -105,9 +89,10 @@ async function loadMyPosition(position) {
         var body = document.createElement('div')
         body.setAttribute("class", "body")
         var img = document.createElement('div')
-        img.setAttribute("class", "img")
+        img.setAttribute("class", "img card")
         var newImg = document.createElement("img")
-        newImg.setAttribute("src", "#")
+        newImg.setAttribute("class", "cardimg")
+        newImg.setAttribute("src", `${back_base_url}${point.article_set[0].main_image}`)
         newImg.style.cssText = 'width: 73; height:70;';
         img.appendChild(newImg)
         body.appendChild(img)
@@ -122,11 +107,20 @@ async function loadMyPosition(position) {
         jibun.innerHTML = `(지번) ${point.jibun_address}`
         desc.appendChild(jibun)
         var link = document.createElement('div')
+        link.setAttribute("class", "clearfix")
+        var score = document.createElement('em')
+        score.innerText = point.score_avg
+        link.appendChild(score)
+        var span = document.createElement('span')
+        span.setAttribute("class", "mx-1")
+        span.setAttribute("style", "color: #9F9F9F;")
+        span.innerText = '|'
+        link.appendChild(span)
         var link_a = document.createElement('a')
         link_a.setAttribute("class", "link")
         link_a.setAttribute("onclick", `loadMyList(${point.id})`)
         link_a.setAttribute("href", "#")
-        link_a.innerHTML = "리뷰보기"
+        link_a.innerHTML = `리뷰 ${point.article_set.length}`
         link.appendChild(link_a)
         desc.appendChild(link)
         body.appendChild(desc)
@@ -155,14 +149,27 @@ async function loadMyList(location) {
     const location_list = document.getElementById('location-list')
     location_list.innerHTML = ''
     response.results.forEach(article => {
+        var jibun = article.jibun_address
+        var place = jibun.split(' ')
         location_list.innerHTML += `
         <div class="col" >
-        <div class="card text-bg-dark border-light" style="height:300px; justify-content: center;" onclick="location.href='${front_base_url}/index.html';">
-        <img src="${article.images}" class="card-img cardimg mh-100" alt="..." >
-        <div class="card-img-overlay img-cover p-4">
-        <h5 class="card-title">${article.title}</h5>
-        <p class="card-text content">${article.content}</p>
-        <p class="card-text"><small>${article.user} | ${article.created_at}</small></p>
+        <div class="card text-bg-dark border-light rounded-4" style="height:300px; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}/';">
+        <img src="${article.main_image}" class="card-img cardimg mh-100 rounded-4" alt="..." >
+        <div class="card-img-overlay img-cover rounded-4" style="padding: 30px;">
+        <h4 class="card-title cardtitle mt-3">${article.title}</h4>
+        <p class="card-text content mb-5">${article.content}</p>
+        <ul class="d-flex list-unstyled mt-auto pt-5 mb-0 align-items-end">
+              <li class="me-auto">
+                <small>${article.user}</small>
+              </li>
+              <li class="d-flex align-items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="0.9em" height="0.9em" fill="currentColor" class="bi bi-geo-alt-fill me-1" viewBox="0 0 16 16">
+  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+</svg>
+                <small>${place[0]}</small >
+              </li >
+            </ul >
+    
         </div>
         </div>
         </div>

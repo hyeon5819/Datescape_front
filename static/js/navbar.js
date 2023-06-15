@@ -14,8 +14,6 @@ async function injectNavbar() {
     const payload = localStorage.getItem("payload");
     if (payload) {
         const payload_parse = JSON.parse(payload)
-        console.log(payload_parse)
-        console.log(payload_parse.username)
 
         const intro = document.getElementById("intro")
         intro.innerText = `${payload_parse.username}님`

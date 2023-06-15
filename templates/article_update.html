@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DateScape | 게시글 작성 페이지</title>
+    <title>DateScape | 게시글 수정 페이지</title>
     <link rel="stylesheet" href="../static/css/common.css">
     <script src="../components/urls.js"></script>
     <script src="../static/js/apitemp.js"></script>
@@ -21,7 +21,7 @@
 <body style="background-color:#fffff5;">
     <header></header>
     <div>
-        <h1 style="text-align:center;">게시글 작성</h1>
+        <h1 style="text-align:center;">게시글 수정</h1>
         <form class="w-50 m-auto mb-5">
             <div class="mb-3">
                 <label for="title" class="form-label">제목</label>
@@ -71,15 +71,14 @@
                 <input type="text" class="form-control" id="roadAddress" name="road_address" readonly />
             </div>
             <div class="text-end">
-                <button type="button" id="save_db" class="btn btn-primary mt-3">저장</button>
+                <button type="button" id="update_db" class="btn btn-primary mt-3">저장</button>
             </div>
-
         </form>
         <div id="add_h2"></div>
         <div class="row row-cols-1 row-cols-md-3 g-5" id="result"></div>
     </div>
     <footer></footer>
-    <script src="../static/js/article_map_create.js"></script>
+    <script src="../static/js/article_update.js"></script>
     <script src="../static/js/navbar.js"></script>
 </body>
 

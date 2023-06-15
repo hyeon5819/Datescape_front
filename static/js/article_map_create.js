@@ -38,6 +38,7 @@ window.onload = function () {
         }
     });
     //주소가져오기
+    //게시글을저장하면 작성한 게시글 페이지로 이동 시키기
     document.getElementById("roadAddress").addEventListener("click", function () { //주소입력칸을 클릭하면
         //카카오 지도 발생
         new daum.Postcode({
@@ -46,7 +47,6 @@ window.onload = function () {
             }
         }).open()
     })
-    //article_id가져오기 http://127.0.0.1:5500/templates/article_detail.html?id=23/
     const access = localStorage.getItem("access");
     async function GetArticleId(article_id) {
         const response = await fetch(`${back_base_url}/articles/`, {
@@ -56,9 +56,6 @@ window.onload = function () {
             method: 'GET',
         })
         const data = await response.json()
-        console.log(article_id)
-        console.log("======================")
-        console.log(data.count)
         page_num = data.count
         window.location.href = `${front_base_url}/templates/article_detail.html?id=${page_num}`
     }

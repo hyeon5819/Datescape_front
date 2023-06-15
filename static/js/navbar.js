@@ -6,14 +6,16 @@ async function injectNavbar() {
         .then(data => {
             document.querySelector("header").innerHTML = data;
         })
-    // let navbarHtml = await fetch("../navbar.html")
-    // let data = await navbarHtml.text()
-    // document.querySelector("header").innerHTML = data;
+    let navbarHtml = await fetch("../navbar.html")
+    let data = await navbarHtml.text()
+    document.querySelector("header").innerHTML = data;
 
 
     const payload = localStorage.getItem("payload");
     if (payload) {
         const payload_parse = JSON.parse(payload)
+        console.log(payload_parse)
+        console.log(payload_parse.username)
 
         const intro = document.getElementById("intro")
         intro.innerText = `${payload_parse.username}님`
@@ -51,53 +53,78 @@ function handleLogout() {
     location.reload()
 }
 
-let footer = `<div class="container">
-<footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
-    <div class="col mb-3">
-        <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
-            <svg class="bi me-2" width="40" height="32">
-                <use xlink:href="#bootstrap"></use>
-            </svg>
-        </a>
-        <p class="text-muted">© 2023</p>
-    </div>
+async function injectFooter() {
+    fetch("../footer.html").then(response => {
+        return response.text()
+    })
+        .then(data => {
+            document.querySelector("footer").innerHTML = data;
+        })
+}
 
-    <div class="col mb-3">
+injectFooter()
+// let footer = `<div class="container">
+// <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-6 py-5 my-5 border-top">
+//     <div class="col mb-3">
+//         <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
+//             <svg class="bi me-2" width="40" height="32">
+//                 <use xlink:href="#bootstrap"></use>
+//             </svg>
+//         </a>
+//         <p class="text-muted">© 2023</p>
+//     </div>
+//     <div class="col mb-3">
+//         <h5>Name</h5>
+//         <ul class="nav flex-column">
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+//         </ul>
+//     </div>
+//     <div class="col mb-3">
+//         <h5>Name</h5>
+//         <ul class="nav flex-column">
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+//         </ul>
+//     </div>
+//     <div class="col mb-3">
+//         <h5>Name</h5>
+//         <ul class="nav flex-column">
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+//         </ul>
+//     </div>
 
-    </div>
+//     <div class="col mb-3">
+//         <h5>Name</h5>
+//         <ul class="nav flex-column">
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+//         </ul>
+//     </div>
 
-    <div class="col mb-3">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
-    </div>
-
-    <div class="col mb-3">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
-    </div>
-
-    <div class="col mb-3">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
-    </div>
-</footer>
-</div>`
-document.body.insertAdjacentHTML('beforeend', footer)
+//     <div class="col mb-3">
+//         <h5>Name</h5>
+//         <ul class="nav flex-column">
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+//             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+//         </ul>
+//     </div>
+// </footer>
+// </div>`
+// document.body.insertAdjacentHTML('beforeend', footer)

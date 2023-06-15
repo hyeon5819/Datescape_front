@@ -1,8 +1,8 @@
 
 //카테고리 가져요기
 access = localStorage.getItem("access")
-async function categoryDetailGet(id) {
-    var id_name = id
+async function categoryDetailGet(category) {
+    var id_name = category.id
     const response = await fetch(`${back_base_url}/reports/category/?id=${id_name}`, {
         headers: {
             Authorization: `Bearer ${access}`,
@@ -23,7 +23,7 @@ async function categoryDetailGet(id) {
 var category_class = document.getElementsByClassName("category-detail")
 for (var i = 0; i < category_class.length; i++) {
     var category = category_class[i]
-    categoryDetailGet(category.id)
+    categoryDetailGet(category)
 }
 function createDetailCategory(cateory_list, times) {
     var details = document.createElement('details')

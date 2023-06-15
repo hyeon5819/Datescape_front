@@ -1,5 +1,9 @@
 body {
-    width: 1200px;
-    background-color: #FFFFF3;
-    margin: 0 auto;
+    width: 1200px !important;
+    background-color: #FFFFF3 !important;
+    margin: 0 auto !important;
+}
+
+header {
+    margin-bottom: 100px;
 }

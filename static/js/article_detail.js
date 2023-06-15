@@ -36,7 +36,7 @@ window.onload = async () => {
                     <div class="title_right">
                         <button class="btn btn-outline-secondary" type="button">수정</button>
                         <button class="btn btn-outline-secondary" type="button">삭제</button>
-                        <button class="btn btn-outline-secondary" type="button">목록</button>
+                        <a href="http://127.0.0.1:5500/templates/article_list.html" class="btn btn-outline-secondary" type="button">목록</a>
                     </div><!-- e:title_right -->
                 </div><!-- e:title_box -->
                 <div id="image_box">

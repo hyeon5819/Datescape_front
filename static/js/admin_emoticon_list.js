@@ -40,10 +40,10 @@ async function getAdminEmoticonList(){
             let emoticonImage = document.createElement('img')
             if (element.images.length == 0) {
                 let mainImage = ''
-                emoticonImage.setAttribute('src', `${back_base_url}${mainImage}`)
+                emoticonImage.setAttribute('src', `${image_url}${mainImage}`)
             } else {
                 let mainImage = element.images[0].image
-                emoticonImage.setAttribute('src', `${back_base_url}${mainImage}`)
+                emoticonImage.setAttribute('src', `${image_url}${mainImage}`)
             }
             emoticonImage.setAttribute('class', 'card-img-top')
             emoticonImage.setAttribute('style', 'height: 200px; object-fit: cover;')

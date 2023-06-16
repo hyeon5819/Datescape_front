@@ -1,7 +1,7 @@
 console.log("js연결")
 token = localStorage.getItem("access")
 function detail_page(article_id) {
-    location.href = `${front_base_url}/templates/article_detail.html?id=${article_id}/`
+    location.href = `${front_base_url}/templates/article_detail.html?id=${article_id}`
 }
 window.onload = async () => {
     let card_box = document.querySelector('#card_box')
@@ -28,7 +28,7 @@ window.onload = async () => {
                 articleHtml += `
                 <div class="col article_detail me-5" onclick="detail_page(${article.id})">
                     <div class="card h-50">
-                        <img text-align:center;" src="${back_base_url}${article.main_image}" class="card-img-top" alt="...">
+                        <img text-align:center;" src="${image_url}${article.main_image}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">${article.title}</h5>
                             <p class="card-text">${article.content}</p>

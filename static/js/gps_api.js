@@ -92,7 +92,7 @@ async function loadMyPosition(position) {
         img.setAttribute("class", "img card")
         var newImg = document.createElement("img")
         newImg.setAttribute("class", "cardimg")
-        newImg.setAttribute("src", `${back_base_url}${point.article_set[0].main_image}`)
+        newImg.setAttribute("src", `${image_url}${point.article_set[0].main_image}`)
         newImg.style.cssText = 'width: 73; height:70;';
         img.appendChild(newImg)
         body.appendChild(img)

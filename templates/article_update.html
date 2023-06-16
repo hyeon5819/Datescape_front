@@ -31,16 +31,20 @@
                 <label for="content" class="form-label">내용</label>
                 <input type="text" class="form-control" id="content">
             </div>
+            <div id="images_remove"></div><!-- e:remove_images -->
             <div class="mb-3">
                 <label for="content" class="form-label" accept="image/*">이미지</label>
-                <input type="file" class="form-control" id="images" aria-describedby="imageHelp" multiple>
+                <div class="form-control" id="images"></div>
                 <div id="imageHelp" class="form-text">
+                    <input type="file" accept="image/*" class="form-control" id="add_imgs" multiple>
                     <p class="fs-6" style="color:red;font-weight:700;">복수 선택 가능</p>
                 </div><!-- e:tagHelp -->
             </div>
+            <div id="remove_main"></div><!-- e:remove_images -->
             <div class="mb-3">
-                <label for="content" class="form-label" accept="image/*">대표이미지</label>
-                <input type="file" class="form-control" id="main_image" aria-describedby="mainImageHelp">
+                <label for="add_main_img" class="form-label" accept="image/*">대표이미지</label>
+                <div class="form-control" id="main_image"></div>
+                <input type="file" accept="image/*" class="form-control" id="add_main_img">
                 <div id="mainImageHelp" class="form-text">
                     <p class="fs-6" style="color:red;font-weight:700;">복수 선택 불가능</p>
                 </div><!-- e:tagHelp -->
@@ -71,7 +75,7 @@
                 <input type="text" class="form-control" id="roadAddress" name="road_address" readonly />
             </div>
             <div class="text-end">
-                <button type="button" id="update_db" class="btn btn-primary mt-3">저장</button>
+                <button type="button" id="update_article" class="btn btn-primary mt-3">저장</button>
             </div>
         </form>
         <div id="add_h2"></div>

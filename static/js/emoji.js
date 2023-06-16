@@ -1,6 +1,5 @@
 // 이모지 넣기
 function putEmoji(emojidiv_id, input_id){
-    console.log('확인용ㅇㅇㅇㅇㅇㅇㅇ',parseInt(input_id), isNaN(parseInt(input_id)))
     const emojiBox = document.getElementById(emojidiv_id)
 
     //이모지 넣을때 split해서 넣기

@@ -68,7 +68,7 @@ window.onload = async () => {
 
         if (totalPages > 1) {
             const pagination = document.createElement('ul')
-            pagination.className = 'pagination'
+            pagination.setAttribute('class', 'pagination justify-content-center')
             wrapper.appendChild(pagination)
 
             if (currentPage > 1) {
@@ -86,7 +86,7 @@ window.onload = async () => {
 
             for (let i = 1; i <= totalPages; i++) {
                 const page = document.createElement('li')
-                if (i === currentPage) {
+                if (i == currentPage) {
                     page.classList.add('active')
                 }
                 pagination.appendChild(page)

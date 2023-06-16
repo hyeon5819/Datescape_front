@@ -9,12 +9,17 @@
 </head>
 
 <body>
+    <div class="new_update_img">
+        <div id="image_container"></div>
+
+    </div>
+    
     <form>
         <dt>
 프로필변경
         </dt>
         <input type="text" name="username" id="username" placeholder="아이디">
-        <input type="file" name="profileimage" id="profileimage" placeholder="프로필이미지">
+        <input type="file" name="profileimage" id="profileimage" onchange="setThumbnail(event);">
         <a class="nav-link active" aria-current="page" href="/templates/passwordchange.html">비밀번호 변경</a>
         <button type="button" onclick="profileedit()">제출</button>
     </form>

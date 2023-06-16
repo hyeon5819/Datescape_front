@@ -35,7 +35,6 @@ async function getComment() {
 
     if (response.status == 200) {
         response_json = await response.json();
-        console.log('댓글', response_json)
         return response_json;
     } else {
         alert(response.status);
@@ -54,7 +53,6 @@ async function getUserEmoticon() {
 
     if (response.status == 200) {
         response_json = await response.json();
-        console.log('구매한 이모티콘', response_json)
         return response_json;
     } else {
         alert(response.status);
@@ -214,7 +212,6 @@ async function commentUpdate(comment_id) {
     const commentUsedEmoticonId = commentUsedEmoticon.alt
     const commentUsedEmoticonSrc = commentUsedEmoticon.src
 
-    console.log(commentUsedEmoticonSrc)
     const emoticonDiv = document.createElement('div')
     emoticonDiv.setAttribute('class', 'card text-center')
 

@@ -1,5 +1,5 @@
-async function getSearch(option, search) {
-    const response = await fetch(`${back_base_url}/articles/article-search/?option=${option}&search=${search}`)
+async function getSearch(option, search, page) {
+    const response = await fetch(`${back_base_url}/articles/article-search/?option=${option}&search=${search}&page=${page}`)
 
     if (response.status == 200) {
         const response_json = await response.json()
@@ -22,5 +22,5 @@ function selectOption(x) {
 async function submitSearch() {
     const option = document.getElementById('option').innerHTML
     const search = document.getElementById('search').value
-    window.location.href = `${front_base_url}/templates/search_list.html?option=${option}&search=${search}`
+    window.location.href = `${front_base_url}/templates/search_list.html?option=${option}&search=${search}&page=1`
 }

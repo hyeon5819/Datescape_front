@@ -44,16 +44,16 @@ function createSelectCategory(category_list) {
     select.id = category_list[0]
     select.className = "reports-category"
     select.addEventListener('change', function () {
-
+        while (true) {
+            if (select.nextSibling == null) {
+                break;
+            }
+            select.nextSibling.remove()
+        }
         if (category_list[2][select.selectedIndex - 1].length == 2) {
             save_status["save"] = true
             save_status["data"] = category_list[2][select.selectedIndex - 1][0]
-            while (true) {
-                if (select.nextSibling == null) {
-                    break;
-                }
-                select.nextSibling.remove()
-            }
+
         }
         else {
             save_status["save"] = false

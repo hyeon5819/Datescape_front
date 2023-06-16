@@ -16,7 +16,7 @@ async function getAddress(position) {
 
 // 근처 데이터 가져오기
 async function getNearPosition(position) {
-    const response = await fetch(`${back_base_url}/articles/location-list?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`)
+    const response = await fetch(`${back_base_url}/articles/location-list/?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`)
 
     if (response.status == 200) {
         const response_json = await response.json()

@@ -1,17 +1,3 @@
-function selectOption(x) {
-  if (x == 1) {
-    document.getElementById('option').innerHTML = "article"
-  } else {
-    document.getElementById('option').innerHTML = "tag"
-  }
-}
-
-async function submitSearch() {
-  const option = document.getElementById('option').innerHTML
-  const search = document.getElementById('search').value
-  window.location.href = `${front_base_url}/templates/search_list.html?option=${option}&search=${search}`
-}
-
 async function loadMain() {
   response_1 = await getSearch('article', '하이')
   const articles1 = document.getElementById('articles-1')

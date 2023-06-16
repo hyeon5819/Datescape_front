@@ -1,19 +1,5 @@
-function selectOption(x) {
-  if (x == 1) {
-    document.getElementById('option').innerHTML = "article"
-  } else {
-    document.getElementById('option').innerHTML = "tag"
-  }
-}
-
-async function submitSearch() {
-  const option = document.getElementById('option').innerHTML
-  const search = document.getElementById('search').value
-  window.location.href = `${front_base_url}/templates/search_list.html?option=${option}&search=${search}`
-}
-
 async function loadMain() {
-  response_1 = await getSearch('article', '하이')
+  response_1 = await getSearch('article', '하이', '1')
   const articles1 = document.getElementById('articles-1')
   articles1.innerHTML = ''
   response_1.results.forEach(article => {
@@ -42,7 +28,7 @@ async function loadMain() {
         </div >
         `
   });
-  response_2 = await getSearch('tag', '바다')
+  response_2 = await getSearch('tag', '바다', '1')
   const articles2 = document.getElementById('articles-2')
   articles2.innerHTML = ''
   response_2.results.forEach(article => {

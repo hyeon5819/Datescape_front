@@ -93,7 +93,7 @@ function testListTextGet() {
     let tagListText = ''
     const tagList = ul.childNodes
     for (let i = 1; i < tagList.length; i++) {
-        tagListText += '#' + tagList[i].textContent
+        tagListText += '$%#&#^)!()' + tagList[i].textContent
     }
 
     return tagListText
@@ -158,8 +158,9 @@ window.onload = function () {
             if (tagname == '') {
                 alert('태그를 작성해주세요!')
             } else {
-                if (tagname in testListTextGet().split('#')) {
+                if (testListTextGet().split('$%#&#^)!()').includes(tagname)) {
                     searchInput.value = ''
+                    alert("이미 입력된 태그입니다!")
                 } else {
                     const tagli = document.createElement('li')
                     tagli.addEventListener('click', function () {

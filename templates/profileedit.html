@@ -5,22 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>데이트스케이프 | 마이페이지 | 수정</title>
+    <script src="../components/urls.js"></script>
 </head>
 
 <body>
+    <div class="new_update_img">
+        <div id="image_container"></div>
+
+    </div>
+    
     <form>
         <dt>
 프로필변경
         </dt>
-        <input type="email" name="email" id="email" placeholder="이메일">
         <input type="text" name="username" id="username" placeholder="아이디">
-        <input type="password" name="password1" id="password1" placeholder="변경할 비밀번호">
-        <input type="password" name="password2" id="password2" placeholder="변경할 비밀번호 확인">
-        <input type="file" name="profileimage" id="profileimage" placeholder="프로필이미지">
+        <input type="file" name="profileimage" id="profileimage" onchange="setThumbnail(event);">
+        <a class="nav-link active" aria-current="page" href="/templates/passwordchange.html">비밀번호 변경</a>
+        <button type="button" onclick="profileedit()">제출</button>
     </form>
 
     <a href="#" onclick="win_close()">[닫기]</a>
 
+    <script src="../static/js/apitemp.js"></script>
     <script src="../static/js/profile.js"></script>
 </body>
 

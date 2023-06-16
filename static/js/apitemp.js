@@ -213,7 +213,7 @@ async function pschange() {
         window.location.reload()
     }
 
-    const response = await fetch(`${back_base_url}/users/dj-rest-auth/password/change/`, {
+    const response = await fetch(`${back_base_url}/users/password/change/`, {
         headers: {
             'Authorization': `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -232,7 +232,7 @@ async function pschange() {
     if (response.status == 200) {
         console.log(response)
         alert("비밀번호가 변경되었습니다.")
-        window.location.replace(`${front_base_url}/index.html`)
+        win_close()
     } else {
         console.log(result)
         console.log(response.status)
@@ -240,4 +240,8 @@ async function pschange() {
         window.location.reload()
     }
 
+}
+
+function win_close() {
+    window.close()
 }

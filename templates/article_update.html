@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DateScape | 게시글 수정 페이지</title>
     <link rel="stylesheet" href="../static/css/common.css">
+    <link rel="stylesheet" href="../static/css/article_update.css">
     <script src="../components/urls.js"></script>
     <script src="../static/js/apitemp.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -60,17 +61,15 @@
                 </div>
             </div>
             <div class="mb-3">
-                <label for="tag" class="form-label">태그</label>
+                <label for="tag" class="form-label">태그<em style="color:darkgrey ;"> * Enter : 태그
+                    추가</em></label>
+            <div for="tag" class="form-control" style="display: flex;flex-direction: row;">
+                <div id="tag_ul" style="display: flex;flex-direction: row;">
+                </div><!-- e:tag_ul -->
                 <input type="text" class="form-control" id="tags" aria-describedby="tagHelp" />
-                <div id="tagHelp" class="form-text">
-                    <p class="fs-6" style="color:red;font-weight:700;">태그작성후 엔터</p>
-                </div><!-- e:tagHelp -->
             </div>
-            <div class="mb-3">
-                <label for="content" class="form-label">태그리스트</label>
-                <ul id="tag_ul">
-                </ul><!-- e:tag_ul -->
             </div>
+
             <div class="mb-3">
                 <label for="content" class="form-label">주소</label>
                 <input type="text" class="form-control" id="roadAddress" name="road_address" readonly />

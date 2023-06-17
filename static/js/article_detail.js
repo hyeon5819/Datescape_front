@@ -6,7 +6,7 @@ const articleId = urlParams.get("id");
 console.log(urlParams)
 console.log(articleId)
 window.onload = async () => {
-    const response = await fetch(`${back_base_url}/articles/${articleId}`, {
+    const response = await fetch(`${back_base_url}/articles/${articleId}/`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },

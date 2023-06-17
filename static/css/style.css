@@ -143,3 +143,18 @@
 .info .link {
     color: #5085BB;
 }
+
+.tag_add{
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 5px 5px 5px;
+    margin: 0px 5px 0px 5px;
+}
+
+.tag_div{
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    overflow: hidden;
+    background: #fff;
+}

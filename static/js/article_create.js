@@ -159,9 +159,10 @@ window.onload = function () {
     // 엔터로 태그 추가
     searchInput.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
+            event.preventDefault();
             // 엔터 키 입력
             let tagname = searchInput.value.trim()
-
+    
             if (tagname == '') {
                 alert('태그를 작성해주세요!')
             } else {
@@ -169,13 +170,25 @@ window.onload = function () {
                     searchInput.value = ''
                     alert("이미 입력된 태그입니다!")
                 } else {
-                    const tagli = document.createElement('li')
+                    const tagli = document.createElement('div')
+                    tagli.setAttribute("class", "tag_add")
                     tagli.addEventListener('click', function () {
                         tagli.remove()
                     })
                     tagli.textContent = tagname
                     ul.appendChild(tagli)
                     searchInput.value = ''
+                }
+            }
+        }
+        if (event.key === 'Backspace') {
+            const addedTags = document.getElementById('tag_ul').childNodes
+            let lastNum = addedTags.length
+            if (searchInput.value == ''){
+                if (confirm("태그 삭제?")) {
+                    addedTags[lastNum-1].remove()
+                } else {
+                    return false;
                 }
             }
         }

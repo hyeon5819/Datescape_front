@@ -17,7 +17,7 @@ async function loadSearch() {
     var place = jibun.split(' ')
     search_list.innerHTML += `
         <div class="col" >
-        <div class="card text-bg-dark border-light rounded-4" style="height:300px; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}/';">
+        <div class="card text-bg-dark border-light rounded-4" style="height:300px; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}&/';">
         <img src="${article.main_image}" class="card-img cardimg mh-100 rounded-4" alt="..." >
         <div class="card-img-overlay img-cover rounded-4" style="padding: 30px;">
         <h4 class="card-title cardtitle mt-3">${article.title}</h4>
@@ -48,7 +48,7 @@ loadSearch()
 async function getPageData(event) {
   event.preventDefault()
   const page = event.target.getAttribute('data-page')
-  window.location.href = `${front_base_url}/templates/search_list.html?option=${option}&search=${search}&page=${page}`
+  window.location.href = `${front_base_url}/templates/search_list.html?option=${option}&search=${search}&page=${page}&/`
 }
 
 function createPagination(totalPages, currentPage) {

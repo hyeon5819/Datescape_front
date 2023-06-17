@@ -1,13 +1,17 @@
-
-
-
+const urlParams = new URLSearchParams(window.location.search);
+const type = urlParams.get('type');
+const id = urlParams.get('id');
+const request_type = { 1: "user", 2: "article", 3: "comment" }
+const type_name = { 1: "유저", 2: "게시글", 3: "내용" }
+document.title = "DateScape | " + type_name[type] + " 신고 작성 페이지"
+document.getElementsByClassName("report-title")[0].insertAdjacentText("afterbegin", type_name[type] + " ")
 
 //카테고리 가져요기
 var response_ids = {}
 var access = localStorage.getItem("access")
 async function categorySelectGet(category) {
-    var id_name = category.id
-    const response = await fetch(`${back_base_url}/reports/category/?id=${id_name}`, {
+    var id_name = type
+    const response = await fetch(`${back_base_url}/reports/category/?id=${id_name}&/`, {
         method: "GET",
     });
 
@@ -88,8 +92,8 @@ async function userReport() {
     if (save_status["save"]) {
         const content = document.getElementById("content").value;
         const formData = new FormData();
-        formData.append('request_type', "user")
-        formData.append('report_id', 1)
+        formData.append('request_type', request_type[type])
+        formData.append('report_id', id)
         formData.append('report_type', save_status["data"])
         formData.append('comment', content)
         const response = await fetch(`${back_base_url}/reports/`, {

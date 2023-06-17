@@ -166,7 +166,7 @@ async function emoticonUpdateConfirm(emoticon_id) {
 
     if (response.status == 200) {
         alert("수정 완료!");
-        window.location.href = `${front_base_url}/templates/emoticon_temp_detail.html?emoticon_id=${emoticon_id}`;
+        window.location.href = `${front_base_url}/templates/emoticon_temp_detail.html?emoticon_id=${emoticon_id}&/`;
     } else {
         alert("잘못 된 요청입니다.");
     }

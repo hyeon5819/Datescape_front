@@ -5,7 +5,7 @@ if (!localStorage.getItem("access")) {
 
 
 // 이모티콘 리스트 가져오기
-async function getEmoticonList(){
+async function getEmoticonList() {
     const access = localStorage.getItem("access");
 
     const response = await fetch(`${back_base_url}/emoticons/list/`, {
@@ -50,7 +50,7 @@ async function getEmoticonList(){
             emoticonCreator.innerText = '제작자: ' + element.creator_name
 
             let detailButton = document.createElement('button')
-            detailButton.setAttribute('onclick', `location.href='${front_base_url}/templates/emoticon_detail.html?emoticon_id=${element.id}'`)
+            detailButton.setAttribute('onclick', `location.href='${front_base_url}/templates/emoticon_detail.html?emoticon_id=${element.id}&/'`)
             detailButton.setAttribute('class', 'btn btn-outline-dark btn-sm mt-1')
             detailButton.innerText = '보러가기'
 

@@ -416,7 +416,7 @@ async function commentView() {
             //신고하기
             const reportButton = document.createElement("button")
             reportButton.setAttribute('style', 'width: 30%; margin: auto auto 5px auto; border: none;')
-            reportButton.setAttribute('onclick', `commentReport(${element.id})`)
+            reportButton.setAttribute('onclick', `Report(3,${element.id})`)
             reportButton.setAttribute('class', "btn btn-light btn-sm")
             reportButton.innerText = '🚨'
             nicknameDiv.appendChild(reportButton)

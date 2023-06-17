@@ -6,13 +6,12 @@ const type_name = { 1: "유저", 2: "게시글", 3: "내용" }
 document.title = "DateScape | " + type_name[type] + " 신고 작성 페이지"
 document.getElementsByClassName("report-title")[0].insertAdjacentText("afterbegin", type_name[type] + " ")
 
-class_report_title
 //카테고리 가져요기
 var response_ids = {}
 var access = localStorage.getItem("access")
 async function categorySelectGet(category) {
     var id_name = type
-    const response = await fetch(`${back_base_url}/reports/category/?id=${id_name}`, {
+    const response = await fetch(`${back_base_url}/reports/category/?id=${id_name}&/`, {
         method: "GET",
     });
 

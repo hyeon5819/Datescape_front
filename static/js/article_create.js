@@ -213,7 +213,7 @@ window.onload = function () {
         })
         const data = await response.json()
         page_num = data.count
-        window.location.href = `${front_base_url}/templates/article_detail.html?id=${page_num}`
+        window.location.href = `${front_base_url}/templates/article_detail.html?id=${page_num}&/`
     }
     // GetArticleId(page_num)
     //저장

@@ -3,7 +3,7 @@
 access = localStorage.getItem("access")
 async function categoryDetailGet(category) {
     var id_name = category.id
-    const response = await fetch(`${back_base_url}/reports/category/?id=${id_name}`, {
+    const response = await fetch(`${back_base_url}/reports/category/?id=${id_name}&/`, {
         headers: {
             Authorization: `Bearer ${access}`,
         },

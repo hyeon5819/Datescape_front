@@ -148,7 +148,7 @@ async function articleUpdate(articleData) {
     const data = await response.json()
     if (response.status == 200) {
         alert('수정완료')
-        window.location.href = `${front_base_url}/templates/article_detail.html?id=${articleId}`
+        window.location.href = `${front_base_url}/templates/article_detail.html?id=${articleId}&/`
     }
 }
 

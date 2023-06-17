@@ -6,7 +6,7 @@ const articleId = urlParams.get("id");
 console.log(urlParams)
 console.log(articleId)
 window.onload = async () => {
-    const response = await fetch(`${back_base_url}/articles/${articleId}`, {
+    const response = await fetch(`${back_base_url}/articles/${articleId}/`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -68,7 +68,7 @@ window.onload = async () => {
     for (let i = 0; i < await data.image.length; i++) {
         console.log(data.image[i])
         imageHtml += `
-        <img src="${image_url}${data.image[i]}" alt="자동추가되게하자~">
+        <img src="${data.image[i]["image"]}" alt="자동추가되게하자~">
         `
         // tag_add += '#' + data.results[i].tags[a].tag + ' '
     }

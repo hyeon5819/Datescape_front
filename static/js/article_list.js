@@ -1,7 +1,7 @@
 console.log("js연결")
 token = localStorage.getItem("access")
 function detail_page(article_id) {
-    location.href = `${front_base_url}/templates/article_detail.html?id=${article_id}`
+    location.href = `${front_base_url}/templates/article_detail.html?id=${article_id}&/`
 }
 window.onload = async () => {
     let card_box = document.querySelector('#card_box')

@@ -1,17 +1,6 @@
-if (!localStorage.getItem("access")) {
-    alert("로그인이 필요합니다.")
-    window.location.href = `${front_base_url}/templates/logintemp.html`
-}
-
-
 // 이모티콘 리스트 가져오기
-async function getEmoticonList() {
-    const access = localStorage.getItem("access");
-
+async function getEmoticonList(){
     const response = await fetch(`${back_base_url}/emoticons/list/`, {
-        headers: {
-            Authorization: `Bearer ${access}`,
-        },
         method: "GET",
     });
 

@@ -9,9 +9,6 @@ window.onload = async () => {
     async function fetchArticles(pageNumber) {
         articleHtml = '' // 변수 초기화
         const response = await fetch(`${back_base_url}/articles/?page=${pageNumber}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
             method: 'GET',
         })
         const data = await response.json()

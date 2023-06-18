@@ -8,6 +8,7 @@ function putEmoji(emojidiv_id, input_id){
         const emojiIconSpan = document.createElement('span')
         emojiIconSpan.textContent = element
         emojiIconSpan.setAttribute('style','font-size: 30px')
+        emojiIconSpan.setAttribute('class','emoticon')
         emojiBox.appendChild(emojiIconSpan)
     });
 

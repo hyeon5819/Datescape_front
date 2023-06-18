@@ -24,7 +24,7 @@ document.querySelector('#score_out').addEventListener('input', element => {
 
 // 게시글 정보 가져오기
 async function articleLoad() {
-    const response = await fetch(`${back_base_url}/articles/${articleId}`, {
+    const response = await fetch(`${back_base_url}/articles/${articleId}/`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -79,7 +79,7 @@ async function articleLoad() {
     let ul = document.getElementById("tag_ul")
     data.tags.forEach(element => {
         const tag = document.createElement("div")
-        tag.setAttribute('class','tag_add')
+        tag.setAttribute('class', 'tag_add')
         tag.innerText = element.tag
         ul.appendChild(tag)
         tag.addEventListener('click', function () {
@@ -164,7 +164,7 @@ window.onload = function () {
             event.preventDefault();
             // 엔터 키 입력
             let tagname = searchInput.value.trim()
-    
+
             if (tagname == '') {
                 alert('태그를 작성해주세요!')
             } else {
@@ -186,10 +186,10 @@ window.onload = function () {
         if (event.key === 'Backspace') {
             const addedTags = document.getElementById('tag_ul').childNodes
             let lastNum = addedTags.length
-            if(addedTags.length >= 2){
-                if (searchInput.value == ''){
+            if (addedTags.length >= 2) {
+                if (searchInput.value == '') {
                     if (confirm("태그 삭제?")) {
-                        addedTags[lastNum-1].remove()
+                        addedTags[lastNum - 1].remove()
                     } else {
                         return false;
                     }

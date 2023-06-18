@@ -2,6 +2,7 @@ if (!localStorage.getItem("access")) {
     alert("로그인이 필요합니다.")
     window.location.href = `${front_base_url}/templates/logintemp.html`
 }
+const access = localStorage.getItem("access")
 // 대표 이미지 선택 시 미리보기
 function getMainImageFiles(e) {
     const uploadFiles = [];
@@ -106,52 +107,24 @@ document.querySelector('#score_in').addEventListener('input', element => {
 document.querySelector('#score_out').addEventListener('input', element => {
     document.querySelector('#score_in').value = element.target.value
 })
-async function PostArticle() {
+async function PostArticle(formData) {
     // 데이터 전송을 위한 변수 선언
-    const formData = new FormData();
-    const data = document.getElementById("roadAddress").value;
-    const title = document.getElementById("title").value;
-    const image = document.getElementById("images").files;
-    const main_image = document.getElementById("main_image").files;
-    const content = document.getElementById("content").value;
-    const score = document.getElementById("score").value;
-    const tags = testListTextGet();
-    //formData.append('query', data)
-    formData.append('query', data);
-    formData.append('title', title);
-    formData.append('content', content);
-    for (let i = 0; i < image.length; i++) {
-        formData.append("images", image[i]);
-    }
-    for (let i = 0; i < image.length; i++) {
-        formData.append("main_image", main_image[i]);
-    }
-    formData.append('score', score);
-    formData.append('tags', tags);
-    fetch(`${back_base_url}/articles/`, {
+    const response = await fetch(`${back_base_url}/articles/`, {
         headers: {
             Authorization: `Bearer ${access}`,
         },
         method: "POST",
         body: formData,
     })
-        .then(response => {
-            console.log(response, "response")
-            console.log(data, "data")
-            if (!response.ok) {
-                throw new Error('저장실패');
-            }
-            return document.getElementById("roadAddress").value;
-        })
-        .then(data => {
-            console.log('data', data);
-            console.log('저장완료', data);
-            GetArticleId(page_num)
-            alert("게시완료")
-        })
-        .catch(error => {
-            console.error(error);
-        });
+    if (response.status == 200) {
+        response_data = await response.json();
+        console.log(response_data)
+        window.location.href = `${front_base_url}/templates/article_detail.html?id=${response_data}&/`
+
+        return;
+    } else {
+        alert(response.status);
+    }
 }
 
 
@@ -162,7 +135,7 @@ window.onload = function () {
             event.preventDefault();
             // 엔터 키 입력
             let tagname = searchInput.value.trim()
-    
+
             if (tagname == '') {
                 alert('태그를 작성해주세요!')
             } else {
@@ -184,11 +157,13 @@ window.onload = function () {
         if (event.key === 'Backspace') {
             const addedTags = document.getElementById('tag_ul').childNodes
             let lastNum = addedTags.length
-            if (searchInput.value == ''){
-                if (confirm("태그 삭제?")) {
-                    addedTags[lastNum-1].remove()
-                } else {
-                    return false;
+            if(addedTags.length >= 2){
+                if (searchInput.value == ''){
+                    if (confirm("태그 삭제?")) {
+                        addedTags[lastNum-1].remove()
+                    } else {
+                        return false;
+                    }
                 }
             }
         }
@@ -205,15 +180,15 @@ window.onload = function () {
     })
     const access = localStorage.getItem("access");
     async function GetArticleId(article_id) {
-        const response = await fetch(`${back_base_url}/articles/`, {
+        const response = await fetch(`${back_base_url} /articles/`, {
             headers: {
-                Authorization: `Bearer ${access}`,
+                Authorization: `Bearer ${access} `,
             },
             method: 'GET',
         })
         const data = await response.json()
         page_num = data.count
-        window.location.href = `${front_base_url}/templates/article_detail.html?id=${page_num}`
+        window.location.href = `${front_base_url} /templates/article_detail.html ? id = ${page_num}& /`
     }
     // GetArticleId(page_num)
     //저장
@@ -240,31 +215,8 @@ window.onload = function () {
         }
         formData.append('score', score);
         formData.append('tags', tags);
-        fetch(`${back_base_url}/articles/`, {
-            headers: {
-                Authorization: `Bearer ${access}`,
-            },
-            method: "POST",
-            body: formData,
-        })
-            .then(response => {
-                console.log(response, "response")
-                console.log(data, "data")
-                if (!response.ok) {
-                    throw new Error('저장실패');
-                }
-                return document.getElementById("roadAddress").value;
-            })
-            .then(data => {
-                console.log('data', data);
-                console.log('저장완료', data);
-                GetArticleId(page_num)
-                alert("게시완료")
-            })
-            .catch(error => {
-                console.error(error);
-            });
 
+        PostArticle(formData)
     })
 }
 

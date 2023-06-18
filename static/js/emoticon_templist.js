@@ -48,7 +48,7 @@ async function emoticonTempList() {
             emoticonCreator.innerText = '제작자: ' + element.creator_name
 
             let detailButton = document.createElement('button')
-            detailButton.setAttribute('onclick', `location.href='${front_base_url}/templates/emoticon_temp_detail.html?emoticon_id=${element.id}'`)
+            detailButton.setAttribute('onclick', `location.href='${front_base_url}/templates/emoticon_temp_detail.html?emoticon_id=${element.id}&/'`)
             detailButton.setAttribute('class', 'btn btn-primary mt-3')
             detailButton.innerText = '보러가기'
 

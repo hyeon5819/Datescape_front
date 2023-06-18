@@ -148,7 +148,7 @@ async function articleUpdate(articleData) {
     const data = await response.json()
     if (response.status == 200) {
         alert('수정완료')
-        window.location.href = `${front_base_url}/templates/article_detail.html?id=${articleId}`
+        window.location.href = `${front_base_url}/templates/article_detail.html?id=${articleId}&/`
     }
 }
 
@@ -186,11 +186,13 @@ window.onload = function () {
         if (event.key === 'Backspace') {
             const addedTags = document.getElementById('tag_ul').childNodes
             let lastNum = addedTags.length
-            if (searchInput.value == ''){
-                if (confirm("태그 삭제?")) {
-                    addedTags[lastNum-1].remove()
-                } else {
-                    return false;
+            if(addedTags.length >= 2){
+                if (searchInput.value == ''){
+                    if (confirm("태그 삭제?")) {
+                        addedTags[lastNum-1].remove()
+                    } else {
+                        return false;
+                    }
                 }
             }
         }

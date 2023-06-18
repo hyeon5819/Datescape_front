@@ -71,9 +71,14 @@ imageInput.addEventListener("change", function () {
 
 
 function loadFile(input) {
+    const container = document.getElementById('image-show');
+    let num = container.childNodes.length
+    for (let i = 0; i < num; i++) {
+        container.childNodes[0].remove()
+    }
+
     const files = input.files;
     console.log(files)
-    var container = document.getElementById('image-show');
 
     for (let i = 0; i < files.length; i++) {
         console.log(files[i])

@@ -1,17 +1,12 @@
 const urlParams = new URLSearchParams(window.location.search);
 const emoticonId = urlParams.get("emoticon_id");
 
-const userId = JSON.parse(localStorage.getItem("payload")).user_id;
-
 
 // 이모티콘 가져오기
 async function getEmoticon(emoticon_id) {
     const access = localStorage.getItem("access");
 
     const response = await fetch(`${back_base_url}/emoticons/${emoticon_id}/`, {
-        headers: {
-            Authorization: `Bearer ${access}`,
-        },
         method: "GET",
     })
 

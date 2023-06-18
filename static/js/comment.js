@@ -95,6 +95,7 @@ async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbt
                     const emoticonImage = document.createElement('img')
                     emoticonImage.setAttribute('src', `${image_url}${image.image}`)
                     emoticonImage.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover;')
+                    emoticonImage.setAttribute('class', 'emoticon')
                     // 이모티콘 클릭했을때 입력창에 넣어주기
                     const image_input_box = document.getElementById(use_emoticon)
                     emoticonImage.addEventListener('click', function () {
@@ -132,6 +133,7 @@ async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbt
             userEmoticon.appendChild(userEmoticonButton)
 
             const userEmoticonButtonSpan = document.createElement('span')
+            userEmoticonButtonSpan.setAttribute('class', 'emoticon')
             userEmoticonButtonSpan.innerText = user_emoticon.title
             userEmoticonButton.appendChild(userEmoticonButtonSpan)
         });
@@ -217,6 +219,7 @@ async function commentUpdate(comment_id) {
 
     const updateCommentEmoticon = document.createElement('img')
     updateCommentEmoticon.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover; margin: auto;')
+    updateCommentEmoticon.setAttribute('class', 'emoticon')
     updateCommentEmoticon.setAttribute('id', 'update_use_emoticon')
     if (commentUsedEmoticonSrc == undefined) {
         updateCommentEmoticon.removeAttribute('src')
@@ -430,6 +433,7 @@ async function commentView() {
             } else{
                 commentEmoticon.setAttribute('src', `${image_url}${element.emoticon_image}`)
                 commentEmoticon.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover;')
+                commentEmoticon.setAttribute('class', 'emoticon')
                 commentEmoticon.setAttribute('id', `comment_use_emoticon${element.use_emoticon}`)
                 commentEmoticon.setAttribute('alt', `${element.use_emoticon}`)
                 commentDiv.appendChild(commentEmoticon)

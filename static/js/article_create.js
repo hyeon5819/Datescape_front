@@ -130,7 +130,7 @@ async function PostArticle(formData) {
 
 window.onload = function () {
     // 엔터로 태그 추가
-    searchInput.addEventListener('keydown', function (event) {
+    searchInput.addEventListener('keypress', function (event) {
         if (event.key === 'Enter') {
             event.preventDefault();
             // 엔터 키 입력

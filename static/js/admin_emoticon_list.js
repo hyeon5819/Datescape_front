@@ -75,7 +75,7 @@ async function getAdminEmoticonList(){
             soldCount.setAttribute('class', 'mt-3 mb-0')
 
             let detailCount = document.createElement('button')
-            detailCount.setAttribute('onclick', `location.href='${front_base_url}/templates/admin_emoticon_detail_count.html?emoticon_id=${element.id}'`)
+            detailCount.setAttribute('onclick', `location.href='${front_base_url}/templates/admin_emoticon_detail_count.html?emoticon_id=${element.id}&/'`)
             detailCount.innerText = '상세'
 
             let price = document.createElement('p')

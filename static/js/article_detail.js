@@ -5,6 +5,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const articleId = urlParams.get("id");
 console.log(urlParams)
 console.log(articleId)
+/*게시글 정보 가져오기 */
 window.onload = async () => {
     const response = await fetch(`${back_base_url}/articles/${articleId}/`, {
         headers: {
@@ -34,8 +35,8 @@ window.onload = async () => {
                         </p><!-- e:title -->
                     </div><!-- e:title_left -->
                     <div class="title_right">
-                        <button class="btn btn-outline-secondary" type="button">수정</button>
-                        <button class="btn btn-outline-secondary" type="button">삭제</button>
+                        <a href="${front_base_url}/templates/article_update.html?id=${articleId}&/" button class="btn btn-outline-secondary" type="button" id="article-fix">수정</a>
+                        <a button class="btn btn-outline-secondary" type="button">삭제</a>
                         <a href="${front_base_url}/templates/article_list.html" class="btn btn-outline-secondary" type="button">목록</a>
                     </div><!-- e:title_right -->
                 </div><!-- e:title_box -->
@@ -73,10 +74,9 @@ window.onload = async () => {
         // tag_add += '#' + data.results[i].tags[a].tag + ' '
     }
     image_box.innerHTML = imageHtml
-
     loadArticlePosition(data)
 }
-
+/*지도에 좌표 찍기 */
 async function loadArticlePosition(position) {
     // 내 위치 표시
     var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
@@ -96,3 +96,7 @@ async function loadArticlePosition(position) {
     myMarker.setMap(map);
 }
 
+/*게시글신고*/
+article_report_button = document.getElementById("article-report-button")
+article_report_button.setAttribute('onclick', `Report_button(2,${articleId})`)
+/*게시글수정*/

@@ -405,7 +405,7 @@ async function commentView() {
     try {
         response_comment.forEach(element => {
             const cardDiv = document.createElement("div")
-            cardDiv.setAttribute('class', 'card')
+            cardDiv.setAttribute('class', 'card mt-3')
             cardDiv.setAttribute('style', 'width: 100%; flex-direction: row;')
             cardDiv.setAttribute('id', 'comment' + `${element.id}`)
             cardDiv.setAttribute('value', element.id)
@@ -447,7 +447,7 @@ async function commentView() {
 
             const buttonDiv = document.createElement("div")
             cardDiv.appendChild(buttonDiv)
-            buttonDiv.setAttribute('style', 'width: 10%;')
+            buttonDiv.setAttribute('style', 'width: 10%; display:flex;align-items:center; justify-content:space-evenly')
 
             if (localStorage.getItem("access")) {
                 const userId = JSON.parse(localStorage.getItem("payload")).user_id
@@ -472,7 +472,8 @@ async function commentView() {
 
             let likeButton = document.createElement("button")
             cardDiv.appendChild(likeButton)
-            likeButton.setAttribute('style', 'width: 10%; border: none;')
+            likeButton.setAttribute('style', 'width: 7%;background: transparent;border: 1px solid #aaa;margin: 10px 20px;border-radius: 25px;padding: 10px;')
+            likeButton.setAttribute('class', 'hover_btn')
             likeButton.innerText = `🤍\n${element.likers.length}`
             for (let i = 0; i < element.likers.length; i++) {
                 if (userId == element.likers[i].likers) {

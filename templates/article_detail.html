@@ -16,16 +16,12 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
 
+
 </head>
 
 <body>
     <header></header>
-    <div style="display: flex;" class="detail_title justify-content-between">
-        <h1 style="text-align:center; margin-top:50px">상세페이지</h1>
-        <button type="button" class="btn btn-outline-secondary " id="article-report-button">신고버튼</button>
-    </div><!-- e:detail_title -->
     <div id="add_html">
-
     </div><!-- e:add_html -->
 
 
@@ -38,26 +34,28 @@
                     <img style="width: 200px;" src="" alt="" id="use_emoticon">
                 </div><!--사용 된 이모티콘-->
                 <div class="mt-3 mb-3" style="display: flex; justify-content: center;" id="emoji">
-                    <div class="card text-center;" style="display: flex; flex-direction: column; width: 50%;"
+                    <div class="card text-center mb-5"
+                        style="display: flex; flex-direction: column; width: 50%;background-color: transparent;"
                         id="emoji">
                         <div class="card-header">
                             이모지
                         </div>
                         <div style="padding-right: 12px;">
-                            <div class="row row-cols-5 row-cols-md-5"
-                                style="padding:0px 0px 0px 20px; overflow-y: scroll; height: 220px; font-size: 30px;"
-                                id="emojiIcons">
+                            <div class="row row-cols-5 row-cols-md-5" style="padding: 20px 0;
+                                overflow-y: scroll;
+                                height: 250px;
+                                font-size: 30px; font-size: 30px;" id="emojiIcons">
                             </div>
                         </div>
                     </div>
                 </div><!--기본이모지-->
                 <div>
-                    <input type="text" class="form-control" placeholder="댓글 입력" id="comment_content"
+                    <input type="text" class="form-control  mb-5" placeholder="댓글 입력" id="comment_content"
                         aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" style="width: 105px;" type="button"
+                    <button class="btn btn-outline-secondary mb-5" style="width: 105px;" type="button"
                         onclick="emoticonButtonList('user_emoticon_list' , 'emoticon_popup', 'emoticonbtn', 'emoticon_images', 'use_emoticon', 'comment_content')"
                         id="emoticonbtn">이모티콘</button>
-                    <button class="btn btn-outline-secondary" style="width: 70px;" type="button"
+                    <button class="btn btn-outline-secondary mb-5" style="width: 70px;" type="button"
                         id="comment_create">등록</button>
                 </div><!--댓글 데이터 입력-->
             </div>

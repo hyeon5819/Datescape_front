@@ -39,7 +39,7 @@ async function loadSearch() {
         </div>
         `
   });
-  createPagination(Math.ceil(response.count / 5), page) // 페이지 수 수정
+  createPagination(Math.ceil(response.count / 9), page) // 페이지 수 수정
 }
 loadSearch()
 

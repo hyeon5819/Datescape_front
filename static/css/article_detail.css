@@ -32,6 +32,16 @@ body {
     color: #2FA4FF;
 }
 
+.title_box .title_center {
+    border: 1px solid #aaa;
+    padding: 20px;
+    border-radius: 25px;
+}
+
+.title_box .title_center img {
+    width: 300px;
+}
+
 .title_box .title_right {}
 
 .title_box .title_right button {}
@@ -44,20 +54,19 @@ body {
 
 
 #image_box {
-    height: 300px;
     display: flex;
     flex-flow: row wrap;
     margin: 0 auto 50px;
-    padding: 25px 0 0 40px;
+    padding: 25px 0 25px 40px;
     width: 42%;
     border: 1px solid rgba(200, 200, 200, 0.5);
     border-radius: 25px;
 }
 
 #image_box img {
-    margin-right: 23px;
-    width: 100px;
-    height: 100px;
+    margin: 0 23px 20px 0;
+    width: 145px;
+    height: 145px;
     border-radius: 25px;
     border: 1px solid rgba(200, 200, 200, 0.5);
     padding: 10px;

@@ -34,8 +34,10 @@ window.onload = async () => {
                     <p class="user">
                         작성자: <span class="title_left_user">${data.user}</span>
                     </p><!-- e:user -->
-
                 </div><!-- e:title_left -->
+                <div class="title_center mb-5">
+                    <img src="${image_url}/${data.main_image}" alt=""><!-- e:대표이미지 -->
+                </div><!-- e:title_center -->
                 <div class="title_right">
                     <a href="${front_base_url}/templates/article_update.html?id=${articleId}&/" button
                         class="btn btn-outline-secondary" type="button" id="article-fix">수정</a>
@@ -85,8 +87,9 @@ async function articleDelete() {
         );
         if (response.status == 204) {
             alert("삭제되었습니다.");
-            window.opener.location.reload()
+            // window.opener.location.reload()
             window.close()
+            window.location.href = `${front_base_url}/templates/article_list.html`
         } else {
             alert("권한이 없습니다!");
         }

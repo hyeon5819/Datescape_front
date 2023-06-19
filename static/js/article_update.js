@@ -24,7 +24,7 @@ document.querySelector('#score_out').addEventListener('input', element => {
 
 // 게시글 정보 가져오기
 async function articleLoad() {
-    const response = await fetch(`${back_base_url}/articles/${articleId}`, {
+    const response = await fetch(`${back_base_url}/articles/${articleId}/`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },

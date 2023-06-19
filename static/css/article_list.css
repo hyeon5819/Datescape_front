@@ -44,3 +44,14 @@
 .pagination li.disabled a {
     color: #ccc;
 }
+
+.card {
+    border-radius: 25px !important;
+}
+
+.card img {
+    width: 100%;
+    margin: 0 auto;
+    border-top-left-radius: 25px !important;
+    border-top-right-radius: 25px !important;
+}

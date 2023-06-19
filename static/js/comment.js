@@ -95,6 +95,7 @@ async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbt
                     const emoticonImage = document.createElement('img')
                     emoticonImage.setAttribute('src', `${image_url}${image.image}`)
                     emoticonImage.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover;')
+                    emoticonImage.setAttribute('class', 'emoticon')
                     // 이모티콘 클릭했을때 입력창에 넣어주기
                     const image_input_box = document.getElementById(use_emoticon)
                     emoticonImage.addEventListener('click', function () {
@@ -132,6 +133,7 @@ async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbt
             userEmoticon.appendChild(userEmoticonButton)
 
             const userEmoticonButtonSpan = document.createElement('span')
+            userEmoticonButtonSpan.setAttribute('class', 'emoticon')
             userEmoticonButtonSpan.innerText = user_emoticon.title
             userEmoticonButton.appendChild(userEmoticonButtonSpan)
         });
@@ -217,6 +219,7 @@ async function commentUpdate(comment_id) {
 
     const updateCommentEmoticon = document.createElement('img')
     updateCommentEmoticon.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover; margin: auto;')
+    updateCommentEmoticon.setAttribute('class', 'emoticon')
     updateCommentEmoticon.setAttribute('id', 'update_use_emoticon')
     if (commentUsedEmoticonSrc == undefined) {
         updateCommentEmoticon.removeAttribute('src')
@@ -402,7 +405,7 @@ async function commentView() {
     try {
         response_comment.forEach(element => {
             const cardDiv = document.createElement("div")
-            cardDiv.setAttribute('class', 'card')
+            cardDiv.setAttribute('class', 'card mt-3')
             cardDiv.setAttribute('style', 'width: 100%; flex-direction: row;')
             cardDiv.setAttribute('id', 'comment' + `${element.id}`)
             cardDiv.setAttribute('value', element.id)
@@ -430,6 +433,7 @@ async function commentView() {
             } else {
                 commentEmoticon.setAttribute('src', `${image_url}${element.emoticon_image}`)
                 commentEmoticon.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover;')
+                commentEmoticon.setAttribute('class', 'emoticon')
                 commentEmoticon.setAttribute('id', `comment_use_emoticon${element.use_emoticon}`)
                 commentEmoticon.setAttribute('alt', `${element.use_emoticon}`)
                 commentDiv.appendChild(commentEmoticon)
@@ -443,7 +447,7 @@ async function commentView() {
 
             const buttonDiv = document.createElement("div")
             cardDiv.appendChild(buttonDiv)
-            buttonDiv.setAttribute('style', 'width: 10%;')
+            buttonDiv.setAttribute('style', 'width: 10%; display:flex;align-items:center; justify-content:space-evenly')
 
             if (localStorage.getItem("access")) {
                 const userId = JSON.parse(localStorage.getItem("payload")).user_id
@@ -468,7 +472,8 @@ async function commentView() {
 
             let likeButton = document.createElement("button")
             cardDiv.appendChild(likeButton)
-            likeButton.setAttribute('style', 'width: 10%; border: none;')
+            likeButton.setAttribute('style', 'width: 7%;background: transparent;border: 1px solid #aaa;margin: 10px 20px;border-radius: 25px;padding: 10px;')
+            likeButton.setAttribute('class', 'hover_btn')
             likeButton.innerText = `🤍\n${element.likers.length}`
             for (let i = 0; i < element.likers.length; i++) {
                 if (userId == element.likers[i].likers) {

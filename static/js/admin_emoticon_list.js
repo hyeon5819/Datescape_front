@@ -2,11 +2,11 @@
 if (!localStorage.getItem("access")) {
     alert("로그인이 필요합니다.")
     window.location.href = `${front_base_url}/templates/logintemp.html`
-} else{
+} else {
     const payload = localStorage.getItem("payload");
     const payloadParse = JSON.parse(payload)
 
-    if (payloadParse.is_admin == false){
+    if (payloadParse.is_admin == false) {
         alert("관리자만 접근 가능합니다.")
         window.location.href = `${front_base_url}/`
     }
@@ -15,7 +15,7 @@ if (!localStorage.getItem("access")) {
 
 
 // 이모티콘 리스트 가져오기
-async function getAdminEmoticonList(){
+async function getAdminEmoticonList() {
     const access = localStorage.getItem("access");
 
     const response = await fetch(`${back_base_url}/emoticons/payment/admin/`, {
@@ -61,13 +61,13 @@ async function getAdminEmoticonList(){
 
             let detailButton = document.createElement('button')
             detailButton.innerText = '판매 중'
-            if (element.db_status == 2){
+            if (element.db_status == 2) {
                 detailButton.innerText = '판매 중단'
                 detailButton.disabled = true
             }
 
             let soldCount = document.createElement('p')
-            if (element.sold_count == null){
+            if (element.sold_count == null) {
                 soldCount.innerText = '누적 판매량: ' + 0
             } else {
                 soldCount.innerText = '누적 판매량: ' + element.sold_count.length
@@ -75,7 +75,7 @@ async function getAdminEmoticonList(){
             soldCount.setAttribute('class', 'mt-3 mb-0')
 
             let detailCount = document.createElement('button')
-            detailCount.setAttribute('onclick', `location.href='${front_base_url}/templates/admin_emoticon_detail_count.html?emoticon_id=${element.id}'`)
+            detailCount.setAttribute('onclick', `location.href='${front_base_url}/templates/admin_emoticon_detail_count.html?emoticon_id=${element.id}&/'`)
             detailCount.innerText = '상세'
 
             let price = document.createElement('p')
@@ -92,7 +92,7 @@ async function getAdminEmoticonList(){
             cardBody.appendChild(soldCount)
             cardBody.appendChild(detailCount)
         });
-    } else if (response.status == 403){
+    } else if (response.status == 403) {
         alert('관리자만 접근 가능합니다!');
         location.href = '/'
     }

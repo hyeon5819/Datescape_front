@@ -16,7 +16,7 @@ async function injectNavbar() {
         const payload_parse = JSON.parse(payload)
 
         const intro = document.getElementById("intro")
-        intro.innerText = `${payload_parse.username}님`
+        intro.innerText = `${payload_parse.nickname}님`
 
         const mypage = document.getElementById("mypage")
         mypage.innerText = "마이페이지"
@@ -41,7 +41,7 @@ async function injectNavbar() {
         let signUpButton = document.getElementById("navbar-signup")
         signUpButton.style.display = "none";
 
-        if (payload_parse.is_admin == true){
+        if (payload_parse.is_admin == true) {
             const adminButton = document.getElementById("admin")
             adminButton.style.display = "block"
         }

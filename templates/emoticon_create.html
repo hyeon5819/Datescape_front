@@ -15,11 +15,12 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../static/css/common.css">
     <style>
-        label:hover{
+        label:hover {
             cursor: pointer;
         }
     </style>
 </head>
+
 <body>
     <header></header>
 
@@ -38,22 +39,23 @@
                     이미지 등록
                 </label>
             </div>
-            <input type="file" id="image" name="image" accept="image/*" onchange="loadFile(this)" style="display: none;" multiple>
+            <input type="file" id="image" name="image" accept="image/*" onchange="loadFile(this)" style="display: none;"
+                multiple>
             <!---->
-            
-            
+
+
             <!-- <input type="file" onchange="handleFileSelect(event)" name="image" id="image" accept="image/*" multiple /><br> -->
         </form>
-        
-        <!---->        
+
+        <!---->
         <div class="image-show" id="image-show"></div>
         <!---->
         <button class="btn btn-outline-info text-black mt-3" type="button" onclick="emoticonCreate()">제출</button>
-</div>
+    </div>
 
-<footer></footer>
-<script src="../components/urls.js"></script>
-<script src="../static/js/navbar.js"></script>
+    <footer></footer>
+    <script src="../components/urls.js"></script>
+    <script src="../static/js/navbar.js"></script>
     <script src="../static/js/emoticon_create.js"></script>
 </body>
 

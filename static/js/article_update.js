@@ -159,7 +159,7 @@ window.onload = function () {
 
     let ul = document.getElementById("tag_ul")
 
-    searchInput.addEventListener('keydown', function (event) {
+    searchInput.addEventListener('keypress', function (event) {
         if (event.key === 'Enter') {
             event.preventDefault();
             // 엔터 키 입력

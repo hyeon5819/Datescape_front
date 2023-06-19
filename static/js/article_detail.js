@@ -36,7 +36,7 @@ window.onload = async () => {
                     </div><!-- e:title_left -->
                     <div class="title_right">
                         <a href="${front_base_url}/templates/article_update.html?id=${articleId}&/" button class="btn btn-outline-secondary" type="button" id="article-fix">수정</a>
-                        <a button class="btn btn-outline-secondary" type="button">삭제</a>
+                        <a button class="btn btn-outline-secondary" onclick="articleDelete()" type="button">삭제</a>
                         <a href="${front_base_url}/templates/article_list.html" class="btn btn-outline-secondary" type="button">목록</a>
                     </div><!-- e:title_right -->
                 </div><!-- e:title_box -->
@@ -47,12 +47,8 @@ window.onload = async () => {
                     ${data.content}
                 </div><!-- e:content_box -->
                 <div class="map_box">
-                    <div class="map_title">
-                        주소 : ${data.road_address}
-                    </div>
                     <div class="map_content">
-                        위도 : ${data.coordinate_x}
-                        경도 : ${data.coordinate_y}
+                    주소 : ${data.road_address}
                         <div id="map" style="width:500px;height:400px;"></div>
                     </div>
                 </div><!-- e:map_box -->
@@ -69,12 +65,35 @@ window.onload = async () => {
     for (let i = 0; i < await data.image.length; i++) {
         console.log(data.image[i])
         imageHtml += `
-        <img src="${data.image[i]["image"]}" alt="자동추가되게하자~">
+        <img src="${image_url}/${data.image[i]["image"]}" alt="자동추가되게하자~">
         `
         // tag_add += '#' + data.results[i].tags[a].tag + ' '
     }
     image_box.innerHTML = imageHtml
     loadArticlePosition(data)
+}
+async function articleDelete() {
+    if (confirm("삭제하시겠습니까?")) {
+        const response = await fetch(
+            `${back_base_url}/articles/${articleId}/`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                method: "DELETE",
+            }
+        );
+        if (response.status == 204) {
+            alert("삭제되었습니다.");
+            window.opener.location.reload()
+            window.close()
+        } else {
+            alert("권한이 없습니다!");
+        }
+    } else {
+        // 취소 버튼을 눌렀을 경우
+        return false;
+    }
 }
 /*지도에 좌표 찍기 */
 async function loadArticlePosition(position) {

@@ -8,10 +8,7 @@ window.onload = async () => {
 
     async function fetchArticles(pageNumber) {
         articleHtml = '' // 변수 초기화
-        const response = await fetch(`${back_base_url}/articles/?page=${pageNumber}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
+        const response = await fetch(`${back_base_url}/articles/?page=${pageNumber}&/`, {
             method: 'GET',
         })
         const data = await response.json()
@@ -26,12 +23,12 @@ window.onload = async () => {
                 }
 
                 articleHtml += `
-                <div class="col article_detail me-5" onclick="detail_page(${article.id})">
-                    <div class="card h-50">
+                <div class="col article_detail" onclick="detail_page(${article.id})">
+                    <div class="card h-100">
                         <img text-align:center;" src="${image_url}${article.main_image}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">${article.title}</h5>
-                            <p class="card-text">${article.content}</p>
+                            <p class="card-text content">${article.content}</p>
                         </div><!-- e:body -->
                         <div class="card-footer d-flex justify-content-between">
                             <span class="text-muted">${article.user}</span>
@@ -44,7 +41,7 @@ window.onload = async () => {
             card_box.innerHTML = articleHtml
 
             // 페이징 업데이트
-            createPagination(Math.ceil(data.count / 5), pageNumber) // 페이지 수 수정
+            createPagination(Math.ceil(data.count / 9), pageNumber) // 페이지 수 수정
         } else {
             console.error(data.detail)
         }

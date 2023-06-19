@@ -1,5 +1,5 @@
 async function loadMain() {
-  response_1 = await getSearch('article', '하이', '1')
+  response_1 = await getRandom('article')
   const articles1 = document.getElementById('articles-1')
   articles1.innerHTML = ''
   response_1.results.forEach(article => {
@@ -7,7 +7,7 @@ async function loadMain() {
     var place = jibun.split(' ')
     articles1.innerHTML += `
         <div class="col " >
-        <div class="card text-bg-dark border-light rounded-4" style="height:17rem; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}/';">
+        <div class="card text-bg-dark border-light rounded-4" style="height:17rem; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}&/';">
         <img class="cardimg rounded-4" src="${article.main_image}" alt="..." >
         <div class="d-flex flex-column card-img-overlay img-cover p-4 text-shadow-1 rounded-4">
         <h4 class="card-title cardtitle fw-bold">${article.title}</h4>
@@ -28,7 +28,7 @@ async function loadMain() {
         </div >
         `
   });
-  response_2 = await getSearch('tag', '바다', '1')
+  response_2 = await getRandom('tag')
   const articles2 = document.getElementById('articles-2')
   articles2.innerHTML = ''
   response_2.results.forEach(article => {
@@ -36,7 +36,7 @@ async function loadMain() {
     var place = jibun.split(' ')
     articles2.innerHTML += `
     <div class="col " >
-    <div class="card text-bg-dark border-light rounded-4" style="height:17rem; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}/';">
+    <div class="card text-bg-dark border-light rounded-4" style="height:17rem; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}&/';">
     <img class="card-img cardimg rounded-4 mh-100" src="${article.main_image}" alt="..." >
     <div class="d-flex flex-column card-img-overlay img-cover p-4 text-shadow-1 rounded-4">
     <h4 class="card-title cardtitle fw-bold">${article.title}</h4>

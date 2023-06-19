@@ -4,8 +4,54 @@ let access = localStorage.getItem("access")
 window.onload = async function () {
     console.log("profile 페이지!!")
     getmyprofile()
+    // setTimeout(autologout, 6000)
+    onuser_activite()
+}
+async function handleLogout() {
+    alert("로그아웃!")
+    localStorage.removeItem("access")
+    localStorage.removeItem("refresh")
+    localStorage.removeItem("payload")
+    location.reload();
 }
 
+// 테스트
+function autologout() {
+    confirm("60초뒤 로그아웃 됩니다. 연장을 원하시면 확인을 눌러주세요")
+}
+
+// 자동로그인 테스트
+var logoutUser = false;
+var timeoutHnd = null;
+var logouTimeInterval = 24 * 60 * 60 * 1000; // 24 hour -> ms
+function onuser_activite() {
+    if (logoutUser) {
+        OnTimeoutReached();
+    }
+    else {
+        ResetLogOutTimer();
+    }
+}
+
+// 타임아웃 도달
+function OnTimeoutReached() {
+    logoutUser = true;
+    handleLogout()
+    alert("자동로그아웃되었습니다. 다시 로그인 해주세요!");
+    window.location.href = "/";
+}
+function ResetLogOutTimer() {
+    clearTimeout(timeoutHnd);
+    // set new timer
+    timeoutHnd = setTimeout('OnTimeoutReached();', logouTimeInterval);
+}
+
+
+document.body.onclick = onuser_activite;
+timeoutHnd = setTimeout('OnTimeoutReached();', logouTimeInterval);
+
+
+// 프로필 수정페이지 팝업
 function profileedit_win_open() {
     let url = "/templates/profileedit.html";
     let name = "프로필 수정 페이지";
@@ -31,45 +77,56 @@ async function getmyprofile() {
 
     const result = await response.json()
 
+    let profileimage = result.profileimage
+    let profileimageurl = result.profileimageurl
+
     // console.log(result)
     // console.log(result.email)
     // console.log(result.username)
     console.log(result.profileimage)
-    // console.log(result.profileimageurl)
+    console.log(result.profileimageurl)
+
+    console.log(profileimage)
+    console.log(profileimageurl)
     // console.log(result.profileimage.split('/media/')[1])
     // console.log(result.profileimage.split('/media/'), 1)
     const email = document.getElementById('email')
-    const username = document.getElementById('username')
-    const profileimage = document.getElementById('profileimage')
+    const nickname = document.getElementById('nickname')
+    const image = document.getElementById('image')
 
     email.innerText = result['email']
-    username.innerText = result['username']
+    nickname.innerText = result['nickname']
 
     // profileimage.setAttribute("imageURL", "result.profileimage.split('/media/')[1]")
 
-    if (login_type == "normal") {
-        profileimage.setAttribute("src", `${image_url}` + result.profileimage)
+    if (profileimage !== null) {
+        image.setAttribute("src", `${image_url}` + result.profileimage)
 
     }
-    else if (login_type == "kakao" || "google" || "github" || "naver") {
-        profileimage.setAttribute("src", result.profileimageurl)
+    // else if (!profileimage) {
+    //     profileimage.setAttribute("src", "../static/images/default.png")
+    // }
+    else if (profileimage == null) {
+        image.setAttribute("src", result.profileimageurl)
     }
     else {
-        profileimage.setAttribute("src", "../static/images/default.png")
+        image.setAttribute("src", "../static/images/default.png")
     }
-
-
-
 }
+
+// 일반로그인 회원 => 프로필이미지 있음
+// 소셜로그인 회원 => 초기 세팅 - 프로필이미지 없음, 프로필이미지url있음
+// 프로필수정시, 프로필 이미지 있음
+// 프로필 이미지, 프로필url 모두 없으면 default이미지
 
 // 프로필 정보 수정
 async function profileedit() {
     const formData = new FormData();
 
-    const username = document.getElementById("username").value
+    const nickname = document.getElementById("username").value
     const profileimage = document.getElementById("profileimage").files[0]
 
-    formData.append("username", username);
+    formData.append("nickname", nickname);
     if (profileimage) {
         formData.append("profileimage", profileimage);
     }
@@ -90,6 +147,7 @@ async function profileedit() {
         console.log(response)
         alert("프로필수정완료!")
         win_close()
+        opener.location.reload();
     } else {
         console.log(result)
         console.log(response.status)

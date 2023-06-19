@@ -26,7 +26,7 @@ function emoticonToggle(emoticon_popup, emoticonbtn) {
 
 // 댓글 불러오기
 async function getComment() {
-    const response = await fetch(`${back_base_url}/articles/${articleId}/comments/`,{
+    const response = await fetch(`${back_base_url}/articles/${articleId}/comments/`, {
         headers: {
             Authorization: `Bearer ${access}`,
         },
@@ -62,7 +62,7 @@ async function getUserEmoticon() {
 
 // 이모티콘 버튼에 리스트 만들기
 async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbtn, emoticon_images, use_emoticon, comment_content) {
-    if (document.getElementById("update_emojis")){
+    if (document.getElementById("update_emojis")) {
         const updateEmojis = "update_emojis"
         const updateCommentId = document.getElementById("update_emojis").getAttribute('name')
         putEmoji(updateEmojis, updateCommentId)
@@ -95,6 +95,7 @@ async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbt
                     const emoticonImage = document.createElement('img')
                     emoticonImage.setAttribute('src', `${image_url}${image.image}`)
                     emoticonImage.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover;')
+                    emoticonImage.setAttribute('class', 'emoticon')
                     // 이모티콘 클릭했을때 입력창에 넣어주기
                     const image_input_box = document.getElementById(use_emoticon)
                     emoticonImage.addEventListener('click', function () {
@@ -132,6 +133,7 @@ async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbt
             userEmoticon.appendChild(userEmoticonButton)
 
             const userEmoticonButtonSpan = document.createElement('span')
+            userEmoticonButtonSpan.setAttribute('class', 'emoticon')
             userEmoticonButtonSpan.innerText = user_emoticon.title
             userEmoticonButton.appendChild(userEmoticonButtonSpan)
         });
@@ -217,6 +219,7 @@ async function commentUpdate(comment_id) {
 
     const updateCommentEmoticon = document.createElement('img')
     updateCommentEmoticon.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover; margin: auto;')
+    updateCommentEmoticon.setAttribute('class', 'emoticon')
     updateCommentEmoticon.setAttribute('id', 'update_use_emoticon')
     if (commentUsedEmoticonSrc == undefined) {
         updateCommentEmoticon.removeAttribute('src')
@@ -260,7 +263,7 @@ async function commentUpdate(comment_id) {
     chDiv.appendChild(updateEmoticonList)
 
     const kkkk = document.createElement('div')
-    kkkk.setAttribute('class','row row-cols-1 row-cols-md-2')
+    kkkk.setAttribute('class', 'row row-cols-1 row-cols-md-2')
     chDiv.appendChild(kkkk)
 
     const updateEmoticonImages = document.createElement('div')
@@ -271,8 +274,8 @@ async function commentUpdate(comment_id) {
 
     const llll = document.createElement('div')
     llll.setAttribute('style', 'overflow-y: scroll; width: 47%;height: 220px;')
-    llll.setAttribute('id','update_emojis')
-    llll.setAttribute('name',`${comment_id}`)
+    llll.setAttribute('id', 'update_emojis')
+    llll.setAttribute('name', `${comment_id}`)
     kkkk.appendChild(llll)
     // const update_emojis = "update_emojis"
     // putEmoji(update_emojis)
@@ -281,7 +284,7 @@ async function commentUpdate(comment_id) {
     emoticonDiv.appendChild(updateEmoticonButton)
     emoticonDiv.appendChild(popupParentsDiv)
 
-    
+
     const updateCommentInput = document.createElement('input')
     updateCommentInput.setAttribute('type', 'text')
     updateCommentInput.setAttribute('class', 'form-control')
@@ -399,10 +402,10 @@ async function commentView() {
     // 댓글 리스트 보여주기
     const commentContent = document.getElementById("comment");
 
-    try{
+    try {
         response_comment.forEach(element => {
             const cardDiv = document.createElement("div")
-            cardDiv.setAttribute('class', 'card')
+            cardDiv.setAttribute('class', 'card mt-3')
             cardDiv.setAttribute('style', 'width: 100%; flex-direction: row;')
             cardDiv.setAttribute('id', 'comment' + `${element.id}`)
             cardDiv.setAttribute('value', element.id)
@@ -416,7 +419,7 @@ async function commentView() {
             //신고하기
             const reportButton = document.createElement("button")
             reportButton.setAttribute('style', 'width: 30%; margin: auto auto 5px auto; border: none;')
-            reportButton.setAttribute('onclick', `commentReport(${element.id})`)
+            reportButton.setAttribute('onclick', `Report_button(3,${element.id})`)
             reportButton.setAttribute('class', "btn btn-light btn-sm")
             reportButton.innerText = '🚨'
             nicknameDiv.appendChild(reportButton)
@@ -426,10 +429,11 @@ async function commentView() {
             commentDiv.setAttribute('style', 'width: 75%;')
 
             const commentEmoticon = document.createElement('img')
-            if(element.use_emoticon == null){
-            } else{
+            if (element.use_emoticon == null) {
+            } else {
                 commentEmoticon.setAttribute('src', `${image_url}${element.emoticon_image}`)
                 commentEmoticon.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover;')
+                commentEmoticon.setAttribute('class', 'emoticon')
                 commentEmoticon.setAttribute('id', `comment_use_emoticon${element.use_emoticon}`)
                 commentEmoticon.setAttribute('alt', `${element.use_emoticon}`)
                 commentDiv.appendChild(commentEmoticon)
@@ -443,7 +447,7 @@ async function commentView() {
 
             const buttonDiv = document.createElement("div")
             cardDiv.appendChild(buttonDiv)
-            buttonDiv.setAttribute('style', 'width: 10%;')
+            buttonDiv.setAttribute('style', 'width: 10%; display:flex;align-items:center; justify-content:space-evenly')
 
             if (localStorage.getItem("access")) {
                 const userId = JSON.parse(localStorage.getItem("payload")).user_id
@@ -468,13 +472,14 @@ async function commentView() {
 
             let likeButton = document.createElement("button")
             cardDiv.appendChild(likeButton)
-            likeButton.setAttribute('style', 'width: 10%; border: none;')
+            likeButton.setAttribute('style', 'width: 7%;background: transparent;border: 1px solid #aaa;margin: 10px 20px;border-radius: 25px;padding: 10px;')
+            likeButton.setAttribute('class', 'hover_btn')
             likeButton.innerText = `🤍\n${element.likers.length}`
             for (let i = 0; i < element.likers.length; i++) {
-                if(userId == element.likers[i].likers){
+                if (userId == element.likers[i].likers) {
                     likeButton.innerText = `❤️\n${element.likers.length}`
                     break;
-                }else{
+                } else {
                     likeButton.innerText = `🤍\n${element.likers.length}`
                 }
             }
@@ -488,7 +493,7 @@ async function commentView() {
 
 
 // 댓글 좋아요
-async function commentLike(comment_id){
+async function commentLike(comment_id) {
     const formData = new FormData()
 
     formData.append('comment_id', comment_id)
@@ -504,9 +509,9 @@ async function commentLike(comment_id){
 
     if (responseLike.status == 200) {
         const heart = document.getElementById(`like${comment_id}`)
-        if (data.message == "좋아요!"){
+        if (data.message == "좋아요!") {
             heart.innerText = `❤️\n${data.comment_likes}`
-        }else if(data.message == "좋아요 취소!"){
+        } else if (data.message == "좋아요 취소!") {
             heart.innerText = `🤍\n${data.comment_likes}`
         }
     } else {
@@ -520,21 +525,21 @@ const commentInputBox = document.getElementById("comment_content");
 
 commentInputBox.addEventListener("input", function () {
     const valueSplit = commentInputBox.value.split(":")
-    if (valueSplit.length >= 2){
+    if (valueSplit.length >= 2) {
         for (let i = 1; i < valueSplit.length; i++) {
-            if(valueSplit[i-1] in emojiTagDic){
-                valueSplit[i-1] = emojiTagDic[valueSplit[i-1]]
+            if (valueSplit[i - 1] in emojiTagDic) {
+                valueSplit[i - 1] = emojiTagDic[valueSplit[i - 1]]
 
                 // 리스트 마지막 '' 제거
-                valueSplit.splice(i,1)
+                valueSplit.splice(i, 1)
 
                 commentInputBox.value = ''
                 for (let i = 0; i < valueSplit.length; i++) {
-                        if(i >= valueSplit.length-2){
-                            commentInputBox.value += valueSplit[i]
-                        } else {
-                            commentInputBox.value += valueSplit[i] + ":"
-                        }
+                    if (i >= valueSplit.length - 2) {
+                        commentInputBox.value += valueSplit[i]
+                    } else {
+                        commentInputBox.value += valueSplit[i] + ":"
+                    }
                 };
                 break
             }

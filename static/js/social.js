@@ -74,11 +74,16 @@ export async function sendCode() {
     console.log(code)
     if (code) {
         state = new URLSearchParams(window.location.search).get('state')
+        console.log(social)
         if (state) {
             social = 'naver-login'
         }
         else {
-            social = 'kakao-login'
+            if (social !== 'github-login')
+                social = 'kakao-login'
+            else {
+                social = 'github-login'
+            }
         }
     }
     else {

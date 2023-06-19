@@ -1,7 +1,7 @@
 async function getAddress(position) {
     // kakao api를 이용해서 좌표를 주소로 바꿔주기
     // https://developers.kakao.com/docs/latest/ko/local/dev-guide#coord-to-address
-    const response = await fetch(`https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${position.coords.longitude}&y=${position.coords.latitude}&input_coord=WGS84`, {
+    const response = await fetch(`https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${position.coords.longitude}&y=${position.coords.latitude}&input_coord=WGS84&/`, {
         method: 'GET',
         headers: {
             'Authorization': `KakaoAK ${REST_API_KEY}`
@@ -16,7 +16,7 @@ async function getAddress(position) {
 
 // 근처 데이터 가져오기
 async function getNearPosition(position) {
-    const response = await fetch(`${back_base_url}/articles/location-list/?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`)
+    const response = await fetch(`${back_base_url}/articles/location-list/?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&/`)
 
     if (response.status == 200) {
         const response_json = await response.json()
@@ -28,7 +28,7 @@ async function getNearPosition(position) {
 
 // 장소 리뷰 가져오기
 async function getNearAritcle(location) {
-    const response = await fetch(`${back_base_url}/articles/location-articles/?location=${location}`)
+    const response = await fetch(`${back_base_url}/articles/location-articles/?location=${location}&/`)
 
     if (response.status == 200) {
         const response_json = await response.json()
@@ -153,7 +153,7 @@ async function loadMyList(location) {
         var place = jibun.split(' ')
         location_list.innerHTML += `
         <div class="col" >
-        <div class="card text-bg-dark border-light rounded-4" style="height:300px; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}/';">
+        <div class="card text-bg-dark border-light rounded-4" style="height:300px; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}&/';">
         <img src="${article.main_image}" class="card-img cardimg mh-100 rounded-4" alt="..." >
         <div class="card-img-overlay img-cover rounded-4" style="padding: 30px;">
         <h4 class="card-title cardtitle mt-3">${article.title}</h4>

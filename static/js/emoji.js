@@ -1,5 +1,5 @@
 // 이모지 넣기
-function putEmoji(emojidiv_id, input_id){
+function putEmoji(emojidiv_id, input_id) {
     const emojiBox = document.getElementById(emojidiv_id)
 
     //이모지 넣을때 split해서 넣기
@@ -7,7 +7,8 @@ function putEmoji(emojidiv_id, input_id){
     emojiInstance.forEach(element => {
         const emojiIconSpan = document.createElement('span')
         emojiIconSpan.textContent = element
-        emojiIconSpan.setAttribute('style','font-size: 30px')
+        emojiIconSpan.setAttribute('style', 'font-size: 30px')
+        emojiIconSpan.setAttribute('class', 'emoticon')
         emojiBox.appendChild(emojiIconSpan)
     });
 
@@ -15,11 +16,11 @@ function putEmoji(emojidiv_id, input_id){
     let emojiIcons = emojiBox.childNodes
     emojiIcons.forEach(element => {
         element.addEventListener('click', function () {
-            if(isNaN(parseInt(input_id))){
+            if (isNaN(parseInt(input_id))) {
                 let commentInput = document.getElementById(input_id)
                 let nowInput = commentInput.value
                 commentInput.value = nowInput + element.innerText
-            } else{
+            } else {
                 let commentInput = document.getElementById(`update_input${input_id}`)
                 let nowInput = commentInput.value
                 commentInput.value = nowInput + element.innerText
@@ -28,6 +29,6 @@ function putEmoji(emojidiv_id, input_id){
     });
 }
 
-const emojidiv_id = 'emojiIcons' 
-const input_id = 'comment_content' 
+const emojidiv_id = 'emojiIcons'
+const input_id = 'comment_content'
 putEmoji(emojidiv_id, input_id)

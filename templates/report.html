@@ -18,19 +18,18 @@
 </head>
 
 <body style="background-color:#fffff5;">
-    <header></header>
     <div>
-        <h1 style="text-align:center;">신고 작성</h1>
+        <h1 style="text-align:center;" class="report-title">신고 작성</h1>
         <form class="w-50 m-auto mb-5">
-            <div class="mb-3">
-                <label for="title" class="form-label">제목</label>
-                <input type="text" class="form-control" id="title">
-            </div>
             <div class="mb-3">
                 <label for="content" class="form-label">신고유형</label>
                 <div id=9 class="category-select">
                 </div>
             </div>
+            <div class="mb-3">
+                <label for="title" class="form-label">제목</label>
+                <input type="text" class="form-control" id="title">
+        </div>  
             <div class="mb-3">
                 <label for="content" class="form-label">내용</label>
                 <input type="text" class="form-control" id="content">
@@ -42,8 +41,6 @@
         <div id="add_h2"></div>
         <div class="row row-cols-1 row-cols-md-3 g-5" id="result"></div>
     </div>
-    <footer></footer>
-    <script src="../static/js/navbar.js"></script>
     <script src="../static/js/report.js"></script>
     <!-- Code injected by live-server -->
 </body>

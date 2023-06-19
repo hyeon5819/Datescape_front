@@ -10,10 +10,10 @@ async function emoticonCreate() {
 
     const emoticonTitle = document.getElementById('title').value
     const emoticonImage = document.getElementById('image').files
-    
+
     if (emoticonTitle == '') {
         alert('이모티콘 제목을 작성해주세요!')
-    } else if (emoticonImage.length == 0){
+    } else if (emoticonImage.length == 0) {
         alert('이미지를 등록해주세요!')
     } else {
         const formData = new FormData();
@@ -21,7 +21,6 @@ async function emoticonCreate() {
         formData.append('title', emoticonTitle)
         for (let i = 0; i < emoticonImage.length; i++) {
             formData.append("images", emoticonImage[i]);
-            console.log(emoticonImage[i].size)
             formData.append("file_size", emoticonImage[i].size);
         }
 
@@ -49,7 +48,7 @@ async function emoticonCreate() {
 // 이모티콘 이미지파일만 받기
 const imageInput = document.getElementById("image");
 
-const acceptFile = ['xbm','tif','pjp','apng','svgz','jpg','jpeg','ico','tiff','gif','svg','jfif','webp','png','bmp','pjpeg','avif']
+const acceptFile = ['xbm', 'tif', 'pjp', 'apng', 'svgz', 'jpg', 'jpeg', 'ico', 'tiff', 'gif', 'svg', 'jfif', 'webp', 'png', 'bmp', 'pjpeg', 'avif']
 
 imageInput.addEventListener("change", function () {
     let fileList = imageInput.files;
@@ -58,8 +57,8 @@ imageInput.addEventListener("change", function () {
     for (let i = 0; i < fileList.length; i++) {
         let fileName = fileList[i].name.split('.')
 
-        if(acceptFile.includes(fileName[fileName.length-1])){
-        } else{
+        if (acceptFile.includes(fileName[fileName.length - 1])) {
+        } else {
             alert(`이미지 파일만 가능합니다!\n가능 확장자명: ${acceptFile}`)
             imageInput.value = []
         }
@@ -71,17 +70,19 @@ imageInput.addEventListener("change", function () {
 
 
 function loadFile(input) {
+    const container = document.getElementById('image-show');
+    let num = container.childNodes.length
+    for (let i = 0; i < num; i++) {
+        container.childNodes[0].remove()
+    }
+
     const files = input.files;
-    console.log(files)
-    var container = document.getElementById('image-show');
 
     for (let i = 0; i < files.length; i++) {
-        console.log(files[i])
-
         var newImage = document.createElement("img");
         newImage.setAttribute("class", 'img');
 
-        newImage.src = URL.createObjectURL(files[i]);   
+        newImage.src = URL.createObjectURL(files[i]);
 
         newImage.style.width = "100px";
         newImage.style.height = "100px";

@@ -41,7 +41,7 @@ window.onload = async () => {
             card_box.innerHTML = articleHtml
 
             // 페이징 업데이트
-            createPagination(Math.ceil(data.count / 5), pageNumber) // 페이지 수 수정
+            createPagination(Math.ceil(data.count / 9), pageNumber) // 페이지 수 수정
         } else {
             console.error(data.detail)
         }

@@ -1,5 +1,5 @@
 async function loadMain() {
-  response_1 = await getSearch('article', '하이', '1')
+  response_1 = await getRandom('article')
   const articles1 = document.getElementById('articles-1')
   articles1.innerHTML = ''
   response_1.results.forEach(article => {
@@ -28,7 +28,7 @@ async function loadMain() {
         </div >
         `
   });
-  response_2 = await getSearch('tag', '바다', '1')
+  response_2 = await getRandom('tag')
   const articles2 = document.getElementById('articles-2')
   articles2.innerHTML = ''
   response_2.results.forEach(article => {

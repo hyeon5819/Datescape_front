@@ -9,6 +9,17 @@ async function getSearch(option, search, page) {
     }
 }
 
+async function getRandom(option) {
+    const response = await fetch(`${back_base_url}/articles/article-random/?option=${option}&/`)
+
+    if (response.status == 200) {
+        const response_json = await response.json()
+        return response_json
+    } else {
+        alert("불러오는데 실패하였습니다.")
+    }
+}
+
 function selectOption(x) {
     if (x == 1) {
         document.getElementById('option').innerHTML = "article"

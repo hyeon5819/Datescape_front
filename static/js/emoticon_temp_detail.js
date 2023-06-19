@@ -57,7 +57,6 @@ async function emoticonDelete(emoticon_id, creator) {
 async function emoticonUpdate(emoticon_id, creator) {
 
     if (userId == creator) {
-        console.log('수정')
         let emoticons = document.getElementById('images')
         let emoticonImages = emoticons.childNodes
 
@@ -151,7 +150,6 @@ async function emoticonUpdateConfirm(emoticon_id) {
     formData.append("remove_images", removeImagesList)
     for (let i = 0; i < addImages.length; i++) {
         formData.append("images", addImages[i]);
-        console.log(addImages[i].size)
         formData.append("file_size", addImages[i].size);
     }
 

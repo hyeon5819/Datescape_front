@@ -2,11 +2,11 @@
 if (!localStorage.getItem("access")) {
     alert("로그인이 필요합니다.")
     window.location.href = `${front_base_url}/templates/logintemp.html`
-} else{
+} else {
     const payload = localStorage.getItem("payload");
     const payloadParse = JSON.parse(payload)
 
-    if (payloadParse.is_admin == false){
+    if (payloadParse.is_admin == false) {
         alert("관리자만 접근 가능합니다.")
         window.location.href = `${front_base_url}/`
     }
@@ -39,7 +39,6 @@ async function getEmoticon(emoticon_id) {
 
 // 판매량
 function totalAmount(emoticon) {
-    // console.log(emoticon)
     const amountTbody = document.getElementById('amount_div')
 
     const amountTr = document.createElement('tr')
@@ -66,7 +65,7 @@ function totalAmount(emoticon) {
     amountTr.appendChild(priceTd)
     amountTr.appendChild(countTd)
     amountTr.appendChild(saleAmountTd)
-    
+
     const tempTr = document.createElement('tr')
     amountTbody.appendChild(tempTr)
 }
@@ -78,12 +77,6 @@ async function searchMonth(rsp) {
     // 입력으로 조회
     const yearInput = document.getElementById('year')
     const monthInput = document.getElementById('month')
-
-    console.log(yearInput.value)
-    console.log(monthInput.value)
-
-    console.log(response)
-    // console.log(response.sold_count[0].created_at.split('-'))
 
     // 월별 판매량
     let sellNum = 0
@@ -101,9 +94,9 @@ async function searchMonth(rsp) {
             alertStatus = "year_null"
         }
     }
-    if (alertStatus == "year_null"){
+    if (alertStatus == "year_null") {
         alert('해당 년도 기록 없음!')
-    } else if (alertStatus == "month_null"){
+    } else if (alertStatus == "month_null") {
         alert('해당 월 기록 없음!')
     } else {
         //
@@ -154,10 +147,10 @@ async function emoticonDeail() {
     totalAmount(response)
 
     const searchButton = document.getElementById('searchButton')
-    searchButton.addEventListener('click', function(){
-        if (response.sold_count == 0){
+    searchButton.addEventListener('click', function () {
+        if (response.sold_count == 0) {
             alert('판매 기록이 없습니다!')
-        } else{
+        } else {
             searchMonth(response)
         }
     })

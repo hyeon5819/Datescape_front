@@ -25,8 +25,16 @@
         </form>
     </div>
     <div class="container text-center mt-3">
-        <button onclick="location.href='../templates/admin_emoticon_list.html'">관리자/ 이모티콘리스트</button>
-        <button onclick="location.href='/'">홈</button>
+        <button onclick="location.href='../templates/admin_emoticon_list.html'">관리자 / 이모티콘리스트</button>
+        <div>
+            <select name="db_status" id="db_status">
+                <option value="0">신청 상태</option>
+                <option value="1">판매 중</option>
+                <option value="2">판매 중단</option>
+                <option value="3">삭제 상태</option>
+            </select>
+            <button id="db_status_button">상태 변경하기</button>
+        </div>
     </div>
     <div class="container text-center mt-3">
         <h2 class="mt-5">누적 판매량</h2>

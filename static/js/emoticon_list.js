@@ -1,5 +1,5 @@
 // 이모티콘 리스트 가져오기
-async function getEmoticonList(){
+async function getEmoticonList() {
     const response = await fetch(`${back_base_url}/emoticons/list/`, {
         method: "GET",
     });

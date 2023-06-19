@@ -103,8 +103,16 @@ async function userReport() {
             method: "POST",
             body: formData,
         });
-
-        const data = await response.json();
-        console.error(data);
+        if (response.status == 200) {
+            opener.alert("신고 성공")
+            window.close();
+        }
+        alert("신고가 잘못되었습니다")
+    }
+    else {
+        alert("신고유형이 선택되지 않았습니다.")
     }
 }
+
+// opener.alert("신고 성공")
+// window.close();

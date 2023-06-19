@@ -128,12 +128,45 @@ async function searchMonth(rsp) {
 }
 
 
+// 이모티콘 판매 상태 변경
+async function statusUpdate(emoticon_data) {
+    const access = localStorage.getItem("access");
+
+    const updateStatus = document.getElementById('db_status')
+    const title = emoticon_data.title
+    const db_status = updateStatus.value
+
+    const formData = new FormData()
+
+    formData.append('title', title)
+    formData.append('db_status', db_status)
+    formData.append('emoticon_id', emoticonId)
+
+
+    const response_update = await fetch(`${back_base_url}/emoticons/`, {
+        headers: {
+            Authorization: `Bearer ${access}`
+        },
+        body: formData,
+        method: "PUT",
+    })
+    if (response_update.status == 200) {
+        alert('상태 수정 완료')
+        window.location.reload()
+    } else {
+        alert(response_update.status);
+    }
+}
+
+
 // 이모티콘 디테일
 async function emoticonDeail() {
     const response = await getEmoticon(emoticonId)
 
     const emoticonTitle = document.getElementById('title')
     emoticonTitle.innerText = response.title
+    const emoticonDbStatus = document.getElementById('db_status')
+    emoticonDbStatus.value = response.db_status
 
     const emoticonImages = document.getElementById('images')
     response.images.forEach(element => {
@@ -152,6 +185,20 @@ async function emoticonDeail() {
             alert('판매 기록이 없습니다!')
         } else {
             searchMonth(response)
+        }
+    })
+
+    const emoticonDbStatusBtn = document.getElementById('db_status_button')
+    if (response.title == '기본') {
+        const statusSelect = document.getElementById('db_status')
+        statusSelect.disabled = true
+        emoticonDbStatusBtn.disabled = true
+    }
+    emoticonDbStatusBtn.addEventListener('click', function () {
+        if (confirm("판매 상태를 수정하시겠습니까?")) {
+            statusUpdate(response)
+        } else {
+            return false;
         }
     })
 }

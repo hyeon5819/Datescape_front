@@ -13,8 +13,8 @@ if (!access) {
     }
 }
 /*list받기 */
-async function categoryGet() {
-    serch_list = '1,2'
+async function categoryGet(ids) {
+    serch_list = ids
     const response = await fetch(`${back_base_url}/reports/childcategory?request_type=${serch_list}&/`, {
         method: "GET",
         headers: {
@@ -26,32 +26,61 @@ async function categoryGet() {
         response_data = await response.json()
         var datas = response_data["datas"]
         var names = response_data["name"]
+        console.log(datas)
         createList(datas, names)
         return;
     } else {
         alert(response.status);
     }
 }
-categoryGet()
+
 
 var card_box = document.getElementById("card_box")
-function createParent(id) {
+function createParentBox(id) {
     var col_category_detail = document.createElement("div")
     col_category_detail.className = "col category_detail"
     var card_h100 = document.createElement("div")
     card_h100.className = "card h-100"
     var card_body = document.createElement("div")
     card_body.className = "card-body"
+    var card_body2 = document.createElement("div")
+    card_body2.className = "card-body"
 
     card_box.appendChild(col_category_detail)
     col_category_detail.appendChild(card_h100)
     card_h100.appendChild(card_body)
+    card_h100.appendChild(card_body2)
 
+    var parent_is_html = document.createElement('il')
+    parent_is_html.innerHTML = id
+    var create_check = document.createElement("button")
+    create_check.onclick = function (event) {
+        child_list = event.target.parentNode.lastChild
+        var child_name_check = document.createElement("input")
+        child_name_check.type = "checkbox"
+        child_name_check.onclick = change_input
+        var child_name = document.createElement("il")
+        child_name.innerHTML = " "
+        child_name.className = "child_id"
+        var child_clear = document.createElement("input")
+        child_clear.type = "checkbox"
+        child_clear.className = "del-check"
+        child_clear.onclick = child_delet
+        var br = document.createElement("br")
+
+
+        child_list.appendChild(br)
+        child_list.appendChild(child_name_check)
+        child_list.appendChild(child_name)
+        child_list.appendChild(child_clear)
+    }
+    create_check.innerHTML = "생성하기"
+
+    var next_line = document.createElement("div")
     var card_name_check = document.createElement("input")
     card_name_check.type = "checkbox"
     card_name_check.className = id
     card_name_check.onclick = change_input
-
     var card_name = document.createElement("il")
     card_name.innerHTML = " " + id + " "
     card_name.className = "parent_id" + id
@@ -59,10 +88,12 @@ function createParent(id) {
     card_clear.type = "checkbox"
     card_clear.className = "del-check"
     card_clear.onclick = parent_delet
-
     var under_line = document.createElement("hr")
     var child_list = document.createElement("p")
 
+    card_body.appendChild(parent_is_html)
+    card_body.appendChild(create_check)
+    card_body.appendChild(next_line)
     card_body.appendChild(card_name_check)
     card_body.appendChild(card_name)
     card_body.appendChild(card_clear)
@@ -70,7 +101,7 @@ function createParent(id) {
     card_body.appendChild(child_list)
 }
 
-function createChild(parent_id, child_id) {
+function createChildBox(parent_id, child_id) {
     child_list = document.getElementsByClassName("parent_id" + parent_id)[0].parentNode.lastChild
     var child_name_check = document.createElement("input")
     child_name_check.type = "checkbox"
@@ -91,13 +122,18 @@ function createChild(parent_id, child_id) {
     child_list.appendChild(child_clear)
 }
 function createList(lists, names) {
-
+    console.log(lists.length)
+    if (!lists.length) {
+        parant_card = createParentBox("0")
+        print(work)
+    }
     for (list in lists) {
         parant_card = document.getElementsByClassName("parent_id" + lists[list][1])
         if (parant_card.length == 0) {
-            createParent(lists[list][1])
+            createParentBox(lists[list][1])
         }
-        createChild(lists[list][1], lists[list][2])
+        createChildBox(lists[list][1], lists[list][2])
+
     }
 
     for (id_name in names) {
@@ -156,4 +192,21 @@ function parent_delet(event) {
         event.target.nextSibling.nextSibling.remove()
         event.target.parentNode.appendChild(back_list)
     }
+}
+
+const create_list = document.getElementById('create-list-input');
+const create_list_button = document.getElementById('create-list');
+create_list.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        request_value()
+    }
+});
+create_list_button.addEventListener('click', (e) => {
+    request_value()
+
+});
+function request_value() {
+    const request = document.getElementById('create-list-input').value;
+    categoryGet(request)
+    document.getElementById('create-list-input').value = ""
 }

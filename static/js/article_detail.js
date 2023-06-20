@@ -3,6 +3,7 @@ console.log("js연결!")
 token = localStorage.getItem("access")
 const urlParams = new URLSearchParams(window.location.search);
 const articleId = urlParams.get("id");
+const userId = JSON.parse(localStorage.getItem("payload")).user_id;
 console.log(urlParams)
 console.log(articleId)
 /*게시글 정보 가져오기 */
@@ -39,6 +40,8 @@ window.onload = async () => {
                     <img src="${image_url}${data.main_image}" alt=""><!-- e:대표이미지 -->
                 </div><!-- e:title_center -->
                 <div class="title_right">
+                    <button
+                        class="btn btn-outline-secondary" type="button" id="article_bookmark" onclick="articleBookMark(${articleId})">북마크</button>
                     <a href="${front_base_url}/templates/article_update.html?id=${articleId}&/" button
                         class="btn btn-outline-secondary" type="button" id="article-fix">수정</a>
                     <a button class="btn btn-outline-secondary" onclick="articleDelete()" type="button">삭제</a>
@@ -73,6 +76,13 @@ window.onload = async () => {
     }
     image_box.innerHTML = imageHtml
     loadArticlePosition(data)
+
+    const bookmarkButton = document.getElementById('article_bookmark')
+    if (data.book_mark.includes(userId)) {
+        bookmarkButton.innerText = "📖북마크 취소"
+    } else {
+        bookmarkButton.innerText = "📘북마크 등록"
+    }
 }
 async function articleDelete() {
     if (confirm("삭제하시겠습니까?")) {
@@ -122,3 +132,26 @@ async function loadArticlePosition(position) {
 article_report_button = document.getElementById("article-report-button")
 article_report_button.setAttribute('onclick', `Report_button(2,${articleId})`)
 /*게시글수정*/
+
+
+// 북마크
+async function articleBookMark(article_id) {
+    const formData = new FormData()
+
+    formData.append("article_id", article_id)
+
+    const response = await fetch(`${back_base_url}/articles/bookmark/`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        method: "POST",
+        body: formData
+    })
+    const data = await response.json()
+    if (response.status == 200) {
+        alert(data.message)
+        window.location.reload()
+    } else {
+        alert(data.message)
+    }
+}

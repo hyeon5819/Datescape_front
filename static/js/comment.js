@@ -6,6 +6,15 @@
 const access = localStorage.getItem("access");
 
 
+// 입력창 엔터시 댓글 등록
+const createInput = document.getElementById('comment_content')
+createInput.addEventListener('keypress', function (event) {
+    if (event.key == 'Enter') {
+        commentCreate()
+    }
+})
+
+
 // 이모티콘 보이기/숨기기
 function emoticonToggle(emoticon_popup, emoticonbtn) {
     const emoticonPopup = document.getElementById(emoticon_popup.id)
@@ -13,12 +22,12 @@ function emoticonToggle(emoticon_popup, emoticonbtn) {
     if (emoticonPopup.style.display == 'none') {
         emoticonPopup.style.display = 'block'
         const emotiBtn = document.getElementById(emoticonbtn.id)
-        emotiBtn.setAttribute('class', 'btn btn-secondary')
+        emotiBtn.setAttribute('class', 'btn btn-secondary mb-5')
         emotiBtn.innerText = '닫기'
     } else if (emoticonPopup.style.display == 'block') {
         emoticonPopup.style.display = 'none'
         const emotiBtn = document.getElementById(emoticonbtn.id)
-        emotiBtn.setAttribute('class', 'btn btn-outline-secondary')
+        emotiBtn.setAttribute('class', 'btn btn-outline-secondary mb-5')
         emotiBtn.innerText = '이모티콘'
     }
 }
@@ -141,7 +150,7 @@ async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbt
     emoticonPopup.style.display = 'block'
     const emotiBtn = document.getElementById(emoticonbtn)
     emotiBtn.setAttribute('onclick', `emoticonToggle(${emoticonPopup.id}, ${emotiBtn.id})`)
-    emotiBtn.setAttribute('class', 'btn btn-secondary')
+    emotiBtn.setAttribute('class', 'btn btn-secondary mb-5')
     emotiBtn.innerText = '닫기'
 }
 

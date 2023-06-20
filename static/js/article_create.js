@@ -154,20 +154,26 @@ window.onload = function () {
                 }
             }
         }
+    });
+
+    searchInput.addEventListener('keydown', function (event) {
+        // 백스페이스로 태그 제거
         if (event.key === 'Backspace') {
             const addedTags = document.getElementById('tag_ul').childNodes
             let lastNum = addedTags.length
-            if(addedTags.length >= 2){
-                if (searchInput.value == ''){
+            if (addedTags.length >= 2) {
+                if (searchInput.value == '') {
                     if (confirm("태그 삭제?")) {
-                        addedTags[lastNum-1].remove()
+                        addedTags[lastNum - 1].remove()
                     } else {
                         return false;
                     }
                 }
             }
         }
-    });
+    })
+
+
     //주소가져오기
     //게시글을저장하면 작성한 게시글 페이지로 이동 시키기
     document.getElementById("roadAddress").addEventListener("click", function () { //주소입력칸을 클릭하면

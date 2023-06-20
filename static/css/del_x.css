@@ -1,0 +1,21 @@
+.del-check {
+    -webkit-appearance: none;
+    /*hides the default checkbox*/
+}
+
+.del-check:checked {
+    background-color: white;
+}
+
+.del-check:before {
+    content: "✖";
+}
+
+.del-check:checked:before {
+    content: "↶";
+}
+
+.del-check:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}

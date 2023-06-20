@@ -19,10 +19,12 @@
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <link rel="stylesheet" href="../static/css/reset.css">
+    <link rel="stylesheet" href="../static/css/common.css">
     <link rel="stylesheet" href="../static/css/signup.css">
 </head>
 
 <body>
+    <header></header>
     <main class="order_main">
         <div class="title">
             <h2>SIGN-UP</h2>
@@ -35,8 +37,8 @@
                         <h3>반갑습니다.<br>소개글? ex : 회원가입하고 다양한 기능을 즐기세요~</h3>
                         <dl class="user_info">
                             <dt>이메일(Email)</dt>
-                            <dd><input type="email" id="email" placeholder="email(email@email.com)를 입력해 주세요." name="user_email"
-                                    required></dd>
+                            <dd><input type="email" id="email" placeholder="email(email@email.com)를 입력해 주세요."
+                                    name="user_email" required></dd>
                             <dt>아이디(ID)</dt>
                             <dd><input type="text" id="username" placeholder="아이디(ID)를 입력해 주세요." name="user_id"
                                     required></dd>
@@ -61,15 +63,20 @@
             </form><!-- e:sign_up_frm -->
             <dl>
                 <dt>이제 쉽고 간편하게 로그인하세요!</dt>
-                <dd><a href="#" id='naver'><img src="../static/images/logo_naver.png" alt=""><span>네이버 로그인</span></a></dd>
-                <dd><a href="#" id='kakao'><img src="../static/images/logo_kakao.png" alt=""><span>카카오톡 로그인</span></a></dd>
-                <dd><a href="#" id='github'><img src="../static/images/logo_git_25px.png" alt=""><span>GitHub Login</span></a>
-                <dd><a href="#" id='google'><img src="../static/images/logo_google_25px.png" alt=""><span>GooGle Login</span></a>
+                <dd><a href="#" id='naver'><img src="../static/images/logo_naver.png" alt=""><span>네이버 로그인</span></a>
+                </dd>
+                <dd><a href="#" id='kakao'><img src="../static/images/logo_kakao.png" alt=""><span>카카오톡 로그인</span></a>
+                </dd>
+                <dd><a href="#" id='github'><img src="../static/images/logo_git_25px.png" alt=""><span>GitHub
+                            Login</span></a>
+                <dd><a href="#" id='google'><img src="../static/images/logo_google_25px.png" alt=""><span>GooGle
+                            Login</span></a>
                 </dd>
             </dl>
         </div><!-- e:sign_up -->
     </main>
-
+    <footer></footer>
+    <script src="../static/js/navbar.js"></script>
 </body>
 
 </html>

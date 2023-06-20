@@ -1,0 +1,93 @@
+if (!localStorage.getItem("access")) {
+    alert("로그인이 필요합니다.")
+    window.location.href = `${front_base_url}/templates/logintemp.html&/`
+}
+const myPage = document.getElementById("my_page")
+console.log(myPage)
+// let access = localStorage.getItem("access")
+function detail_page(article_id) {
+    location.href = `${front_base_url}/templates/article_detail.html?id=${article_id}&/`
+}
+async function GetArticle(formData) {
+    articleHtml = ``
+    const response = await fetch(`${back_base_url}/users/profile/article/`, {
+        headers: {
+            Authorization: `Bearer ${access}`,
+        },
+        method: "GET",
+        body: formData,
+    })
+    if (response.status == 200) {
+        data = await response.json();
+        for (let i = 0; i < data.length; i++) {
+            const article = data[i]
+            articleHtml += `
+            <div class="col" style="cursor: pointer;" onclick="detail_page(${article.id})">
+                <div class="card">
+                    <img src="${image_url}${article.main_image}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${article.title}</h5>
+                        <p class="card-text content">${article.content}</p>
+                    </div>
+                    <div class="card-footer" style="text-align: center;>
+                        <small class="text-muted"">Name : ${article.user}</small>
+                    </div>
+                </div>
+            </div><!-- e:col -->
+            `
+            myPage.innerHTML = articleHtml
+        }
+        return;
+    } else {
+        alert(response.status);
+    }
+}
+async function GetComment(formData) {
+    commentHtml = ``
+    const response = await fetch(`${back_base_url}/users/profile/comment/`, {
+        headers: {
+            Authorization: `Bearer ${access}`,
+        },
+        method: "GET",
+        body: formData,
+    })
+    if (response.status == 200) {
+        data = await response.json();
+        for (let i = 0; i < data.length; i++) {
+            const comment = data[i]
+            commentHtml += `
+            <div class="card border-dark mb-3 ms-3" style="max-width: 15rem;cursor: pointer;"onclick="detail_page(${comment.article})">
+                <div class="card-header">${comment.username}</div>
+                <div class="card-body text-dark">
+                    <h5 class="card-title">${comment.comment}</h5>
+                </div>
+            </div>
+            `
+            myPage.innerHTML = commentHtml
+
+        }
+        return;
+    } else {
+        alert(response.status);
+    }
+}
+async function GetEmoticonBuy(formData) {
+    const response = await fetch(`${back_base_url}/users/profile/emoticon/buy`, {
+        headers: {
+            Authorization: `Bearer ${access}`,
+        },
+        method: "GET",
+        body: formData,
+    })
+    if (response.status == 200) {
+        data = await response.json();
+
+        console.log(data, "emoticon")
+        return;
+    } else {
+        alert(response.status);
+    }
+}
+
+GetEmoticonBuy()
+// GetEmoticonApply()

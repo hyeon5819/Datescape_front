@@ -1,3 +1,19 @@
+// 커서 위치에 이모지 넣기
+function insertTextAtCursor(input, text) {
+    const startPos = input.selectionStart;
+    const endPos = input.selectionEnd;
+    const currentValue = input.value;
+
+    const newValue = currentValue.substring(0, startPos) + text + currentValue.substring(endPos);
+
+    input.value = newValue;
+    input.selectionStart = startPos + text.length;
+    input.selectionEnd = startPos + text.length;
+
+    input.focus();
+    input.setSelectionRange(input.selectionEnd, input.selectionEnd);
+}
+
 // 이모지 넣기
 function putEmoji(emojidiv_id, input_id) {
     const emojiBox = document.getElementById(emojidiv_id)
@@ -18,12 +34,10 @@ function putEmoji(emojidiv_id, input_id) {
         element.addEventListener('click', function () {
             if (isNaN(parseInt(input_id))) {
                 let commentInput = document.getElementById(input_id)
-                let nowInput = commentInput.value
-                commentInput.value = nowInput + element.innerText
+                insertTextAtCursor(commentInput, element.innerText)
             } else {
                 let commentInput = document.getElementById(`update_input${input_id}`)
-                let nowInput = commentInput.value
-                commentInput.value = nowInput + element.innerText
+                insertTextAtCursor(commentInput, element.innerText)
             }
         })
     });

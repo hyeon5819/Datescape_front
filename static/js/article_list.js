@@ -3,12 +3,30 @@ token = localStorage.getItem("access")
 function detail_page(article_id) {
     location.href = `${front_base_url}/templates/article_detail.html?id=${article_id}&/`
 }
+
 window.onload = async () => {
     let card_box = document.querySelector('#card_box')
 
-    async function fetchArticles(pageNumber) {
+    function handleScoreFilter(event) {
+        event.preventDefault();
+
+        const score = event.target.dataset.score;
+        fetchArticles(1, score);
+    }
+
+    document.querySelectorAll('.dropdown-item').forEach((item) => {
+        item.addEventListener('click', handleScoreFilter);
+    });
+
+    async function fetchArticles(pageNumber, score = null) {
+        let url = `${back_base_url}/articles/?page=${pageNumber}`;
+
+        if (score !== null) {
+            url += `&score=${score}`;
+        }
+
         articleHtml = '' // 변수 초기화
-        const response = await fetch(`${back_base_url}/articles/?page=${pageNumber}&/`, {
+        const response = await fetch(url, {
             method: 'GET',
         })
         const data = await response.json()
@@ -23,22 +41,25 @@ window.onload = async () => {
                 }
 
                 articleHtml += `
-                <div class="col article_detail" onclick="detail_page(${article.id})">
-                    <div class="card h-100">
-                        <img text-align:center;" src="${image_url}${article.main_image}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">${article.title}</h5>
-                            <p class="card-text content">${article.content}</p>
-                        </div><!-- e:body -->
-                        <div class="card-footer d-flex justify-content-between">
-                            <span class="text-muted">${article.user}</span>
-                            <span class="text-muted">${tag_add}</span>
-                        </div><!-- e:footer -->
-                    </div>
+            <div class="col article_detail" onclick="detail_page(${article.id})">
+                <div class="score_box">평점:${article.score}</div>
+                <div class="card h-100">
+                    <img text-align:center;" src="${image_url}${article.main_image}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${article.title}</h5>
+                        <p class="card-text content">${article.content}</p>
+                    </div><!-- e:body -->
+                    <div class="card-footer d-flex justify-content-between">
+                        <span class="text-muted">${article.user}</span>
+                        <span class="text-muted">${tag_add}</span>
+                    </div><!-- e:footer -->
                 </div>
-                `
+            </div>
+            `
             }
             card_box.innerHTML = articleHtml
+
+
 
             // 페이징 업데이트
             createPagination(Math.ceil(data.count / 9), pageNumber) // 페이지 수 수정

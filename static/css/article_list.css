@@ -1,5 +1,6 @@
 .article_detail {
     cursor: pointer;
+    position: relative;
 }
 
 .pagination-wrapper {
@@ -54,4 +55,17 @@
     margin: 0 auto;
     border-top-left-radius: 25px !important;
     border-top-right-radius: 25px !important;
+}
+
+.score_box {
+    position: absolute;
+    z-index: 1;
+    border: 1px solid #a9a9a9;
+    padding: 5px;
+    font-size: 2rem;
+    border-radius: 25px;
+    color: #a9a9a9;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
 }

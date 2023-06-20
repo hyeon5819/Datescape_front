@@ -24,12 +24,35 @@
 
 <body style="background-color:#fffff5;">
     <header></header>
-    <div>
+    <div class="w-75 mx-auto">
         <h1 style="text-align:center;">게시글 목록</h1>
-        <div class="article_btn text-end me-5"><a href="/templates/article_create.html" class="btn btn-primary mt-3">게시글
-                작성하기</a></div>
+        <div class="content_box d-flex justify-content-between mt-5 mb-5">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-bs-toggle="dropdown" data-bs-ripple-effect="true" aria-expanded="false">
+                    평점별 보기
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#" data-score="10">평점 10점</a></li>
+                    <li><a class="dropdown-item" href="#" data-score="9">평점 9점</a></li>
+                    <li><a class="dropdown-item" href="#" data-score="8">평점 8점</a></li>
+                    <li><a class="dropdown-item" href="#" data-score="7">평점 7점</a></li>
+                    <li><a class="dropdown-item" href="#" data-score="6">평점 6점</a></li>
+                    <li><a class="dropdown-item" href="#" data-score="5">평점 5점</a></li>
+                    <li><a class="dropdown-item" href="#" data-score="4">평점 4점</a></li>
+                    <li><a class="dropdown-item" href="#" data-score="3">평점 3점</a></li>
+                    <li><a class="dropdown-item" href="#" data-score="2">평점 2점</a></li>
+                    <li><a class="dropdown-item" href="#" data-score="1">평점 1점</a></li>
+                    <li><a class="dropdown-item" href="#" data-score="0">평점 0점</a></li>
+                </ul>
+            </div><!-- e:dropdown -->
+            <div class="article_btn">
+                <a href="/templates/article_create.html" class="btn btn-primary">게시글
+                    작성하기</a>
+            </div><!-- e:article_btn -->
+        </div>
     </div>
-    <div id="card_box" class="row row-cols-1 row-cols-md-3 g-3 w-75 mx-auto mt-3">
+    <div id="card_box" class="row row-cols-1 row-cols-md-3 g-3 w-75 mx-auto mt-3"><!-- 게시글목록 출력부분 -->
     </div><!-- e:card_box -->
     <div class="pagination-wrapper">
     </div>

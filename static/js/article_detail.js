@@ -36,7 +36,7 @@ window.onload = async () => {
                     </p><!-- e:user -->
                 </div><!-- e:title_left -->
                 <div class="title_center mb-5">
-                    <img src="${image_url}/${data.main_image}" alt=""><!-- e:대표이미지 -->
+                    <img src="${image_url}${data.main_image}" alt=""><!-- e:대표이미지 -->
                 </div><!-- e:title_center -->
                 <div class="title_right">
                     <a href="${front_base_url}/templates/article_update.html?id=${articleId}&/" button
@@ -67,7 +67,7 @@ window.onload = async () => {
     for (let i = 0; i < await data.image.length; i++) {
         // console.log(data.image[i])
         imageHtml += `
-            <img src="${image_url}/${data.image[i]["image"]}" alt="...">
+            <img src="${image_url}${data.image[i]["image"]}" alt="...">
         `
         // tag_add += '#' + data.results[i].tags[a].tag + ' '
     }

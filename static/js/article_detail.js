@@ -69,26 +69,31 @@ window.onload = async () => {
     }
     image_box.innerHTML = imageHtml
     loadArticlePosition(data)
-    const bookmarkButton = document.getElementById('article_bookmark')
-    if (data.book_mark.includes(userId)) {
-        bookmarkButton.innerText = "📖북마크 취소"
-    } else {
-        bookmarkButton.innerText = "📘북마크 등록"
-    }
 
     const payload = localStorage.getItem("payload");
     const payload_parse = JSON.parse(payload)
     let detailButtons = document.querySelector('#detail-buttons')
     if (data.user === payload_parse.username) {
         detailButtons.innerHTML = `
+        <button class="btn btn-outline-secondary" type="button" id="article_bookmark" onclick="articleBookMark(${articleId})">북마크</button>
         <a href="${front_base_url}/templates/article_update.html?id=${articleId}&/" button
                         class="btn btn-outline-secondary" type="button" id="article-fix">수정</a>
                     <a button class="btn btn-outline-secondary" onclick="articleDelete()" type="button">삭제</a>
                     <a href="${front_base_url}/templates/article_list.html" class="btn btn-outline-secondary"
                         type="button">목록</a>`
     } else {
-        detailButtons.innerHTML = `<a href="${front_base_url}/templates/article_list.html" class="btn btn-outline-secondary"
+        detailButtons.innerHTML = `
+        <button
+                        class="btn btn-outline-secondary" type="button" id="article_bookmark" onclick="articleBookMark(${articleId})">북마크</button>
+        <a href="${front_base_url}/templates/article_list.html" class="btn btn-outline-secondary"
                         type="button">목록</a>`
+    }
+
+    const bookmarkButton = document.getElementById('article_bookmark')
+    if (data.book_mark.includes(userId)) {
+        bookmarkButton.innerText = "📖북마크 취소"
+    } else {
+        bookmarkButton.innerText = "📘북마크 등록"
     }
 }
 async function articleDelete() {

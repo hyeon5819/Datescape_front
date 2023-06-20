@@ -1,10 +1,12 @@
-console.log("js연결!")
-
 token = localStorage.getItem("access")
 const urlParams = new URLSearchParams(window.location.search);
 const articleId = urlParams.get("id");
-console.log(urlParams)
-console.log(articleId)
+
+if (!localStorage.getItem("access")) {
+    alert("로그인이 필요합니다.")
+    window.location.href = `${front_base_url}/templates/logintemp.html`
+}
+
 /*게시글 정보 가져오기 */
 window.onload = async () => {
     const response = await fetch(`${back_base_url}/articles/${articleId}/`, {
@@ -22,7 +24,6 @@ window.onload = async () => {
 
 
     if (response.status == 200) {
-        console.log(data)
         articleHtml = `
         <div style="display: flex;" class="detail_title justify-content-between">
             <h1 style="text-align:center; margin-top:50px">${data.title}</h1>
@@ -38,12 +39,7 @@ window.onload = async () => {
                 <div class="title_center mb-5">
                     <img src="${image_url}${data.main_image}" alt=""><!-- e:대표이미지 -->
                 </div><!-- e:title_center -->
-                <div class="title_right">
-                    <a href="${front_base_url}/templates/article_update.html?id=${articleId}&/" button
-                        class="btn btn-outline-secondary" type="button" id="article-fix">수정</a>
-                    <a button class="btn btn-outline-secondary" onclick="articleDelete()" type="button">삭제</a>
-                    <a href="${front_base_url}/templates/article_list.html" class="btn btn-outline-secondary"
-                        type="button">목록</a>
+                <div class="title_right" id = "detail-buttons">
                 </div><!-- e:title_right -->
             </div><!-- e:title_box -->
             <div id="image_box">
@@ -73,6 +69,21 @@ window.onload = async () => {
     }
     image_box.innerHTML = imageHtml
     loadArticlePosition(data)
+
+    const payload = localStorage.getItem("payload");
+    const payload_parse = JSON.parse(payload)
+    let detailButtons = document.querySelector('#detail-buttons')
+    if (data.user === payload_parse.username) {
+        detailButtons.innerHTML = `
+        <a href="${front_base_url}/templates/article_update.html?id=${articleId}&/" button
+                        class="btn btn-outline-secondary" type="button" id="article-fix">수정</a>
+                    <a button class="btn btn-outline-secondary" onclick="articleDelete()" type="button">삭제</a>
+                    <a href="${front_base_url}/templates/article_list.html" class="btn btn-outline-secondary"
+                        type="button">목록</a>`
+    } else {
+        detailButtons.innerHTML = `<a href="${front_base_url}/templates/article_list.html" class="btn btn-outline-secondary"
+                        type="button">목록</a>`
+    }
 }
 async function articleDelete() {
     if (confirm("삭제하시겠습니까?")) {

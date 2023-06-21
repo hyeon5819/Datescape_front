@@ -245,7 +245,7 @@ async function commentUpdate(type_id, type, parent_id) {
         updateCommentEmoticon.removeAttribute('style')
     });
     emoticonDiv.appendChild(updateCommentEmoticon)
-    commentUsedEmoticon.style.display = 'none'
+    updateCommentEmoticon.style.display = 'none'
 
     const updateEmoticonButton = document.createElement('button')
     updateEmoticonButton.innerText = '이모티콘'

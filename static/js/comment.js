@@ -5,6 +5,13 @@
 // 토큰
 const access = localStorage.getItem("access");
 
+if (!localStorage.getItem("access")) {
+    alert("로그인이 필요합니다.")
+    window.location.href = `${front_base_url}/templates/logintemp.html`
+} else {
+    commentView()
+}
+
 
 // 입력창 엔터시 댓글 등록
 const createInput = document.getElementById('comment_content')
@@ -587,6 +594,3 @@ commentInputBox.addEventListener("input", function () {
         };
     }
 });
-
-
-commentView()

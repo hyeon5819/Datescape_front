@@ -15,7 +15,7 @@ function insertTextAtCursor(input, text) {
 }
 
 // 이모지 넣기
-function putEmoji(emojidiv_id, input_id) {
+function putEmoji(emojidiv_id, input_id, input_type) {
     const emojiBox = document.getElementById(emojidiv_id)
 
     //이모지 넣을때 split해서 넣기
@@ -36,7 +36,7 @@ function putEmoji(emojidiv_id, input_id) {
                 let commentInput = document.getElementById(input_id)
                 insertTextAtCursor(commentInput, element.innerText)
             } else {
-                let commentInput = document.getElementById(`update_input${input_id}`)
+                let commentInput = document.getElementById(`${input_type}${input_id}`)
                 insertTextAtCursor(commentInput, element.innerText)
             }
         })

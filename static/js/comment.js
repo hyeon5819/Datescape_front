@@ -22,12 +22,12 @@ function emoticonToggle(emoticon_popup, emoticonbtn) {
     if (emoticonPopup.style.display == 'none') {
         emoticonPopup.style.display = 'block'
         const emotiBtn = document.getElementById(emoticonbtn.id)
-        emotiBtn.setAttribute('class', 'btn btn-secondary mb-5')
+        emotiBtn.setAttribute('class', 'btn btn-secondary')
         emotiBtn.innerText = '닫기'
     } else if (emoticonPopup.style.display == 'block') {
         emoticonPopup.style.display = 'none'
         const emotiBtn = document.getElementById(emoticonbtn.id)
-        emotiBtn.setAttribute('class', 'btn btn-outline-secondary mb-5')
+        emotiBtn.setAttribute('class', 'btn btn-outline-secondary')//
         emotiBtn.innerText = '이모티콘'
     }
 }
@@ -70,11 +70,11 @@ async function getUserEmoticon() {
 
 
 // 이모티콘 버튼에 리스트 만들기
-async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbtn, emoticon_images, use_emoticon, comment_content) {
-    if (document.getElementById("update_emojis")) {
-        const updateEmojis = "update_emojis"
-        const updateCommentId = document.getElementById("update_emojis").getAttribute('name')
-        putEmoji(updateEmojis, updateCommentId)
+async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbtn, emoticon_images, use_emoticon, update_emojis, input_type) {
+    if (document.getElementById(update_emojis)) {
+        const updateEmojis = update_emojis
+        const updateCommentId = document.getElementById(update_emojis).getAttribute('name')
+        putEmoji(updateEmojis, updateCommentId, input_type)
     }
     const emoticonPopup = document.getElementById(emoticon_popup)
     // 유저가 가진 이모티콘 가져오기
@@ -150,7 +150,7 @@ async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbt
     emoticonPopup.style.display = 'block'
     const emotiBtn = document.getElementById(emoticonbtn)
     emotiBtn.setAttribute('onclick', `emoticonToggle(${emoticonPopup.id}, ${emotiBtn.id})`)
-    emotiBtn.setAttribute('class', 'btn btn-secondary mb-5')
+    emotiBtn.setAttribute('class', 'btn btn-secondary')
     emotiBtn.innerText = '닫기'
 }
 
@@ -212,11 +212,11 @@ async function commentCreate() {
 }
 
 // 댓글 수정 폼
-async function commentUpdate(comment_id) {
-    const comment = document.getElementById(`comment${comment_id}`)
-    let comment_save = document.getElementById(`comment${comment_id}`).innerHTML
+async function commentUpdate(type_id, type, parent_id) {
+    const comment = document.getElementById(`${type}${type_id}`)
+    let comment_save = document.getElementById(`${type}${type_id}`).innerHTML
 
-    const commentP = comment.childNodes[1].lastChild
+    const commentP = document.getElementById(`${type}_contentP${type_id}`)
     const commentPValue = commentP.innerText
 
     const commentUsedEmoticon = comment.childNodes[1].firstChild
@@ -229,7 +229,7 @@ async function commentUpdate(comment_id) {
     const updateCommentEmoticon = document.createElement('img')
     updateCommentEmoticon.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover; margin: auto;')
     updateCommentEmoticon.setAttribute('class', 'emoticon')
-    updateCommentEmoticon.setAttribute('id', 'update_use_emoticon')
+    updateCommentEmoticon.setAttribute('id', `${type}_update_use_emoticon`)
     if (commentUsedEmoticonSrc == undefined) {
         updateCommentEmoticon.removeAttribute('src')
         updateCommentEmoticon.removeAttribute('alt')
@@ -250,8 +250,8 @@ async function commentUpdate(comment_id) {
     const updateEmoticonButton = document.createElement('button')
     updateEmoticonButton.innerText = '이모티콘'
     updateEmoticonButton.setAttribute('class', 'btn btn-outline-secondary')
-    updateEmoticonButton.setAttribute('id', 'update_emoticon_button')
-    updateEmoticonButton.setAttribute('onclick', `emoticonButtonList("update_emoticon_list", "update_emoticon_popup", "update_emoticon_button", "update_emoticon_images", "update_use_emoticon", "update_input${comment_id}")`)
+    updateEmoticonButton.setAttribute('id', `${type}_update_emoticon_button`)
+    updateEmoticonButton.setAttribute('onclick', `emoticonButtonList("${type}_update_emoticon_list", "${type}_update_emoticon_popup", "${type}_update_emoticon_button", "${type}_update_emoticon_images", "${type}_update_use_emoticon", "${type}_update_emojis", "${type}_update_input")`)
 
     const popupParentsDiv = document.createElement('div')
     popupParentsDiv.setAttribute('style', 'height: 0px;')
@@ -259,7 +259,7 @@ async function commentUpdate(comment_id) {
     const popupDiv = document.createElement('div')
     popupDiv.setAttribute('class', 'card text-center;')
     popupDiv.setAttribute('style', 'position: relative; z-index: 1; display: none;')
-    popupDiv.setAttribute('id', 'update_emoticon_popup')
+    popupDiv.setAttribute('id', `${type}_update_emoticon_popup`)
     popupParentsDiv.appendChild(popupDiv)
 
     const chDiv = document.createElement('div')
@@ -268,7 +268,7 @@ async function commentUpdate(comment_id) {
 
     const updateEmoticonList = document.createElement('ul')
     updateEmoticonList.setAttribute('class', 'nav nav-tabs card-header-tabs mb-3')
-    updateEmoticonList.setAttribute('id', 'update_emoticon_list')
+    updateEmoticonList.setAttribute('id', `${type}_update_emoticon_list`)
     chDiv.appendChild(updateEmoticonList)
 
     const kkkk = document.createElement('div')
@@ -278,33 +278,31 @@ async function commentUpdate(comment_id) {
     const updateEmoticonImages = document.createElement('div')
     updateEmoticonImages.setAttribute('class', 'row row-cols-5 row-cols-md-5')
     updateEmoticonImages.setAttribute('style', 'overflow-y: scroll; width: 53%;height: 220px;')
-    updateEmoticonImages.setAttribute('id', 'update_emoticon_images')
+    updateEmoticonImages.setAttribute('id', `${type}_update_emoticon_images`)
     kkkk.appendChild(updateEmoticonImages)
 
     const llll = document.createElement('div')
     llll.setAttribute('style', 'overflow-y: scroll; width: 47%;height: 220px;')
-    llll.setAttribute('id', 'update_emojis')
-    llll.setAttribute('name', `${comment_id}`)
+    llll.setAttribute('id', `${type}_update_emojis`)
+    llll.setAttribute('name', `${type_id}`)
     kkkk.appendChild(llll)
-    // const update_emojis = "update_emojis"
-    // putEmoji(update_emojis)
-
 
     emoticonDiv.appendChild(updateEmoticonButton)
     emoticonDiv.appendChild(popupParentsDiv)
 
-
     const updateCommentInput = document.createElement('input')
     updateCommentInput.setAttribute('type', 'text')
     updateCommentInput.setAttribute('class', 'form-control')
-    updateCommentInput.setAttribute('id', `update_input${comment_id}`)
+    updateCommentInput.setAttribute('id', `${type}_update_input${type_id}`)
     updateCommentInput.value = commentPValue
-    comment.childNodes[1].appendChild(updateCommentInput)
-    comment.childNodes[1].appendChild(emoticonDiv)
+
+    comment.childNodes[1].insertBefore(updateCommentInput, comment.childNodes[1].lastChild)
+    comment.childNodes[1].insertBefore(emoticonDiv, comment.childNodes[1].lastChild)
+
     commentP.style.display = 'none'
 
     const updateButton = comment.childNodes[2].firstChild
-    updateButton.setAttribute('onclick', `commentUpdateConfirm(${comment_id})`)
+    updateButton.setAttribute('onclick', `${type}UpdateConfirm(${type_id}, "${type}", ${parent_id})`)
 
     const cancelButton = comment.childNodes[2].lastChild
     cancelButton.innerText = '취소'
@@ -316,20 +314,25 @@ async function commentUpdate(comment_id) {
 
 
 // 수정 확인
-async function commentUpdateConfirm(comment_id) {
-    const commentUpdateContent = document.getElementById(`update_input${comment_id}`).value;
-    const commentUpdateEmoticon = document.getElementById(`update_use_emoticon`).alt;
+async function commentUpdateConfirm(type_id, type, parent_id) {
+    console.log(type_id, type, parent_id)
+    const commentUpdateContent = document.getElementById(`${type}_update_input${type_id}`).value;
+    const commentUpdateEmoticon = document.getElementById(`${type}_update_use_emoticon`).alt;
 
     if (commentUpdateContent == "") {
         if (commentUpdateEmoticon == "") {
             alert("내용을 입력해주세요!")
         } else {
             const formData = new FormData();
-            formData.append("comment", commentUpdateContent);
-            formData.append("comment_id", `${comment_id}`);
-            formData.append("use_emoticon", commentUpdateEmoticon);
+            if (type == "comment") {
+                formData.append(`comment`, commentUpdateContent);
+            } else if (type == "reply") {
+                formData.append(`content`, commentUpdateContent);
+            }
+            formData.append(`${type_id}`, `${type_id}`);
+            formData.append(`use_emoticon`, commentUpdateEmoticon);
 
-            const response = await fetch(`${back_base_url}/articles/${articleId}/comments/`, {
+            const response = await fetch(`${back_base_url}/articles/${parent_id}/${type}s/`, {
                 headers: {
                     Authorization: `Bearer ${access}`,
                 },
@@ -346,11 +349,15 @@ async function commentUpdateConfirm(comment_id) {
         }
     } else {
         const formData = new FormData();
-        formData.append("comment", commentUpdateContent);
-        formData.append("comment_id", `${comment_id}`);
-        formData.append("use_emoticon", commentUpdateEmoticon);
+        if (type == "comment") {
+            formData.append(`comment`, commentUpdateContent);
+        } else if (type == "reply") {
+            formData.append(`content`, commentUpdateContent);
+        }
+        formData.append(`${type}_id`, `${type_id}`);
+        formData.append(`use_emoticon`, commentUpdateEmoticon);
 
-        const response = await fetch(`${back_base_url}/articles/${articleId}/comments/`, {
+        const response = await fetch(`${back_base_url}/articles/${parent_id}/${type}s/`, {
             headers: {
                 Authorization: `Bearer ${access}`,
             },
@@ -411,93 +418,118 @@ async function commentView() {
     // 댓글 리스트 보여주기
     const commentContent = document.getElementById("comment");
 
-    try {
-        response_comment.forEach(element => {
-            const cardDiv = document.createElement("div")
-            cardDiv.setAttribute('class', 'card mt-3')
-            cardDiv.setAttribute('style', 'width: 100%; flex-direction: row;')
-            cardDiv.setAttribute('id', 'comment' + `${element.id}`)
-            cardDiv.setAttribute('value', element.id)
-            commentContent.appendChild(cardDiv)
 
-            const nicknameDiv = document.createElement("div")
-            nicknameDiv.setAttribute('style', 'width: 15%;display: flex; flex-direction: column;')
-            nicknameDiv.innerText = element.username
-            cardDiv.appendChild(nicknameDiv)
+    response_comment.forEach(element => {
+        const cardDiv = document.createElement("div")
+        cardDiv.setAttribute('class', 'card mt-3')
+        cardDiv.setAttribute('style', 'width: 100%; flex-direction: row;')
+        cardDiv.setAttribute('id', 'comment' + `${element.id}`)
+        cardDiv.setAttribute('value', element.id)
+        commentContent.appendChild(cardDiv)
 
-            //신고하기
-            const reportButton = document.createElement("button")
-            reportButton.setAttribute('style', 'width: 30%; margin: auto auto 5px auto; border: none;')
-            reportButton.setAttribute('onclick', `Report_button(3,${element.id})`)
-            reportButton.setAttribute('class', "btn btn-light btn-sm")
-            reportButton.innerText = '🚨'
-            nicknameDiv.appendChild(reportButton)
+        const nicknameDiv = document.createElement("div")
+        nicknameDiv.setAttribute('style', 'width: 15%;display: flex; flex-direction: column;')
+        nicknameDiv.innerText = element.username
+        cardDiv.appendChild(nicknameDiv)
 
-            const commentDiv = document.createElement("div")
-            commentDiv.setAttribute('class', 'card-body')
-            commentDiv.setAttribute('style', 'width: 75%;')
+        //신고하기
+        const reportButton = document.createElement("button")
+        reportButton.setAttribute('style', 'width: 30%; margin: 40px auto auto auto; border: none;')
+        reportButton.setAttribute('onclick', `Report_button(3,${element.id})`)
+        reportButton.setAttribute('class', "btn btn-light btn-sm")
+        reportButton.innerText = '🚨'
+        nicknameDiv.appendChild(reportButton)
 
-            const commentEmoticon = document.createElement('img')
-            if (element.use_emoticon == null) {
-            } else {
-                commentEmoticon.setAttribute('src', `${image_url}${element.emoticon_image}`)
-                commentEmoticon.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover;')
-                commentEmoticon.setAttribute('class', 'emoticon')
-                commentEmoticon.setAttribute('id', `comment_use_emoticon${element.use_emoticon}`)
-                commentEmoticon.setAttribute('alt', `${element.use_emoticon}`)
-                commentDiv.appendChild(commentEmoticon)
-            }
+        const commentDiv = document.createElement("div")
+        commentDiv.setAttribute('class', 'card-body')
+        commentDiv.setAttribute('id', 'content_body')
+        commentDiv.setAttribute('style', 'width: 68%;')
 
-            const commentP = document.createElement("p")
-            commentP.innerText = element.comment
-            commentP.setAttribute('style', 'font-size: 20px;')
-            commentDiv.appendChild(commentP)
-            cardDiv.appendChild(commentDiv)
+        const commentEmoticon = document.createElement('img')
+        if (element.use_emoticon == null) {
+        } else {
+            commentEmoticon.setAttribute('src', `${image_url}${element.emoticon_image}`)
+            commentEmoticon.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover;')
+            commentEmoticon.setAttribute('class', 'emoticon')
+            commentEmoticon.setAttribute('id', `comment_use_emoticon${element.use_emoticon}`)
+            commentEmoticon.setAttribute('alt', `${element.use_emoticon}`)
+            commentDiv.appendChild(commentEmoticon)
+        }
 
-            const buttonDiv = document.createElement("div")
-            cardDiv.appendChild(buttonDiv)
-            buttonDiv.setAttribute('style', 'width: 10%; display:flex;align-items:center; justify-content:space-evenly')
+        const commentP = document.createElement("p")
+        commentP.innerText = element.comment
+        commentP.setAttribute('style', 'font-size: 20px;')
+        commentP.setAttribute('id', `comment_contentP${element.id}`)
+        commentDiv.appendChild(commentP)
 
-            if (localStorage.getItem("access")) {
-                const userId = JSON.parse(localStorage.getItem("payload")).user_id
+        const replyDiv = document.createElement("div")
+        replyDiv.setAttribute('id', `comment_reply${element.id}`)
+        commentDiv.appendChild(replyDiv)
 
-                if (element.writer == userId) {
-                    const updateButton = document.createElement("button")
-                    updateButton.setAttribute('onclick', `commentUpdate(${element.id})`)
-                    updateButton.setAttribute('class', 'btn btn-light btn-sm mt-1')
-                    updateButton.innerText = '수정'
-                    buttonDiv.appendChild(updateButton)
+        const replyButtonDiv = document.createElement('div')
+        replyButtonDiv.setAttribute('class', 'reply')
+        replyDiv.appendChild(replyButtonDiv)
 
-                    const deleteButton = document.createElement("button")
-                    deleteButton.setAttribute('onclick', `commentDelete(${element.id})`)
-                    deleteButton.setAttribute('class', 'btn btn-light btn-sm mt-1')
-                    deleteButton.innerText = '삭제'
-                    buttonDiv.appendChild(deleteButton)
-                }
-            }
+        const replyButtonDivHr = document.createElement('hr')
+        replyButtonDivHr.setAttribute('class', 'reply_hr')
+        replyButtonDiv.appendChild(replyButtonDivHr)
 
-            // 댓글 좋아요
+        const replyButton = document.createElement('button')
+        replyButton.setAttribute('class', 'reply_btn')
+        replyButton.setAttribute('id', `comment_reply_button${element.id}`)
+        if (element.reply_count == 0) {
+            replyButton.innerText = '답글 달기'
+        } else {
+            replyButton.innerText = element.reply_count + '개의 답글 보기'
+        }
+        replyButton.setAttribute('onclick', `reply(${element.id})`)
+        replyButtonDiv.appendChild(replyButton)
+
+        cardDiv.appendChild(commentDiv)
+
+        const buttonDiv = document.createElement("div")
+        cardDiv.appendChild(buttonDiv)
+        buttonDiv.setAttribute('style', 'width: 10%; display:flex;align-items:center; justify-content:space-evenly')
+
+        if (localStorage.getItem("access")) {
             const userId = JSON.parse(localStorage.getItem("payload")).user_id
 
-            let likeButton = document.createElement("button")
-            cardDiv.appendChild(likeButton)
-            likeButton.setAttribute('style', 'width: 7%;background: transparent;border: 1px solid #aaa;margin: 10px 20px;border-radius: 25px;padding: 10px;')
-            likeButton.setAttribute('class', 'hover_btn')
-            likeButton.innerText = `🤍\n${element.likers.length}`
-            for (let i = 0; i < element.likers.length; i++) {
-                if (userId == element.likers[i].likers) {
-                    likeButton.innerText = `❤️\n${element.likers.length}`
-                    break;
-                } else {
-                    likeButton.innerText = `🤍\n${element.likers.length}`
-                }
+            if (element.writer == userId) {
+                const updateButton = document.createElement("button")
+                updateButton.setAttribute('onclick', `commentUpdate(${element.id}, "comment", ${articleId})`)
+                updateButton.setAttribute('class', 'btn btn-light btn-sm')
+                updateButton.setAttribute('style', 'margin: 20px 0px auto 0px')
+                updateButton.innerText = '수정'
+                buttonDiv.appendChild(updateButton)
+
+                const deleteButton = document.createElement("button")
+                deleteButton.setAttribute('onclick', `commentDelete(${element.id})`)
+                deleteButton.setAttribute('class', 'btn btn-light btn-sm')
+                deleteButton.setAttribute('style', 'margin: 20px 0px auto 0px')
+                deleteButton.innerText = '삭제'
+                buttonDiv.appendChild(deleteButton)
             }
-            likeButton.setAttribute('onclick', `commentLike(${element.id})`)
-            likeButton.setAttribute('id', `like${element.id}`)
-        });
-    } catch (err) {
-        console.log('err')
-    }
+        }
+
+        // 댓글 좋아요
+        const userId = JSON.parse(localStorage.getItem("payload")).user_id
+
+        let likeButton = document.createElement("button")
+        cardDiv.appendChild(likeButton)
+        likeButton.setAttribute('style', 'width: 7%;background: transparent;border: 1px solid #aaa;margin: 10px 20px auto;border-radius: 25px;padding: 10px;')
+        likeButton.setAttribute('class', 'hover_btn')
+        likeButton.innerText = `🤍\n${element.likers.length}`
+        for (let i = 0; i < element.likers.length; i++) {
+            if (userId == element.likers[i].likers) {
+                likeButton.innerText = `❤️\n${element.likers.length}`
+                break;
+            } else {
+                likeButton.innerText = `🤍\n${element.likers.length}`
+            }
+        }
+        likeButton.setAttribute('onclick', `commentLike(${element.id})`)
+        likeButton.setAttribute('id', `like${element.id}`)
+    });
 }
 
 

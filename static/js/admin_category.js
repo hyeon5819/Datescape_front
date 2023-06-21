@@ -33,9 +33,60 @@ async function categoryGet(ids) {
         alert(response.status);
     }
 }
+async function categorySave(datas) {
+    const response = await fetch(`${back_base_url}/reports/category/`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${access}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            "request_datas": datas
+        })
 
+    });
 
-var card_box = document.getElementById("card_box")
+    if (response.status == 200) {
+        console.log("저장완료")
+        return;
+    } else {
+        alert(response.status);
+    }
+}
+
+/*list 로 box만들기*/
+function createList(lists, names) {
+    console.log(lists.length)
+    if (!lists.length) {
+        parant_card = createParentBox("0")
+    }
+    for (list in lists) {
+        parant_card = document.getElementsByClassName("parent_id" + lists[list][1])
+        if (parant_card.length == 0) {
+            createParentBox(lists[list][1])
+        }
+        createChildBox(lists[list][1], lists[list][2], lists[list][0])
+
+    }
+
+    for (id_name in names) {
+        try {
+            parent_name = document.getElementsByClassName("parent_id" + names[id_name][0])[0]
+            parent_name.innerHTML = ' ' + names[id_name][1] + ' '
+        } catch (error) { }
+
+        try {
+            child_names = document.getElementsByClassName("child_id" + names[id_name][0])
+            for (i = 0; i < child_names.length; i++) {
+                child_name = child_names[i]
+                child_name.innerHTML = ' ' + names[id_name][1] + ' '
+            }
+        } catch (error) { }
+
+    }
+
+}
+/*create list-box */
 function createParentBox(id) {
     var col_category_detail = document.createElement("div")
     col_category_detail.className = "col category_detail"
@@ -43,13 +94,12 @@ function createParentBox(id) {
     card_h100.className = "card h-100"
     var card_body = document.createElement("div")
     card_body.className = "card-body"
-    var card_body2 = document.createElement("div")
-    card_body2.className = "card-body"
+
 
     card_box.appendChild(col_category_detail)
     col_category_detail.appendChild(card_h100)
     card_h100.appendChild(card_body)
-    card_h100.appendChild(card_body2)
+
 
     var parent_is_html = document.createElement('il')
     parent_is_html.innerHTML = id
@@ -100,11 +150,12 @@ function createParentBox(id) {
     card_body.appendChild(under_line)
     card_body.appendChild(child_list)
 }
-
-function createChildBox(parent_id, child_id) {
+/*자식창 만들기 */
+function createChildBox(parent_id, child_id, list_id) {
     child_list = document.getElementsByClassName("parent_id" + parent_id)[0].parentNode.lastChild
     var child_name_check = document.createElement("input")
     child_name_check.type = "checkbox"
+    child_name_check.className = list_id
     child_name_check.onclick = change_input
     var child_name = document.createElement("il")
     child_name.innerHTML = " " + child_id + " "
@@ -121,39 +172,8 @@ function createChildBox(parent_id, child_id) {
     child_list.appendChild(child_name)
     child_list.appendChild(child_clear)
 }
-function createList(lists, names) {
-    console.log(lists.length)
-    if (!lists.length) {
-        parant_card = createParentBox("0")
-        print(work)
-    }
-    for (list in lists) {
-        parant_card = document.getElementsByClassName("parent_id" + lists[list][1])
-        if (parant_card.length == 0) {
-            createParentBox(lists[list][1])
-        }
-        createChildBox(lists[list][1], lists[list][2])
 
-    }
-
-    for (id_name in names) {
-        try {
-            parent_name = document.getElementsByClassName("parent_id" + names[id_name][0])[0]
-            parent_name.innerHTML = ' ' + names[id_name][1] + ' '
-        } catch (error) { }
-
-        try {
-            child_names = document.getElementsByClassName("child_id" + names[id_name][0])
-            for (i = 0; i < child_names.length; i++) {
-                child_name = child_names[i]
-                child_name.innerHTML = ' ' + names[id_name][1] + ' '
-            }
-        } catch (error) { }
-
-    }
-
-}
-//부모 삭
+/*수정*/
 function change_input(event) {
     let result = '';
     if (event.target.checked) {
@@ -172,14 +192,14 @@ function change_input(event) {
 
     console.log("work")
 }
-//자식 삭제함수
+//자식삭제
 function child_delet(event) {
     event.target.previousSibling.remove()
     event.target.previousSibling.remove()
     event.target.previousSibling.remove()
     event.target.remove()
 }
-
+//부모삭제
 function parent_delet(event) {
     console.log("1")
     if (event.target.checked) {
@@ -194,6 +214,7 @@ function parent_delet(event) {
     }
 }
 
+//list창 만들기
 const create_list = document.getElementById('create-list-input');
 const create_list_button = document.getElementById('create-list');
 create_list.addEventListener('keypress', (e) => {
@@ -209,4 +230,51 @@ function request_value() {
     const request = document.getElementById('create-list-input').value;
     categoryGet(request)
     document.getElementById('create-list-input').value = ""
+}
+
+
+//save DB
+const save_datas_button = document.getElementById("save-data")
+save_datas_button.onclick = save_datas
+function save_datas() {
+    var send_datas = []
+
+    list_boxs = document.getElementsByClassName("card-body")
+    for (i = 0; i < list_boxs.length; i++) {
+        list_box = list_boxs[i]
+        if (list_box.lastChild.previousSibling.previousSibling.checked) {
+        }
+        else {
+            var parent_id = list_box.firstChild.innerHTML
+            console.log(list_box.firstChild.nextSibling.nextSibling.nextSibling)
+            var parent_name = check_info(list_box.firstChild.nextSibling.nextSibling.nextSibling)
+            parent_data = [parent_id, parent_name]
+
+        }
+
+
+        child_data = []
+        child_boxs = list_box.getElementsByTagName("br")
+        for (i = 0; i < child_boxs.length; i++) {
+            child_id = child_boxs[i].nextSibling.className
+            child_name = check_info(child_boxs[i].nextSibling)
+            child_data = child_data.concat([[child_id, child_name]])
+        }
+        send_datas = send_datas.concat([[parent_data, child_data]])
+
+    }
+    console.log(send_datas)
+    console.log("work")
+    categorySave(send_datas)
+}
+
+function check_info(html_place) {
+    console.log(html_place.checked)
+    if (html_place.checked) {
+        return_value = html_place.nextSibling.value
+    }
+    else {
+        return_value = html_place.nextSibling.innerHTML
+    }
+    return return_value
 }

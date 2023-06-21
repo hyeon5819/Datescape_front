@@ -34,6 +34,7 @@ async function categoryGet(ids) {
     }
 }
 async function categorySave(datas) {
+    console.log(datas)
     const response = await fetch(`${back_base_url}/reports/category/`, {
         method: 'POST',
         headers: {
@@ -65,7 +66,7 @@ function createList(lists, names) {
         if (parant_card.length == 0) {
             createParentBox(lists[list][1])
         }
-        createChildBox(lists[list][1], lists[list][2], lists[list][0])
+        createChildBox(lists[list][1], lists[list][2], lists[list][0], lists[list][3])
 
     }
 
@@ -112,6 +113,11 @@ function createParentBox(id) {
         var child_name = document.createElement("il")
         child_name.innerHTML = " "
         child_name.className = "child_id"
+        var child_parent = document.createElement("input")
+        child_parent.type = "number"
+        child_parent.value = 0
+        child_parent.className = "child-parent"
+        child_parent.style = "width:60px;height:20px;"
         var child_clear = document.createElement("input")
         child_clear.type = "checkbox"
         child_clear.className = "del-check"
@@ -122,6 +128,7 @@ function createParentBox(id) {
         child_list.appendChild(br)
         child_list.appendChild(child_name_check)
         child_list.appendChild(child_name)
+        child_list.appendChild(child_parent)
         child_list.appendChild(child_clear)
     }
     create_check.innerHTML = "생성하기"
@@ -151,7 +158,7 @@ function createParentBox(id) {
     card_body.appendChild(child_list)
 }
 /*자식창 만들기 */
-function createChildBox(parent_id, child_id, list_id) {
+function createChildBox(parent_id, child_id, list_id, child_parent_id) {
     child_list = document.getElementsByClassName("parent_id" + parent_id)[0].parentNode.lastChild
     var child_name_check = document.createElement("input")
     child_name_check.type = "checkbox"
@@ -160,6 +167,11 @@ function createChildBox(parent_id, child_id, list_id) {
     var child_name = document.createElement("il")
     child_name.innerHTML = " " + child_id + " "
     child_name.className = "child_id" + child_id
+    var child_parent = document.createElement("input")
+    child_parent.type = "number"
+    child_parent.value = child_parent_id
+    child_parent.className = "child-parent"
+    child_parent.style = "width:60px;height:20px;"
     var child_clear = document.createElement("input")
     child_clear.type = "checkbox"
     child_clear.className = "del-check"
@@ -170,6 +182,7 @@ function createChildBox(parent_id, child_id, list_id) {
     child_list.appendChild(br)
     child_list.appendChild(child_name_check)
     child_list.appendChild(child_name)
+    child_list.appendChild(child_parent)
     child_list.appendChild(child_clear)
 }
 
@@ -189,11 +202,10 @@ function change_input(event) {
         change_name.nextSibling.remove()
 
     }
-
-    console.log("work")
 }
 //자식삭제
 function child_delet(event) {
+    event.target.previousSibling.remove()
     event.target.previousSibling.remove()
     event.target.previousSibling.remove()
     event.target.previousSibling.remove()
@@ -257,8 +269,12 @@ function save_datas() {
         child_boxs = list_box.getElementsByTagName("br")
         for (i = 0; i < child_boxs.length; i++) {
             child_id = child_boxs[i].nextSibling.className
+            if (child_id.length == 0) {
+                child_id = 0
+            }
             child_name = check_info(child_boxs[i].nextSibling)
-            child_data = child_data.concat([[child_id, child_name]])
+            parent_child_data = child_boxs[i].nextSibling.nextSibling.nextSibling.value
+            child_data = child_data.concat([[child_id, child_name, parent_child_data]])
         }
         send_datas = send_datas.concat([[parent_data, child_data]])
 

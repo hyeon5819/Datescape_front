@@ -70,20 +70,26 @@ export async function sendCode() {
     var urlWithoutQuery = currentUrl.split('?')[0]
     let social = null
     let code = new URLSearchParams(window.location.search).get('code')
+
     let state = null
-    console.log(code)
+    // console.log(code)
+
     if (code) {
+        let len = code.length
+        console.log(len)
         state = new URLSearchParams(window.location.search).get('state')
-        console.log(social)
         if (state) {
             social = 'naver-login'
         }
+        else if (len == 20) {
+            social = 'github-login'
+        }
         else {
-            if (social !== 'github-login')
-                social = 'kakao-login'
-            else {
-                social = 'github-login'
-            }
+            // if (social !== 'github-login')
+            //     social = 
+            // else {
+            social = 'kakao-login'
+            // }
         }
     }
     else {
@@ -120,8 +126,6 @@ export async function sendCode() {
         }
     }
 }
-
-
 
 
 // var currentUrl = window.location.href

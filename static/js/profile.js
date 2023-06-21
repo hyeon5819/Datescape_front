@@ -5,14 +5,17 @@ window.onload = async function () {
     console.log("profile 페이지!!")
     getmyprofile()
     // setTimeout(autologout, 6000)
-    onuser_activite()
+    if (access) {
+        onuser_activite()
+    }
+
 }
 async function handleLogout() {
     alert("로그아웃!")
     localStorage.removeItem("access")
     localStorage.removeItem("refresh")
     localStorage.removeItem("payload")
-    location.reload();
+    window.location.href = `${front_base_url}/index.html`;
 }
 
 // 테스트

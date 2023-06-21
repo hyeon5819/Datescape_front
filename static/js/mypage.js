@@ -64,7 +64,7 @@ async function GetComment(formData) {
                         <p class="card-text content">${comment.article_content}</p>
                     </div>
                     <div class="card-footer" style="text-align: center;>
-                        <small class="text-muted"">Name : ${comment.username}</small>
+                        <small class="text-muted">Name : ${comment.username}</small>
                     </div>
                 </div>
             </div><!-- e:col -->
@@ -90,14 +90,20 @@ async function GetBookmark(formData) {
         data = await response.json();
         for (let i = 0; i < data.length; i++) {
             const bookmark = data[i]
+            console.log(bookmark)
             bookmarkHtml += `
-            <div class="card border-dark mb-3 ms-3" style="max-width: 15rem;cursor: pointer;"onclick="detail_page(${bookmark.article_id})">
-                <img src="${image_url}${bookmark.article_main_image}" class="card-img-top" alt="...">
-                <div class="card-header">${bookmark.article_title}</div>
-                <div class="card-body text-dark">
-                    <h5 class="card-title content">${bookmark.article_content}</h5>
+            <div class="col" style="cursor: pointer;" onclick="detail_page(${bookmark.id})">
+                <div class="card">
+                    <img src="${image_url}${bookmark.article_main_image}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${bookmark.article_title}</h5>
+                        <p class="card-text content">${bookmark.article_content}</p>
+                    </div>
+                    <div class="card-footer" style="text-align: center;>
+                        <small class="text-muted">작성자 : ${bookmark.article_user}</small>
+                    </div>
                 </div>
-            </div>
+            </div><!-- e:col -->
             `
             myPage.innerHTML = bookmarkHtml
 

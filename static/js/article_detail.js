@@ -2,13 +2,16 @@ token = localStorage.getItem("access")
 const urlParams = new URLSearchParams(window.location.search);
 const articleId = urlParams.get("id");
 const userId = JSON.parse(localStorage.getItem("payload")).user_id;
+// const payload = localStorage.getItem("payload");
 
-if (!localStorage.getItem("access")) {
-    alert("로그인이 필요합니다.")
-    window.location.href = `${front_base_url}/templates/logintemp.html`
-}
+
 /*게시글 정보 가져오기 */
 window.onload = async () => {
+    if (!localStorage.getItem("access")) {
+        alert("로그인이 필요합니다.")
+        window.location.href = `${front_base_url}/templates/logintemp.html`
+    }
+
     const response = await fetch(`${back_base_url}/articles/${articleId}/`, {
         headers: {
             Authorization: `Bearer ${token}`,

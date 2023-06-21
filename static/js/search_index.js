@@ -1,3 +1,7 @@
+function detail_page(article_id) {
+  location.href = `${front_base_url}/templates/article_detail.html?id=${article_id}&/`
+}
+
 async function loadMain() {
   response_1 = await getRandom('article')
   const articles1 = document.getElementById('articles-1')

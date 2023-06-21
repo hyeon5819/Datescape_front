@@ -56,14 +56,50 @@ async function GetComment(formData) {
         for (let i = 0; i < data.length; i++) {
             const comment = data[i]
             commentHtml += `
-            <div class="card border-dark mb-3 ms-3" style="max-width: 15rem;cursor: pointer;"onclick="detail_page(${comment.article})">
-                <div class="card-header">${comment.username}</div>
+            <div class="col" style="cursor: pointer;" onclick="detail_page(${comment.id})">
+                <div class="card">
+                    <img src="${image_url}${comment.article_main_image}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${comment.article_title}</h5>
+                        <p class="card-text content">${comment.article_content}</p>
+                    </div>
+                    <div class="card-footer" style="text-align: center;>
+                        <small class="text-muted"">Name : ${comment.username}</small>
+                    </div>
+                </div>
+            </div><!-- e:col -->
+            `
+            myPage.innerHTML = commentHtml
+
+        }
+        return;
+    } else {
+        alert(response.status);
+    }
+}
+async function GetBookmark(formData) {
+    bookmarkHtml = ``
+    const response = await fetch(`${back_base_url}/users/profile/bookmark/`, {
+        headers: {
+            Authorization: `Bearer ${access}`,
+        },
+        method: "GET",
+        body: formData,
+    })
+    if (response.status == 200) {
+        data = await response.json();
+        for (let i = 0; i < data.length; i++) {
+            const bookmark = data[i]
+            bookmarkHtml += `
+            <div class="card border-dark mb-3 ms-3" style="max-width: 15rem;cursor: pointer;"onclick="detail_page(${bookmark.article_id})">
+                <img src="${image_url}${bookmark.article_main_image}" class="card-img-top" alt="...">
+                <div class="card-header">${bookmark.article_title}</div>
                 <div class="card-body text-dark">
-                    <h5 class="card-title">${comment.comment}</h5>
+                    <h5 class="card-title content">${bookmark.article_content}</h5>
                 </div>
             </div>
             `
-            myPage.innerHTML = commentHtml
+            myPage.innerHTML = bookmarkHtml
 
         }
         return;
@@ -88,6 +124,3 @@ async function GetEmoticonBuy(formData) {
         alert(response.status);
     }
 }
-
-GetEmoticonBuy()
-// GetEmoticonApply()

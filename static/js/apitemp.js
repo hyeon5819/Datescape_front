@@ -4,9 +4,10 @@ let token = localStorage.getItem("access")
 let payload = localStorage.getItem("payload");
 let payload_parse = JSON.parse(payload);
 let current_user = payload_parse.username;
+let login_type = payload_parse.login_type;
 // console.log(payload, payload_parse, current_user)
 console.log("현재 로그인한//" + current_user)
-
+console.log("현재 로그인한//" + login_type)
 // 이메일 유효성 검사
 function CheckEmail(str) {
     var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
@@ -72,15 +73,14 @@ async function handleSignin() {
     const password1 = document.getElementById("password1").value
     const password2 = document.getElementById("password2").value
     console.log(email_, email, username, password1, password2)
-
-    if (password2 !== password1) {
-        alert("비번 잘못된입력입니다. 확인해주세요.")
+    if (!email || !username || !password1 || !password2) {
+        alert("공란 잘못된입력입니다. 확인해주세요.")
         window.location.reload()
         // } else if (!checkPw(password1)) {
         //     alert("비번 유효성 검사 잘못된입력입니다. 확인해주세요.")
         //     window.location.reload()
-    } else if (!email || !username || !password1 || !password2) {
-        alert("공란 잘못된입력입니다. 확인해주세요.")
+    } else if (password2 !== password1) {
+        alert("비번 잘못된입력입니다. 확인해주세요.")
         window.location.reload()
     } else if (!CheckEmail(email)) { // 존재한다면 -1이 아닌 숫자가 반환됨
         alert("이메일 형식이 아닙니다.");
@@ -106,8 +106,8 @@ async function handleSignin() {
     console.log(JSON.stringify(result))
 
     if (response.status == 201) {
-        // alert("이메일을 확인해주세요.")
-        alert("회원가입이 완료되었습니다")
+        alert("로그인전에 이메일을 확인해주세요.")
+        // alert("회원가입이 완료되었습니다")
         window.location.replace(`${front_base_url}/templates/logintemp.html`)
     } else {
         console.log(response.status)
@@ -153,6 +153,14 @@ async function handleLogin() {
     const password = document.getElementById("password1").value
     console.log(username, password)
 
+    if (!username || !password) {
+        alert("공란 잘못된입력입니다. 확인해주세요.")
+        window.location.reload()
+        // } else if (!checkPw(password1)) {
+        //     alert("비번 유효성 검사 잘못된입력입니다. 확인해주세요.")
+        //     window.location.reload()
+    }
+
     const response = await fetch(`${back_base_url}/users/log-in/`, {
         headers: {
             "Content-Type": "application/json",
@@ -185,6 +193,9 @@ async function handleLogin() {
     } else {
         console.log(response.status)
         alert(JSON.stringify(result))
+        alert("이메일인증먼저해주세요!")
+        alert("아이디, 비밀번호를 다시 확인해주세요!")
+        // alert("이메일을 확인해주세요!")
         window.location.reload()
     }
 
@@ -240,6 +251,45 @@ async function pschange() {
         window.location.reload()
     }
 
+}
+
+// 아이디 찾기
+async function findID() {
+    const email = document.getElementById("email").value
+
+    if (!email) {
+        alert("가입하신 이메일을 입력해주세요")
+        window.location.reload()
+    }
+
+    const response = await fetch(`${back_base_url}/users/find/id/`, {
+        headers: {
+
+            "Content-Type": "application/json",
+
+        },
+        method: 'POST',
+        body: JSON.stringify({
+            "email": email
+        })
+    })
+
+    const result = await response.json()
+    console.log(result)
+
+    if (response.status == 200) {
+        console.log(response)
+        alert("아이디는      " + result)
+        if (confirm("로그인 페이지로 이동하시겠습니까?")) {
+            window.location.href = `${front_base_url}/templates/logintemp.html`
+        }
+
+    } else {
+        console.log(result)
+        console.log(response.status)
+        alert("가입된 이메일이 없습니다. 다시확인해주세요.")
+        window.location.reload()
+    }
 }
 
 function win_close() {

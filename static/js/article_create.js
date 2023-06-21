@@ -154,20 +154,26 @@ window.onload = function () {
                 }
             }
         }
+    });
+
+    searchInput.addEventListener('keydown', function (event) {
+        // 백스페이스로 태그 제거
         if (event.key === 'Backspace') {
             const addedTags = document.getElementById('tag_ul').childNodes
             let lastNum = addedTags.length
-            if(addedTags.length >= 2){
-                if (searchInput.value == ''){
+            if (addedTags.length >= 2) {
+                if (searchInput.value == '') {
                     if (confirm("태그 삭제?")) {
-                        addedTags[lastNum-1].remove()
+                        addedTags[lastNum - 1].remove()
                     } else {
                         return false;
                     }
                 }
             }
         }
-    });
+    })
+
+
     //주소가져오기
     //게시글을저장하면 작성한 게시글 페이지로 이동 시키기
     document.getElementById("roadAddress").addEventListener("click", function () { //주소입력칸을 클릭하면
@@ -198,8 +204,8 @@ window.onload = function () {
         const formData = new FormData();
         const data = document.getElementById("roadAddress").value;
         const title = document.getElementById("title").value;
-        const image = document.getElementById("images").files;
         const main_image = document.getElementById("main_image").files;
+        const image = document.getElementById("images").files;
         const content = document.getElementById("content").value;
         const score = document.getElementById("score_in").value;
         const tags = testListTextGet();
@@ -210,7 +216,7 @@ window.onload = function () {
         for (let i = 0; i < image.length; i++) {
             formData.append("images", image[i]);
         }
-        for (let i = 0; i < image.length; i++) {
+        for (let i = 0; i < main_image.length; i++) {
             formData.append("main_image", main_image[i]);
         }
         formData.append('score', score);

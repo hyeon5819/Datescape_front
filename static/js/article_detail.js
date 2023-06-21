@@ -1,10 +1,12 @@
-console.log("js연결!")
-
 token = localStorage.getItem("access")
 const urlParams = new URLSearchParams(window.location.search);
 const articleId = urlParams.get("id");
-console.log(urlParams)
-console.log(articleId)
+const userId = JSON.parse(localStorage.getItem("payload")).user_id;
+
+if (!localStorage.getItem("access")) {
+    alert("로그인이 필요합니다.")
+    window.location.href = `${front_base_url}/templates/logintemp.html`
+}
 /*게시글 정보 가져오기 */
 window.onload = async () => {
     const response = await fetch(`${back_base_url}/articles/${articleId}/`, {
@@ -22,7 +24,6 @@ window.onload = async () => {
 
 
     if (response.status == 200) {
-        console.log(data)
         articleHtml = `
         <div style="display: flex;" class="detail_title justify-content-between">
             <h1 style="text-align:center; margin-top:50px">${data.title}</h1>
@@ -36,14 +37,9 @@ window.onload = async () => {
                     </p><!-- e:user -->
                 </div><!-- e:title_left -->
                 <div class="title_center mb-5">
-                    <img src="${image_url}/${data.main_image}" alt=""><!-- e:대표이미지 -->
+                    <img src="${image_url}${data.main_image}" alt=""><!-- e:대표이미지 -->
                 </div><!-- e:title_center -->
-                <div class="title_right">
-                    <a href="${front_base_url}/templates/article_update.html?id=${articleId}&/" button
-                        class="btn btn-outline-secondary" type="button" id="article-fix">수정</a>
-                    <a button class="btn btn-outline-secondary" onclick="articleDelete()" type="button">삭제</a>
-                    <a href="${front_base_url}/templates/article_list.html" class="btn btn-outline-secondary"
-                        type="button">목록</a>
+                <div class="title_right" id = "detail-buttons">
                 </div><!-- e:title_right -->
             </div><!-- e:title_box -->
             <div id="image_box">
@@ -67,12 +63,38 @@ window.onload = async () => {
     for (let i = 0; i < await data.image.length; i++) {
         // console.log(data.image[i])
         imageHtml += `
-            <img src="${image_url}/${data.image[i]["image"]}" alt="...">
+            <img src="${image_url}${data.image[i]["image"]}" alt="...">
         `
         // tag_add += '#' + data.results[i].tags[a].tag + ' '
     }
     image_box.innerHTML = imageHtml
     loadArticlePosition(data)
+
+    const payload = localStorage.getItem("payload");
+    const payload_parse = JSON.parse(payload)
+    let detailButtons = document.querySelector('#detail-buttons')
+    if (data.user === payload_parse.username) {
+        detailButtons.innerHTML = `
+        <button class="btn btn-outline-secondary" type="button" id="article_bookmark" onclick="articleBookMark(${articleId})">북마크</button>
+        <a href="${front_base_url}/templates/article_update.html?id=${articleId}&/" button
+                        class="btn btn-outline-secondary" type="button" id="article-fix">수정</a>
+                    <a button class="btn btn-outline-secondary" onclick="articleDelete()" type="button">삭제</a>
+                    <a href="${front_base_url}/templates/article_list.html" class="btn btn-outline-secondary"
+                        type="button">목록</a>`
+    } else {
+        detailButtons.innerHTML = `
+        <button
+                        class="btn btn-outline-secondary" type="button" id="article_bookmark" onclick="articleBookMark(${articleId})">북마크</button>
+        <a href="${front_base_url}/templates/article_list.html" class="btn btn-outline-secondary"
+                        type="button">목록</a>`
+    }
+
+    const bookmarkButton = document.getElementById('article_bookmark')
+    if (data.book_mark.includes(userId)) {
+        bookmarkButton.innerText = "📖북마크 취소"
+    } else {
+        bookmarkButton.innerText = "📘북마크 등록"
+    }
 }
 async function articleDelete() {
     if (confirm("삭제하시겠습니까?")) {
@@ -122,3 +144,26 @@ async function loadArticlePosition(position) {
 article_report_button = document.getElementById("article-report-button")
 article_report_button.setAttribute('onclick', `Report_button(2,${articleId})`)
 /*게시글수정*/
+
+
+// 북마크
+async function articleBookMark(article_id) {
+    const formData = new FormData()
+
+    formData.append("article_id", article_id)
+
+    const response = await fetch(`${back_base_url}/articles/bookmark/`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        method: "POST",
+        body: formData
+    })
+    const data = await response.json()
+    if (response.status == 200) {
+        alert(data.message)
+        window.location.reload()
+    } else {
+        alert(data.message)
+    }
+}

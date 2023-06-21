@@ -95,6 +95,10 @@ window.onload = async () => {
     } else {
         bookmarkButton.innerText = "📘북마크 등록"
     }
+    /*게시글신고*/
+    article_report_button = document.getElementById("article-report-button")
+    article_report_button.setAttribute('onclick', `Report_button(2,${articleId})`)
+    /*게시글수정*/
 }
 async function articleDelete() {
     if (confirm("삭제하시겠습니까?")) {
@@ -140,10 +144,7 @@ async function loadArticlePosition(position) {
     myMarker.setMap(map);
 }
 
-/*게시글신고*/
-article_report_button = document.getElementById("article-report-button")
-article_report_button.setAttribute('onclick', `Report_button(2,${articleId})`)
-/*게시글수정*/
+
 
 
 // 북마크

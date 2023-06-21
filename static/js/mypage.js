@@ -19,6 +19,7 @@ async function GetArticle(formData) {
     })
     if (response.status == 200) {
         data = await response.json();
+        console.log(data)
         for (let i = 0; i < data.length; i++) {
             const article = data[i]
             articleHtml += `
@@ -56,7 +57,7 @@ async function GetComment(formData) {
         for (let i = 0; i < data.length; i++) {
             const comment = data[i]
             commentHtml += `
-            <div class="col" style="cursor: pointer;" onclick="detail_page(${comment.id})">
+            <div class="col" style="cursor: pointer;" onclick="detail_page(${comment.article_id})">
                 <div class="card">
                     <img src="${image_url}${comment.article_main_image}" class="card-img-top" alt="...">
                     <div class="card-body">
@@ -88,11 +89,12 @@ async function GetBookmark(formData) {
     })
     if (response.status == 200) {
         data = await response.json();
+        console.log(data)
         for (let i = 0; i < data.length; i++) {
             const bookmark = data[i]
             console.log(bookmark)
             bookmarkHtml += `
-            <div class="col" style="cursor: pointer;" onclick="detail_page(${bookmark.id})">
+            <div class="col" style="cursor: pointer;" onclick="detail_page(${bookmark.article_id})">
                 <div class="card">
                     <img src="${image_url}${bookmark.article_main_image}" class="card-img-top" alt="...">
                     <div class="card-body">

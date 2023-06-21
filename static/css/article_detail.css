@@ -121,3 +121,21 @@ body {
     cursor: pointer;
     background-color: #f1da72
 }
+
+.reply{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    font-size: x-small;
+}
+
+.reply_hr{
+    width: 100%;
+    margin-bottom: 0px;
+}
+
+.reply_btn{
+    border: 0;
+    background-color: white;
+}

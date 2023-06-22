@@ -2,9 +2,7 @@ let access = localStorage.getItem("access")
 
 
 window.onload = async function () {
-    console.log("profile 페이지!!")
     getmyprofile()
-    // setTimeout(autologout, 6000)
     if (access) {
         onuser_activite()
     }
@@ -67,7 +65,6 @@ async function getmyprofile() {
     let payload = localStorage.getItem("payload")
     let payload_parse = JSON.parse(payload);
     let access = localStorage.getItem("access")
-    console.log(payload_parse.login_type)
 
     const login_type = payload_parse.login_type
 
@@ -83,16 +80,7 @@ async function getmyprofile() {
     let profileimage = result.profileimage
     let profileimageurl = result.profileimageurl
 
-    // console.log(result)
-    // console.log(result.email)
-    // console.log(result.username)
-    console.log(result.profileimage)
-    console.log(result.profileimageurl)
 
-    console.log(profileimage)
-    console.log(profileimageurl)
-    // console.log(result.profileimage.split('/media/')[1])
-    // console.log(result.profileimage.split('/media/'), 1)
     const email = document.getElementById('email')
     const nickname = document.getElementById('nickname')
     const image = document.getElementById('image')
@@ -100,15 +88,10 @@ async function getmyprofile() {
     email.innerText = result['email']
     nickname.innerText = result['nickname']
 
-    // profileimage.setAttribute("imageURL", "result.profileimage.split('/media/')[1]")
-
     if (profileimage !== null) {
         image.setAttribute("src", `${image_url}` + result.profileimage)
 
     }
-    // else if (!profileimage) {
-    //     profileimage.setAttribute("src", "../static/images/default.png")
-    // }
     else if (profileimage == null) {
         image.setAttribute("src", result.profileimageurl)
     }

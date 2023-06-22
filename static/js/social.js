@@ -65,14 +65,12 @@ export async function socialLogin(social) {
 
 // index에서 import
 export async function sendCode() {
-    // console.log("인가코드 받고 인가 코드 send 후 post 처리")
     var currentUrl = window.location.href
     var urlWithoutQuery = currentUrl.split('?')[0]
     let social = null
     let code = new URLSearchParams(window.location.search).get('code')
 
     let state = null
-    // console.log(code)
 
     if (code) {
         let len = code.length
@@ -85,11 +83,7 @@ export async function sendCode() {
             social = 'github-login'
         }
         else {
-            // if (social !== 'github-login')
-            //     social = 
-            // else {
             social = 'kakao-login'
-            // }
         }
     }
     else {
@@ -126,16 +120,3 @@ export async function sendCode() {
         }
     }
 }
-
-
-// var currentUrl = window.location.href
-// var urlWithoutQuery = currentUrl.split('?')[0]
-// if (response.status == 200) {
-//     var currentUrl = window.location.href
-//     let code = new URL(window.location.href)
-//     let code_ = code.searchParams.get('code')
-//     // let code = new URLSearchParams(window.location.search).get('code')
-//     console.log(currentUrl)
-//     console.log(code)
-//     console.log(code_)
-// }

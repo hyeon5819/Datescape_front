@@ -76,16 +76,19 @@ async function getmyprofile() {
     })
 
     const result = await response.json()
+    console.log(result)
 
     let profileimage = result.profileimage
     let profileimageurl = result.profileimageurl
 
 
     const email = document.getElementById('email')
+    const username = document.getElementById('username')
     const nickname = document.getElementById('nickname')
     const image = document.getElementById('image')
 
     email.innerText = result['email']
+    username.innerText = result['username']
     nickname.innerText = result['nickname']
 
     if (profileimage !== null) {
@@ -130,9 +133,20 @@ async function profileedit() {
     console.log(result)
 
     if (response.status == 200) {
-        console.log(response)
+        console.log(result[1])
+        console.log(result[2])
+        localStorage.setItem("access", result[2]);
+        localStorage.setItem("refresh", result[1]);
+
+        const base64Url = result[2].split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        localStorage.setItem("payload", jsonPayload);
         alert("프로필수정완료!")
-        win_close()
+        // win_close()
         opener.location.reload();
     } else {
         console.log(result)

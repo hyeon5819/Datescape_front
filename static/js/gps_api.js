@@ -1,3 +1,12 @@
+const urlParams = new URLSearchParams(window.location.search);
+let dist = urlParams.get("dist");
+
+if (dist == null) {
+    document.getElementById('dist').innerHTML = `반경 2km`
+} else {
+    document.getElementById('dist').innerHTML = `반경 ${dist}km`
+}
+
 async function getAddress(position) {
     // kakao api를 이용해서 좌표를 주소로 바꿔주기
     // https://developers.kakao.com/docs/latest/ko/local/dev-guide#coord-to-address
@@ -15,8 +24,8 @@ async function getAddress(position) {
 }
 
 // 근처 데이터 가져오기
-async function getNearPosition(position) {
-    const response = await fetch(`${back_base_url}/articles/location-list/?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&/`)
+async function getNearPosition(position, dist) {
+    const response = await fetch(`${back_base_url}/articles/location-list/?lat=${position.coords.latitude}&lon=${position.coords.longitude}&dist=${dist}&/`)
 
     if (response.status == 200) {
         const response_json = await response.json()
@@ -57,11 +66,15 @@ async function loadMyPosition(position) {
     // 마커가 지도 위에 표시되도록 설정
     myMarker.setMap(map);
 
-    // 주변 데이터 표시
-    const nearPositions = await getNearPosition(position)
+    // 찾을 반경 설정
+    if (dist == null) {
+        dist = '2'
+    }
+    // 주변 데이터 요청
+    const nearPositions = await getNearPosition(position, dist)
+
     // 주변 마커 생성
     nearPositions.forEach(point => {
-        console.log(point)
         var jibun = point.article_set[0].jibun_address
         var placeName = jibun.split(' ')
         // 마커를 표시할 위치

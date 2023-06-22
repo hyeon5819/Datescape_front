@@ -26,7 +26,6 @@ async function categoryGet(ids) {
         response_data = await response.json()
         var datas = response_data["datas"]
         var names = response_data["name"]
-        console.log(datas)
         createList(datas, names)
         return;
     } else {
@@ -34,7 +33,6 @@ async function categoryGet(ids) {
     }
 }
 async function categorySave(datas) {
-    console.log(datas)
     const response = await fetch(`${back_base_url}/reports/category/`, {
         method: 'POST',
         headers: {
@@ -48,7 +46,6 @@ async function categorySave(datas) {
     });
 
     if (response.status == 200) {
-        console.log("저장완료")
         return;
     } else {
         alert(response.status);
@@ -57,7 +54,6 @@ async function categorySave(datas) {
 
 /*list 로 box만들기*/
 function createList(lists, names) {
-    console.log(lists.length)
     if (!lists.length) {
         parant_card = createParentBox("0")
     }
@@ -213,7 +209,6 @@ function child_delet(event) {
 }
 //부모삭제
 function parent_delet(event) {
-    console.log("1")
     if (event.target.checked) {
         del = document.createElement("del")
         del.appendChild(event.target.nextSibling.nextSibling)
@@ -258,7 +253,6 @@ function save_datas() {
         }
         else {
             var parent_id = list_box.firstChild.innerHTML
-            console.log(list_box.firstChild.nextSibling.nextSibling.nextSibling)
             var parent_name = check_info(list_box.firstChild.nextSibling.nextSibling.nextSibling)
             parent_data = [parent_id, parent_name]
 
@@ -279,13 +273,10 @@ function save_datas() {
         send_datas = send_datas.concat([[parent_data, child_data]])
 
     }
-    console.log(send_datas)
-    console.log("work")
     categorySave(send_datas)
 }
 
 function check_info(html_place) {
-    console.log(html_place.checked)
     if (html_place.checked) {
         return_value = html_place.nextSibling.value
     }

@@ -28,7 +28,6 @@ function kcpRequestPay(useremail, username, price) {
                 // buyer_postcode : '123-456'
             }, async function (rsp) { // callback
                 if (rsp.success) { //결제 성공시
-                    console.log(rsp);
                     const access = localStorage.getItem("access");
                     const userId = JSON.parse(localStorage.getItem("payload")).user_id;
 

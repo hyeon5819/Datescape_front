@@ -3,7 +3,6 @@ if (!localStorage.getItem("access")) {
     window.location.href = `${front_base_url}/templates/logintemp.html&/`
 }
 const myPage = document.getElementById("my_page")
-console.log(myPage)
 // let access = localStorage.getItem("access")
 function detail_page(article_id) {
     location.href = `${front_base_url}/templates/article_detail.html?id=${article_id}&/`
@@ -19,7 +18,6 @@ async function GetArticle(formData) {
     })
     if (response.status == 200) {
         data = await response.json();
-        console.log(data)
         for (let i = 0; i < data.length; i++) {
             const article = data[i]
             articleHtml += `
@@ -89,10 +87,8 @@ async function GetBookmark(formData) {
     })
     if (response.status == 200) {
         data = await response.json();
-        console.log(data)
         for (let i = 0; i < data.length; i++) {
             const bookmark = data[i]
-            console.log(bookmark)
             bookmarkHtml += `
             <div class="col" style="cursor: pointer;" onclick="detail_page(${bookmark.article_id})">
                 <div class="card">
@@ -126,7 +122,6 @@ async function GetEmoticonBuy(formData) {
     if (response.status == 200) {
         data = await response.json();
 
-        console.log(data, "emoticon")
         return;
     } else {
         alert(response.status);

@@ -6,21 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../components/urls.js"></script>
     <script src="../static/js/iftoken.js"></script>
-    <title>DateScape | Find_UserID</title>
+    <title>DateScape | RESENDEMIAL</title>
     
 </head>
 
 <body>
     <div class="title">
-        <h2>아이디찾기</h2>
+        <h2>회원가입 이메일 재전송</h2>
+        <h4>가입하신 이메일로 인증링크를 다시 보내드리겠습니다.</h3>
+        <h4>이메일을 입력해주세요.</h4>
     </div>
     <form action="#" method="get" id="find_userid" class="form-floating">
-        <div id="fideID">
+        <div id="findID">
             <dt>이메일(Email)</dt>
             <dd><input type="email" id="email" placeholder="가입한 이메일" name="user_email" required></dd>
         </div>
         <dd>
-        <button type="button" id="resend_button" onclick="findID()">아이디찾기</button>
+        <button type="button" onclick="handleEmailResend()">인증이메일 재전송</button>
     </form>
 </body>
 

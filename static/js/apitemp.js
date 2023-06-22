@@ -5,9 +5,7 @@ let payload = localStorage.getItem("payload");
 let payload_parse = JSON.parse(payload);
 let current_user = payload_parse.username;
 let login_type = payload_parse.login_type;
-// console.log(payload, payload_parse, current_user)
-console.log("현재 로그인한//" + current_user)
-console.log("현재 로그인한//" + login_type)
+
 // 이메일 유효성 검사
 function CheckEmail(str) {
     var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
@@ -72,7 +70,6 @@ async function handleSignin() {
     const username = document.getElementById("username").value
     const password1 = document.getElementById("password1").value
     const password2 = document.getElementById("password2").value
-    console.log(email_, email, username, password1, password2)
     if (!email || !username || !password1 || !password2) {
         alert("공란 잘못된입력입니다. 확인해주세요.")
         window.location.reload()
@@ -85,7 +82,6 @@ async function handleSignin() {
     } else if (!CheckEmail(email)) { // 존재한다면 -1이 아닌 숫자가 반환됨
         alert("이메일 형식이 아닙니다.");
         email_.focus();
-        console.log(email_)
         return false;
     }
 
@@ -102,15 +98,12 @@ async function handleSignin() {
 
     })
     let result = await response.json();
-    console.log(result)
-    console.log(JSON.stringify(result))
 
     if (response.status == 201) {
         alert("로그인전에 이메일을 확인해주세요.")
         // alert("회원가입이 완료되었습니다")
         window.location.replace(`${front_base_url}/templates/logintemp.html`)
     } else {
-        console.log(response.status)
         alert(JSON.stringify(result))
         window.location.reload()
     }
@@ -120,7 +113,6 @@ async function handleSignin() {
 // 이메일 인증 재전송-미완성
 async function handleEmailValify() {
     const email = document.getElementById("email").value
-    console.log(email)
 
     const response = await fetch(`${back_base_url}/users/dj-rest-auth/registration/resend-email/`, {
         headers: {
@@ -131,16 +123,12 @@ async function handleEmailValify() {
             "email": email,
         })
     })
-    console.log(response)
     let result = await response.json();
-    console.log(result)
-    console.log(JSON.stringify(result))
 
     if (response.status == 200) {
         alert("이메일을 확인해주세요.")
         window.location.replace(`${front_base_url}/templates/logintemp.html`)
     } else {
-        console.log(response.status)
         alert(JSON.stringify(result))
         window.location.reload()
     }
@@ -151,7 +139,6 @@ async function handleEmailValify() {
 async function handleLogin() {
     const username = document.getElementById("username").value
     const password = document.getElementById("password1").value
-    console.log(username, password)
 
     if (!username || !password) {
         alert("공란 잘못된입력입니다. 확인해주세요.")
@@ -175,7 +162,6 @@ async function handleLogin() {
 
     const result = await response.json()
 
-    console.log(result)
 
     if (response.status == 200) {
         localStorage.setItem("access", result.access);
@@ -191,7 +177,6 @@ async function handleLogin() {
         alert("로그인되었습니다.")
         window.location.replace(`${front_base_url}/index.html`)
     } else {
-        console.log(response.status)
         alert(JSON.stringify(result))
         alert("이메일인증먼저해주세요!")
         alert("아이디, 비밀번호를 다시 확인해주세요!")
@@ -214,7 +199,6 @@ async function handleLogout() {
 async function pschange() {
     const password1 = document.getElementById("password1").value
     const password2 = document.getElementById("password2").value
-    console.log(password1, password2)
 
     if (password2 !== password1) {
         alert("비번 잘못된입력입니다. 확인해주세요.")
@@ -238,15 +222,11 @@ async function pschange() {
     })
 
     const result = await response.json()
-    console.log(result)
 
     if (response.status == 200) {
-        console.log(response)
         alert("비밀번호가 변경되었습니다.")
         win_close()
     } else {
-        console.log(result)
-        console.log(response.status)
         alert(JSON.stringify(result))
         window.location.reload()
     }
@@ -275,18 +255,14 @@ async function findID() {
     })
 
     const result = await response.json()
-    console.log(result)
 
     if (response.status == 200) {
-        console.log(response)
         alert("아이디는      " + result)
         if (confirm("로그인 페이지로 이동하시겠습니까?")) {
             window.location.href = `${front_base_url}/templates/logintemp.html`
         }
 
     } else {
-        console.log(result)
-        console.log(response.status)
         alert("가입된 이메일이 없습니다. 다시확인해주세요.")
         window.location.reload()
     }

@@ -29,7 +29,6 @@ for (var i = 0; i < category_class.length; i++) {
 }
 
 function createSelectCategory(category_list) {
-    console.log(category_list)
     var select = document.createElement('select')
     select.id = category_list[0]
     select.size = '7'

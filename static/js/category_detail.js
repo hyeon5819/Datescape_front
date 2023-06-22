@@ -40,7 +40,6 @@ function createDetailCategory(cateory_list, times) {
         else {
             var child_category = createDetailCategory(cateory_list[2][i], times + 1)
             details.appendChild(child_category)
-            // console.log(detail)
         }
     }
     details.appendChild(summary)

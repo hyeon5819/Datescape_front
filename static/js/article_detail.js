@@ -22,9 +22,6 @@ window.onload = async () => {
     let add_html = document.querySelector('#add_html')
     let articleHtml = ``
 
-    console.log(data)
-    console.log(response)
-
 
     if (response.status == 200) {
         articleHtml = `
@@ -64,7 +61,6 @@ window.onload = async () => {
     let image_box = document.querySelector('#image_box')
     let imageHtml = ``
     for (let i = 0; i < await data.image.length; i++) {
-        // console.log(data.image[i])
         imageHtml += `
             <img src="${image_url}${data.image[i]["image"]}" alt="...">
         `

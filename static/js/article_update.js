@@ -10,7 +10,6 @@ function testListTextGet() {
     }
     return tagListText
 }
-console.log("게시글수정로드")
 const urlParams = new URLSearchParams(window.location.search);
 const articleId = urlParams.get("id");
 // 평점 range사용으로 게이지 연출 부분
@@ -60,7 +59,6 @@ async function articleLoad() {
 
     const removeImages = document.getElementById('images_remove')
     const articleImgs = articleImages.childNodes
-    console.log(articleImgs)
     articleImgs.forEach(element => {
         element.addEventListener('click', function () {
             const num = document.createElement('div')
@@ -70,8 +68,6 @@ async function articleLoad() {
         })
     });
 
-    console.log(data)
-    console.log(response)
     // main_image.files = data.main_image
     // image = data.image
 
@@ -135,7 +131,6 @@ async function articleUpdate(articleData) {
         imagesRmList.push(imagesRm.childNodes[i].className)
     }
     formData.append('images_rm', imagesRmList)
-    console.log(imagesRmList)
 
     const response = await fetch(`${back_base_url}/articles/${articleId}/`, {
 

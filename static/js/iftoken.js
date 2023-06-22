@@ -1,13 +1,9 @@
 let token = localStorage.getItem("access")
 
-// 현재 로그인 유저
-let payload = localStorage.getItem("payload");
-let payload_parse = JSON.parse(payload);
-let current_user = payload_parse.username;
-let login_type = payload_parse.login_type;
-// console.log(payload, payload_parse, current_user)
-console.log("현재 로그인한//" + current_user)
-console.log("현재 로그인한//" + login_type)
+if (token) {
+    alert("접근할수 없는 페이지 입니다.")
+    window.location.href = `${front_base_url}/`
+}
 
 // 이메일 유효성 검사
 function CheckEmail(str) {
@@ -79,25 +75,29 @@ async function handleSignin() {
     const password2 = document.getElementById("password2").value
     console.log(email_, email, username, password1, password2)
     if (!email || !username || !password1 || !password2) {
-        alert("공란 잘못된입력입니다. 확인해주세요.")
-        window.location.reload()
-    } else if (!checkPw(password1 || password2)) {
-        alert("비번 유효성 검사 잘못된입력입니다. 확인해주세요.")
-        window.location.reload()
-    } else if (password2 !== password1) {
-        alert("비번 잘못된입력입니다. 확인해주세요.")
-        window.location.reload()
-    } else if (!CheckEmail(email)) { // 존재한다면 -1이 아닌 숫자가 반환됨
-        alert("이메일 형식이 아닙니다.");
+        alert("공란 잘못된입력입니다. 확인해주세요.");
+        window.location.reload();
+        return false
+    }
+    if (!CheckEmail(email)) {
         email_.focus();
-        console.log(email_)
-        return false;
+        alert("이메일 형식이 아닙니다.");
+        window.location.reload();
+        return false
     }
-
-    if (checkPw) {
+    if (password2 !== password1) {
+        alert("비번 잘못된입력입니다. 확인해주세요.");
+        window.location.reload();
+        return false
+    }
+    if (!checkPw(password1 || password2)) {
+        // alert("비번 유효성 검사 잘못된입력입니다. 확인해주세요.");
+        window.location.reload();
+        return false
+    } else if (true) {
         alert("⏳잠시만 기다려 주세요")
-    }
 
+    }
 
     const response = await fetch(`${back_base_url}/users/sign-up/`, {
         headers: {
@@ -117,7 +117,7 @@ async function handleSignin() {
     console.log(JSON.stringify(result))
 
     if (response.status == 201) {
-        alert("로그인전에 이메일을 확인해주세요.")
+        alert("로그인 전에 가입하신 이메일 주소로 인증메일이 도착했습니다.          10분 내로 확인해 주세요!")
         window.location.replace(`${front_base_url}/templates/logintemp.html`)
     } else {
         console.log(response.status)
@@ -203,66 +203,15 @@ async function handleLogin() {
         window.location.replace(`${front_base_url}/index.html`)
     } else {
         console.log(response.status)
-        alert(JSON.stringify(result))
-        alert("이메일인증먼저해주세요!")
-        alert("아이디, 비밀번호를 다시 확인해주세요!")
+        // alert(JSON.stringify(result))
+        alert("인증이메일은 확인하셨나요? 아이디, 비밀번호를 정확히 입력해주세요.")
+        // alert("아이디, 비밀번호를 다시 확인해주세요!")
         // alert("이메일을 확인해주세요!")
         window.location.reload()
     }
 
 }
 
-// 로그아웃
-async function handleLogout() {
-    alert("로그아웃!")
-    localStorage.removeItem("access")
-    localStorage.removeItem("refresh")
-    localStorage.removeItem("payload")
-    location.reload();
-}
-
-// 비번변경-로그인된 상태에서
-async function pschange() {
-    const password1 = document.getElementById("password1").value
-    const password2 = document.getElementById("password2").value
-    console.log(password1, password2)
-
-    if (password2 !== password1) {
-        alert("비번 잘못된입력입니다. 확인해주세요.")
-        window.location.reload()
-    } else if (!password1 || !password2) {
-        alert("공란 잘못된입력입니다. 확인해주세요.")
-        window.location.reload()
-    }
-
-    const response = await fetch(`${back_base_url}/users/password/change/`, {
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            "Content-Type": "application/json",
-
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            "new_password1": password1,
-            "new_password2": password2
-        })
-    })
-
-    const result = await response.json()
-    console.log(result)
-
-    if (response.status == 200) {
-        console.log(response)
-        alert("비밀번호가 변경되었습니다.")
-        win_close()
-    } else {
-        console.log(result)
-        console.log(response.status)
-        alert(JSON.stringify(result))
-        window.location.reload()
-    }
-
-}
 
 // 아이디 찾기
 async function findID() {

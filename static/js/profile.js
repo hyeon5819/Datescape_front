@@ -76,7 +76,6 @@ async function getmyprofile() {
     })
 
     const result = await response.json()
-    console.log(result)
 
     let profileimage = result.profileimage
     let profileimageurl = result.profileimageurl
@@ -130,11 +129,7 @@ async function profileedit() {
 
     const result = await response.json()
 
-    console.log(result)
-
     if (response.status == 200) {
-        console.log(result[1])
-        console.log(result[2])
         localStorage.setItem("access", result[2]);
         localStorage.setItem("refresh", result[1]);
 
@@ -149,8 +144,6 @@ async function profileedit() {
         // win_close()
         opener.location.reload();
     } else {
-        console.log(result)
-        console.log(response.status)
         alert(JSON.stringify(result))
         window.location.reload()
     }

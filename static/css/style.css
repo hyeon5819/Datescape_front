@@ -187,3 +187,52 @@
 .w-btn:active {
     transform: scale(1.2);
 }
+
+.swiper {
+    width: 600px;
+    height: 300px;
+    position: relative;
+}
+
+.swiper-wrapper {
+    display: -webkit-inline-box
+}
+
+
+.material-icons {
+    font-size: 30px;
+    color: white;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    content: "";
+    display: none;
+}
+
+.swiper-pagination {
+    color: white;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    width: 30px;
+    height: 30px;
+    border: 2px solid white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50px;
+    z-index: 1;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-button-prev {
+    left: 120px;
+}
+
+.swiper-button-next {
+    right: 120px;
+}

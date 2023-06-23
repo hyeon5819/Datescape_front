@@ -22,7 +22,6 @@ window.onload = async () => {
     let add_html = document.querySelector('#add_html')
     let articleHtml = ``
 
-
     if (response.status == 200) {
         articleHtml = `
         <div style="display: flex;" class="detail_title justify-content-between">
@@ -48,17 +47,28 @@ window.onload = async () => {
                 ${data.content}
             </div><!-- e:content_box -->
             <div class="map_box">
+                <div id="tag_box" class="mb-5">
+                </div>
                 <div class="map_content">
                     <p class="fs-5">${data.road_address}</p>
                     <div id="map"></div>
-                    <button class="btn btn-outline-secondary text-center mt-4" type="button" onclick="loadNearArticle(${data.coordinate_y},${data.coordinate_x})">주변 명소 확인</button>
+                    <p>주변 명소 확인을 클릭하시고 마커를 클릭하시면 더 자세한 정보가 나옵니다.</p>
+                    <button class="display_block btn btn-outline-secondary text-center mt-4" type="button" onclick="loadNearArticle(${data.coordinate_y},${data.coordinate_x})">주변 명소 확인</button>
                 </div>
-            </div><!-- e:map_box -->
+        </div><!-- e:map_box -->
         </div><!-- e:detail_box -->
                 `
     }
-    console.log(data)
     add_html.innerHTML = articleHtml
+    // 태그 출력부분
+    let tag_box = document.querySelector('#tag_box')
+    let tagHtml = ``
+    for (let i = 0; i < await data.tags.length; i++) {
+        tagHtml += `
+        <a href="${front_base_url}/templates/search_list.html?option=tag&search=${data.tags[i].tag}&page=1&/">#${data.tags[i].tag}</a>
+        `
+        tag_box.innerHTML = tagHtml
+    }
     //다중이미지 출력부분
     let image_box = document.querySelector('#image_box')
     let imageHtml = ``
@@ -148,11 +158,11 @@ async function loadArticlePosition(position) {
 /*게시글 주변 데이터 가져옴기 */
 async function loadNearArticle(latitude, longitude) {
     // 주변 데이터 요청
+
     const nearPositions = await getNearPosition(latitude, longitude, 2)
 
     // 주변 마커 생성
     nearPositions.forEach(point => {
-        console.log(point)
         var jibun = point.jibun_address
         var placeName = jibun.split(' ')
         // 마커를 표시할 위치
@@ -208,15 +218,15 @@ async function loadNearArticle(latitude, longitude) {
         span.innerText = '|'
         link.appendChild(span)
         var link_a = document.createElement('a')
-        link_a.setAttribute("class", "link")
+        link_a.setAttribute("class", "link stop-scrolling")
+        link_a.setAttribute("style", "cursor:pointer;")
         link_a.setAttribute("onclick", `loadArticleList(${point.id})`)
-        link_a.setAttribute("href", "#")
+        // link_a.setAttribute("href", "#")
         link_a.innerHTML = `리뷰 ${point.articles.length}`
         link.appendChild(link_a)
         desc.appendChild(link)
         body.appendChild(desc)
         info.appendChild(body)
-
         // 마커 위에 커스텀오버레이를 표시
         var overlay = new kakao.maps.CustomOverlay({
             content: content,
@@ -225,7 +235,10 @@ async function loadNearArticle(latitude, longitude) {
         });
         overlay.setMap(null)
         // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
-        kakao.maps.event.addListener(marker, 'click', function () { overlay.setMap(map); });
+        kakao.maps.event.addListener(marker, 'click', function () {
+            overlay.setMap(map);
+
+        });
     });
 }
 // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
@@ -239,34 +252,37 @@ async function loadArticleList(location) {
     // 리뷰 데이터 가져오기
     const response = await getNearAritcle(location)
     const location_list = document.getElementById('near-articles')
+    let swiper_block = document.querySelector('.swiper')
+    swiper_block.style = 'display:block;'
+
     location_list.innerHTML = ''
     response.results.forEach(article => {
         var jibun = article.jibun_address
         var place = jibun.split(' ')
         location_list.innerHTML += `
         <div class="swiper-slide" >
-        <div class="card text-bg-dark border-light rounded-4" style="height:300px; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}&/';">
-        <img src="${article.main_image}" class="card-img cardimg mh-100 rounded-4" alt="..." >
-        <div class="card-img-overlay img-cover rounded-4" style="padding: 30px;">
-        <h4 class="card-title cardtitle mt-3">${article.title}</h4>
-        <p class="card-text content mb-5">${article.content}</p>
-        <ul class="d-flex list-unstyled mt-auto pt-5 mb-0 align-items-end">
-              <li class="me-auto">
-                <small>${article.user}</small>
-              </li>
-              <li class="d-flex align-items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="0.9em" height="0.9em" fill="currentColor" class="bi bi-geo-alt-fill me-1" viewBox="0 0 16 16">
-  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
-</svg>
-                <small>${place[0]}</small >
-              </li >
-            </ul >
-    
-        </div>
-        </div>
+            <div class="card text-bg-dark border-light rounded-4" style="height:300px; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}&/';">
+            <img src="${article.main_image}" class="card-img cardimg mh-100 rounded-4" alt="..." >
+                <div class="card-img-overlay img-cover rounded-4" style="padding: 30px;">
+                    <h4 class="card-title card_title mt-3">${article.title}</h4>
+                    <p class="card-text content mb-5">${article.content}</p>
+                    <ul class="d-flex list-unstyled mt-auto pt-5 mb-0 align-items-end">
+                        <li class="me-auto">
+                            <small>${article.user}</small>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="0.9em" height="0.9em" fill="currentColor" class="bi bi-geo-alt-fill me-1" viewBox="0 0 16 16">
+                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                            </svg>
+                            <small>${place[0]}</small >
+                        </li >
+                    </ul >
+                </div>
+            </div>
         </div>
         `
     });
+
 }
 
 

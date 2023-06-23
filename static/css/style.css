@@ -158,3 +158,32 @@
     overflow: hidden;
     background: #fff;
 }
+
+.w-btn {
+    position: relative;
+    border: none;
+    display: inline-block;
+    padding: 10px 25px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.25s;
+    margin-left: 10px;
+}
+
+.w-btn-brown {
+    background-color: #2FA4FF;
+    color: white;
+}
+
+.w-btn:hover {
+    letter-spacing: 1px;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.w-btn:active {
+    transform: scale(1.2);
+}

@@ -188,10 +188,16 @@
     transform: scale(1.2);
 }
 
+.swiper-button-prev,
+.swiper-button-next {
+    border: 0 !important;
+}
+
 .swiper {
     width: 600px;
     height: 300px;
     position: relative;
+    display: none;
 }
 
 .swiper-wrapper {

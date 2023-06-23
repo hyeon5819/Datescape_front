@@ -3,7 +3,6 @@ let access = localStorage.getItem("access")
 
 window.onload = async function () {
     getmyprofile()
-    // setTimeout(autologout, 6000)
     if (access) {
         onuser_activite()
     }
@@ -83,21 +82,18 @@ async function getmyprofile() {
 
 
     const email = document.getElementById('email')
+    const username = document.getElementById('username')
     const nickname = document.getElementById('nickname')
     const image = document.getElementById('image')
 
     email.innerText = result['email']
+    username.innerText = result['username']
     nickname.innerText = result['nickname']
-
-    // profileimage.setAttribute("imageURL", "result.profileimage.split('/media/')[1]")
 
     if (profileimage !== null) {
         image.setAttribute("src", `${image_url}` + result.profileimage)
 
     }
-    // else if (!profileimage) {
-    //     profileimage.setAttribute("src", "../static/images/default.png")
-    // }
     else if (profileimage == null) {
         image.setAttribute("src", result.profileimageurl)
     }
@@ -133,8 +129,19 @@ async function profileedit() {
 
     const result = await response.json()
 
+    console.log(result)
 
     if (response.status == 200) {
+        localStorage.setItem("access", result[2]);
+        localStorage.setItem("refresh", result[1]);
+
+        const base64Url = result[2].split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        localStorage.setItem("payload", jsonPayload);
         alert("프로필수정완료!")
         win_close()
         opener.location.reload();

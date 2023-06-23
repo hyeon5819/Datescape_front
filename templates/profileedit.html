@@ -18,9 +18,9 @@
         <dt>
 프로필변경
         </dt>
-        <input type="text" name="username" id="username" placeholder="아이디">
+        <input type="text" name="nickname" id="nickname" placeholder="닉네임">
         <input type="file" name="profileimage" id="profileimage" onchange="setThumbnail(event);">
-        <a class="nav-link active" aria-current="page" href="/templates/passwordchange.html">비밀번호 변경</a>
+        <a id="pschange" class="nav-link active" aria-current="page" href="/templates/passwordchange.html">비밀번호 변경</a>
         <button type="button" onclick="profileedit()">제출</button>
     </form>
 

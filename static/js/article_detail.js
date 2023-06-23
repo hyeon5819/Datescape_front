@@ -57,7 +57,6 @@ window.onload = async () => {
         </div><!-- e:detail_box -->
                 `
     }
-    console.log(data)
     add_html.innerHTML = articleHtml
     //다중이미지 출력부분
     let image_box = document.querySelector('#image_box')
@@ -152,7 +151,6 @@ async function loadNearArticle(latitude, longitude) {
 
     // 주변 마커 생성
     nearPositions.forEach(point => {
-        console.log(point)
         var jibun = point.jibun_address
         var placeName = jibun.split(' ')
         // 마커를 표시할 위치

@@ -13,25 +13,19 @@ async function injectNavbar() {
     // 1시간 마다 새로고침
     window.setTimeout('window.location.reload()', 3600000);
 
-
+    const payload = localStorage.getItem("payload");
+    let payload_parse = JSON.parse(payload);
     let current_ = Math.floor((new Date()).getTime() / 1000)
     let exp = payload_parse.exp
 
-    if (current_ > exp) {
-        alert("대기 시간 초과로 자동 로그아웃 되었습니다.")
-        handleLogout()
+    if (payload) {
+        if (current_ > exp) {
+            alert("대기 시간 초과로 자동 로그아웃 되었습니다.")
+            handleLogout()
+        }
+
     }
 
-    function handleLogout() {
-        alert("로그아웃!")
-        localStorage.removeItem("access")
-        localStorage.removeItem("refresh")
-        localStorage.removeItem("payload")
-        window.location.href = `${front_base_url}/index.html`
-    }
-
-
-    const payload = localStorage.getItem("payload");
     if (payload) {
         const payload_parse = JSON.parse(payload)
 
@@ -81,3 +75,10 @@ async function injectFooter() {
 
 injectFooter()
 
+function handleLogout() {
+    alert("로그아웃!")
+    localStorage.removeItem("access")
+    localStorage.removeItem("refresh")
+    localStorage.removeItem("payload")
+    window.location.href = `${front_base_url}/index.html`
+}

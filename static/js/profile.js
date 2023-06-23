@@ -129,7 +129,6 @@ async function profileedit() {
 
     const result = await response.json()
 
-
     if (response.status == 200) {
         localStorage.setItem("access", result[2]);
         localStorage.setItem("refresh", result[1]);

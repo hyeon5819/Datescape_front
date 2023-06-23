@@ -2,7 +2,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const type = urlParams.get('type');
 const id = urlParams.get('id');
 const request_type = { 1: "user", 2: "article", 3: "comment" }
-const type_name = { 1: "유저", 2: "게시글", 3: "내용" }
+const type_name = { 1: "유저", 2: "게시글", 3: "댓글" }
 document.title = "DateScape | " + type_name[type] + " 신고 작성 페이지"
 document.getElementsByClassName("report-title")[0].insertAdjacentText("afterbegin", type_name[type] + " ")
 
@@ -107,7 +107,7 @@ async function userReport() {
             opener.alert("신고 성공")
             window.close();
         }
-        alert("신고가 잘못되었습니다")
+        else { alert("신고 실패") }
     }
     else {
         alert("신고유형이 선택되지 않았습니다.")

@@ -15,7 +15,7 @@ if (!access) {
 /*list받기 */
 async function categoryGet(ids) {
     serch_list = ids
-    const response = await fetch(`${back_base_url}/reports/childcategory?request_type=${serch_list}&/`, {
+    const response = await fetch(`${back_base_url}/reports/childcategory/?request_type=${serch_list}&/`, {
         method: "GET",
         headers: {
             Authorization: `Bearer ${access}`,
@@ -100,8 +100,6 @@ function createParentBox(id) {
     card_box.appendChild(col_category_detail)
     col_category_detail.appendChild(card_h100)
     card_h100.appendChild(card_body)
-
-
     var parent_is_html = document.createElement('il')
     parent_is_html.innerHTML = id
     var create_check = document.createElement("button")
@@ -262,22 +260,23 @@ function save_datas() {
             var parent_name = check_info(list_box.firstChild.nextSibling.nextSibling.nextSibling)
             parent_data = [parent_id, parent_name]
 
-        }
 
 
-        child_data = []
-        child_boxs = list_box.getElementsByTagName("br")
-        for (i = 0; i < child_boxs.length; i++) {
-            child_id = child_boxs[i].nextSibling.className
-            if (child_id.length == 0) {
-                child_id = 0
+
+            child_data = []
+            child_boxs = list_box.getElementsByTagName("br")
+            for (j = 0; j < child_boxs.length; j++) {
+                child_id = child_boxs[j].nextSibling.className
+                if (child_id.length == 0) {
+                    child_id = 0
+                }
+                child_name = check_info(child_boxs[j].nextSibling)
+                parent_child_data = child_boxs[j].nextSibling.nextSibling.nextSibling.value
+                child_data = child_data.concat([[child_id, child_name, parent_child_data]])
             }
-            child_name = check_info(child_boxs[i].nextSibling)
-            parent_child_data = child_boxs[i].nextSibling.nextSibling.nextSibling.value
-            child_data = child_data.concat([[child_id, child_name, parent_child_data]])
-        }
-        send_datas = send_datas.concat([[parent_data, child_data]])
+            send_datas = send_datas.concat([[parent_data, child_data]])
 
+        }
     }
     console.log(send_datas)
     console.log("work")

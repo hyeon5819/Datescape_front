@@ -10,6 +10,26 @@ async function injectNavbar() {
     let data = await navbarHtml.text()
     document.querySelector("header").innerHTML = data;
 
+    // 1시간 마다 새로고침
+    window.setTimeout('window.location.reload()', 3600000);
+
+
+    let current_ = Math.floor((new Date()).getTime() / 1000)
+    let exp = payload_parse.exp
+
+    if (current_ > exp) {
+        alert("대기 시간 초과로 자동 로그아웃 되었습니다.")
+        handleLogout()
+    }
+
+    function handleLogout() {
+        alert("로그아웃!")
+        localStorage.removeItem("access")
+        localStorage.removeItem("refresh")
+        localStorage.removeItem("payload")
+        window.location.href = `${front_base_url}/index.html`
+    }
+
 
     const payload = localStorage.getItem("payload");
     if (payload) {
@@ -50,14 +70,6 @@ async function injectNavbar() {
 
 injectNavbar();
 
-function handleLogout() {
-    alert("로그아웃!")
-    localStorage.removeItem("access")
-    localStorage.removeItem("refresh")
-    localStorage.removeItem("payload")
-    window.location.href = `${front_base_url}/index.html`
-}
-
 async function injectFooter() {
     fetch("../footer.html").then(response => {
         return response.text()
@@ -68,3 +80,4 @@ async function injectFooter() {
 }
 
 injectFooter()
+

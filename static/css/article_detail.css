@@ -122,7 +122,7 @@ body {
     background-color: #f1da72
 }
 
-.reply{
+.reply {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -130,12 +130,12 @@ body {
     font-size: x-small;
 }
 
-.reply_hr{
+.reply_hr {
     width: 100%;
     margin-bottom: 0px;
 }
 
-.reply_btn{
+.reply_btn {
     border: 0;
     background-color: white;
 }

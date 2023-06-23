@@ -158,3 +158,87 @@
     overflow: hidden;
     background: #fff;
 }
+
+.w-btn {
+    position: relative;
+    border: none;
+    display: inline-block;
+    padding: 10px 25px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.25s;
+    margin-left: 10px;
+}
+
+.w-btn-sky {
+    background-color: #2FA4FF;
+    color: white;
+}
+
+.w-btn:hover {
+    letter-spacing: 1px;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.w-btn:active {
+    transform: scale(1.2);
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    border: 0 !important;
+}
+
+.swiper {
+    width: 600px;
+    height: 300px;
+    position: relative;
+    display: none;
+}
+
+.swiper-wrapper {
+    display: -webkit-inline-box
+}
+
+
+.material-icons {
+    font-size: 30px;
+    color: white;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    content: "";
+    display: none;
+}
+
+.swiper-pagination {
+    color: white;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    width: 30px;
+    height: 30px;
+    border: 2px solid white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50px;
+    z-index: 1;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-button-prev {
+    left: 120px;
+}
+
+.swiper-button-next {
+    right: 120px;
+}

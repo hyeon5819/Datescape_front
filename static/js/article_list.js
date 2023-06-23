@@ -1,4 +1,3 @@
-console.log("js연결")
 token = localStorage.getItem("access")
 function detail_page(article_id) {
     location.href = `${front_base_url}/templates/article_detail.html?id=${article_id}&/`
@@ -30,7 +29,6 @@ window.onload = async () => {
             method: 'GET',
         })
         const data = await response.json()
-        console.log(data)
 
         if (response.status === 200) {
             for (let i = 0; i < data.results.length; i++) {
@@ -42,16 +40,18 @@ window.onload = async () => {
 
                 articleHtml += `
             <div class="col article_detail" onclick="detail_page(${article.id})">
-                <div class="score_box">평점:${article.score}</div>
                 <div class="card h-100">
-                    <img text-align:center;" src="${image_url}${article.main_image}" class="card-img-top" alt="...">
+                <div style="width: 282px; height: 234px;" >
+                    <img text-align:center;" src="${image_url}${article.main_image}" class="card-img-top cardimg" alt="...">
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">${article.title}</h5>
-                        <p class="card-text content">${article.content}</p>
-                    </div><!-- e:body -->
+                        <h5 class="card-title cardtitle">${article.title}</h5>
+                        <p class="card-text content" style="color:gray;">${article.content}</p>
+                        <span class="text-muted"><small>${tag_add}</small></span>
+                        </div><!-- e:body -->
                     <div class="card-footer d-flex justify-content-between">
                         <span class="text-muted">${article.user}</span>
-                        <span class="text-muted">${tag_add}</span>
+                        <span  style="color:#FFBF00;">⭐️ ${article.score}</span>
                     </div><!-- e:footer -->
                 </div>
             </div>
@@ -64,7 +64,6 @@ window.onload = async () => {
             // 페이징 업데이트
             createPagination(Math.ceil(data.count / 9), pageNumber) // 페이지 수 수정
         } else {
-            console.error(data.detail)
         }
     }
 
@@ -83,7 +82,8 @@ window.onload = async () => {
     function createPagination(totalPages, currentPage) {
         const wrapper = document.querySelector('.pagination-wrapper')
         wrapper.innerHTML = ''
-
+        currentPage = Number(currentPage)
+        totalPages = Number(totalPages)
         if (totalPages > 1) {
             const pagination = document.createElement('ul')
             pagination.setAttribute('class', 'pagination justify-content-center')

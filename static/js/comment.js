@@ -322,7 +322,6 @@ async function commentUpdate(type_id, type, parent_id) {
 
 // 수정 확인
 async function commentUpdateConfirm(type_id, type, parent_id) {
-    console.log(type_id, type, parent_id)
     const commentUpdateContent = document.getElementById(`${type}_update_input${type_id}`).value;
     const commentUpdateEmoticon = document.getElementById(`${type}_update_use_emoticon`).alt;
 

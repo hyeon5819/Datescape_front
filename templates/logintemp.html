@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../components/urls.js"></script>
 
-    <script src="../static/js/apitemp.js"></script>
+    <script src="../static/js/iftoken.js"></script>
     <script type="module" src="../static/js/login.js"></script>
 
     <title>DateScape | LogIn</title>
@@ -38,7 +38,8 @@
                         <dl class="user_info">
                             <dt>아이디(ID)</dt>
                             <dd><input type="text" id="username" placeholder="아이디(ID)를 입력해 주세요." name="user_id"
-                                    required></dd>
+                                    required>
+                                </dd>
                             <dt>비밀번호(PW)</dt>
                             <dd><input type="password" id="password1" placeholder="비밀번호(PW)를 입력해 주세요." name="user_pw"
                                     required>
@@ -47,9 +48,9 @@
                         <button type="button" onclick="handleLogin()">로그인</button>
                         <div class="find">
                             <a href="/templates/finduserid.html">아이디(ID) 찾기</a>
-                            <a href="#">비밀번호 재설정</a>
+                            <a href="/templates/reset_password_email.html">비밀번호 재설정</a>
                             <a href="/templates/signup.html">회원가입</a>
-                            <a href="/index.html">돌아가기</a>
+                            <a href="/templates/resend_email.html">  이메일 재전송  </a>
                         </div><!-- e:find -->
                     </div><!-- e:main_login -->
                 </fieldset>

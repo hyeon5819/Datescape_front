@@ -118,7 +118,6 @@ async function PostArticle(formData) {
     })
     if (response.status == 200) {
         response_data = await response.json();
-        console.log(response_data)
         window.location.href = `${front_base_url}/templates/article_detail.html?id=${response_data}&/`
 
         return;

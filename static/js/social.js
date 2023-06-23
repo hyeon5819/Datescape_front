@@ -29,7 +29,6 @@ function oauthSignIn(key, redirecturi) {
 
 // login에서 import
 export async function socialLogin(social) {
-    // console.log("인가코드 받기")
     const url = `${back_base_url}/users/social/`;
     const response = await fetch(url, {
         headers: {
@@ -44,19 +43,15 @@ export async function socialLogin(social) {
     if (response.status === 200) {
         const responseJson = await response.json();
         if (social == 'kakao-login') {
-            console.log('카카오')
             window.location.href = responseJson.url;
         }
         if (social == 'google-login') {
-            console.log('google')
             oauthSignIn(responseJson.key, responseJson.redirecturi)
         }
         if (social == 'naver-login') {
-            console.log('naver')
             window.location.href = responseJson.url;
         }
         if (social == 'github-login') {
-            console.log('github')
             window.location.href = responseJson.url;
         }
     }
@@ -65,18 +60,15 @@ export async function socialLogin(social) {
 
 // index에서 import
 export async function sendCode() {
-    // console.log("인가코드 받고 인가 코드 send 후 post 처리")
     var currentUrl = window.location.href
     var urlWithoutQuery = currentUrl.split('?')[0]
     let social = null
     let code = new URLSearchParams(window.location.search).get('code')
 
     let state = null
-    // console.log(code)
 
     if (code) {
         let len = code.length
-        console.log(len)
         state = new URLSearchParams(window.location.search).get('state')
         if (state) {
             social = 'naver-login'
@@ -85,11 +77,7 @@ export async function sendCode() {
             social = 'github-login'
         }
         else {
-            // if (social !== 'github-login')
-            //     social = 
-            // else {
             social = 'kakao-login'
-            // }
         }
     }
     else {
@@ -126,16 +114,3 @@ export async function sendCode() {
         }
     }
 }
-
-
-// var currentUrl = window.location.href
-// var urlWithoutQuery = currentUrl.split('?')[0]
-// if (response.status == 200) {
-//     var currentUrl = window.location.href
-//     let code = new URL(window.location.href)
-//     let code_ = code.searchParams.get('code')
-//     // let code = new URLSearchParams(window.location.search).get('code')
-//     console.log(currentUrl)
-//     console.log(code)
-//     console.log(code_)
-// }

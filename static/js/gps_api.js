@@ -1,41 +1,10 @@
-async function getAddress(position) {
-    // kakao api를 이용해서 좌표를 주소로 바꿔주기
-    // https://developers.kakao.com/docs/latest/ko/local/dev-guide#coord-to-address
-    const response = await fetch(`https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${position.coords.longitude}&y=${position.coords.latitude}&input_coord=WGS84&/`, {
-        method: 'GET',
-        headers: {
-            'Authorization': `KakaoAK ${REST_API_KEY}`
-        },
-    })
-    const response_json = await response.json()
-    //console.log(response_json.documents[0].address.address_name)
-    //html에 위치 띄우기
-    const mylocation = document.getElementById('mylocation')
-    mylocation.innerText = response_json.documents[0].address.address_name
-}
+const urlParams = new URLSearchParams(window.location.search);
+let dist = urlParams.get("dist");
 
-// 근처 데이터 가져오기
-async function getNearPosition(position) {
-    const response = await fetch(`${back_base_url}/articles/location-list/?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&/`)
-
-    if (response.status == 200) {
-        const response_json = await response.json()
-        return response_json
-    } else {
-        alert("불러오는데 실패하였습니다.")
-    }
-}
-
-// 장소 리뷰 가져오기
-async function getNearAritcle(location) {
-    const response = await fetch(`${back_base_url}/articles/location-articles/?location=${location}&/`)
-
-    if (response.status == 200) {
-        const response_json = await response.json()
-        return response_json
-    } else {
-        alert("불러오는데 실패하였습니다.")
-    }
+if (dist == null) {
+    document.getElementById('dist').innerHTML = `반경 2km`
+} else {
+    document.getElementById('dist').innerHTML = `반경 ${dist}km`
 }
 
 // 주변 데이터 맵 형식
@@ -52,17 +21,37 @@ async function loadMyPosition(position) {
     var myPosition = new kakao.maps.LatLng(position.coords.latitude, position.coords.longitude);
     // 마커 생성
     var myMarker = new kakao.maps.Marker({
-        position: myPosition
+        position: myPosition,
+        clickable: true
     });
     // 마커가 지도 위에 표시되도록 설정
     myMarker.setMap(map);
 
-    // 주변 데이터 표시
-    const nearPositions = await getNearPosition(position)
+    // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성
+    var iwContent = '<div style="padding:5px;">내 위치!</div>',
+        iwRemoveable = true;
+
+    var infowindow = new kakao.maps.InfoWindow({
+        content: iwContent,
+        removable: iwRemoveable
+    });
+
+    // 마커에 클릭이벤트를 등록합니다
+    kakao.maps.event.addListener(myMarker, 'click', function () {
+        // 마커 위에 인포윈도우를 표시합니다
+        infowindow.open(map, myMarker);
+    });
+
+    // 찾을 반경 설정
+    if (dist == null) {
+        dist = '2'
+    }
+    // 주변 데이터 요청
+    const nearPositions = await getNearPosition(position.coords.latitude, position.coords.longitude, dist)
+
     // 주변 마커 생성
     nearPositions.forEach(point => {
-        console.log(point)
-        var jibun = point.article_set[0].jibun_address
+        var jibun = point.articles[0].jibun_address
         var placeName = jibun.split(' ')
         // 마커를 표시할 위치
         var position = new kakao.maps.LatLng(point.coordinate_y, point.coordinate_x);
@@ -92,7 +81,7 @@ async function loadMyPosition(position) {
         img.setAttribute("class", "img card")
         var newImg = document.createElement("img")
         newImg.setAttribute("class", "cardimg")
-        newImg.setAttribute("src", `${image_url}${point.article_set[0].main_image}`)
+        newImg.setAttribute("src", `${image_url}${point.articles[0].main_image}`)
         newImg.style.cssText = 'width: 73; height:70;';
         img.appendChild(newImg)
         body.appendChild(img)
@@ -120,7 +109,7 @@ async function loadMyPosition(position) {
         link_a.setAttribute("class", "link")
         link_a.setAttribute("onclick", `loadMyList(${point.id})`)
         link_a.setAttribute("href", "#")
-        link_a.innerHTML = `리뷰 ${point.article_set.length}`
+        link_a.innerHTML = `리뷰 ${point.articles.length}`
         link.appendChild(link_a)
         desc.appendChild(link)
         body.appendChild(desc)
@@ -132,6 +121,7 @@ async function loadMyPosition(position) {
             map: map,
             position: marker.getPosition()
         });
+        overlay.setMap(null)
         // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
         kakao.maps.event.addListener(marker, 'click', function () { overlay.setMap(map); });
     });

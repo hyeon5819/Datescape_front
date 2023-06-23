@@ -1,20 +1,9 @@
 let token = localStorage.getItem("access")
 
-// 현재 로그인 유저
-let payload = localStorage.getItem("payload");
-let payload_parse = JSON.parse(payload);
-let current_user = payload_parse.username;
-let login_type = payload_parse.login_type;
-let last_login = payload_parse.last_login;
-let current_ = Math.floor((new Date()).getTime() / 1000)
-let exp = payload_parse.exp
-
-if (current_ > exp) {
-    alert("대기 시간 초과로 자동 로그아웃 되었습니다.")
-    handleLogout()
+if (token) {
+    alert("접근할수 없는 페이지 입니다.")
+    window.location.href = `${front_base_url}/`
 }
-
-
 
 // 이메일 유효성 검사
 function CheckEmail(str) {
@@ -85,24 +74,27 @@ async function handleSignin() {
     const password1 = document.getElementById("password1").value
     const password2 = document.getElementById("password2").value
     if (!email || !username || !password1 || !password2) {
-        alert("공란 잘못된입력입니다. 확인해주세요.")
-        window.location.reload()
-    } else if (!checkPw(password1 || password2)) {
-        alert("비번 유효성 검사 잘못된입력입니다. 확인해주세요.")
-        window.location.reload()
-    } else if (password2 !== password1) {
-        alert("비번 잘못된입력입니다. 확인해주세요.")
-        window.location.reload()
-    } else if (!CheckEmail(email)) { // 존재한다면 -1이 아닌 숫자가 반환됨
-        alert("이메일 형식이 아닙니다.");
-        email_.focus();
-        return false;
+        alert("공란 잘못된입력입니다. 확인해주세요.");
+        window.location.reload();
+        return false
     }
-
-    if (checkPw) {
+    if (!CheckEmail(email)) {
+        email_.focus();
+        alert("이메일 형식이 아닙니다.");
+        window.location.reload();
+        return false
+    }
+    if (password2 !== password1) {
+        alert("비번 잘못된입력입니다. 확인해주세요.");
+        window.location.reload();
+        return false
+    }
+    if (!checkPw(password1 || password2)) {
+        window.location.reload();
+        return false
+    } else if (true) {
         alert("⏳잠시만 기다려 주세요")
     }
-
 
     const response = await fetch(`${back_base_url}/users/sign-up/`, {
         headers: {
@@ -120,7 +112,7 @@ async function handleSignin() {
     let result = await response.json();
 
     if (response.status == 201) {
-        alert("로그인전에 이메일을 확인해주세요.")
+        alert("로그인 전에 가입하신 이메일 주소로 인증메일이 도착했습니다.          10분 내로 확인해 주세요!")
         window.location.replace(`${front_base_url}/templates/logintemp.html`)
     } else {
         alert(JSON.stringify(result))
@@ -144,7 +136,9 @@ async function handleEmailResend() {
             "email": email,
         })
     })
+
     let result = await response.json();
+
 
     if (response.status == 200) {
         alert("이메일을 확인해주세요.")
@@ -160,6 +154,7 @@ async function handleEmailResend() {
 async function handleLogin() {
     const username = document.getElementById("username").value
     const password = document.getElementById("password1").value
+
 
     if (!username || !password) {
         alert("공란 잘못된입력입니다. 확인해주세요.")
@@ -180,7 +175,6 @@ async function handleLogin() {
 
     const result = await response.json()
 
-
     if (response.status == 200) {
         localStorage.setItem("access", result.access);
         localStorage.setItem("refresh", result.refresh);
@@ -195,60 +189,12 @@ async function handleLogin() {
         alert("로그인되었습니다.")
         window.location.replace(`${front_base_url}/index.html`)
     } else {
-        alert(JSON.stringify(result))
-        alert("이메일인증먼저해주세요!")
-        alert("아이디, 비밀번호를 다시 확인해주세요!")
+        alert("인증이메일은 확인하셨나요? 아이디, 비밀번호를 정확히 입력해주세요.")
         window.location.reload()
     }
 
 }
 
-// 로그아웃
-async function handleLogout() {
-    alert("로그아웃!")
-    localStorage.removeItem("access")
-    localStorage.removeItem("refresh")
-    localStorage.removeItem("payload")
-    location.reload();
-}
-
-// 비번변경-로그인된 상태에서
-async function pschange() {
-    const password1 = document.getElementById("password1").value
-    const password2 = document.getElementById("password2").value
-
-    if (password2 !== password1) {
-        alert("비번 잘못된입력입니다. 확인해주세요.")
-        window.location.reload()
-    } else if (!password1 || !password2) {
-        alert("공란 잘못된입력입니다. 확인해주세요.")
-        window.location.reload()
-    }
-
-    const response = await fetch(`${back_base_url}/users/password/change/`, {
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            "Content-Type": "application/json",
-
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            "new_password1": password1,
-            "new_password2": password2
-        })
-    })
-
-    const result = await response.json()
-
-    if (response.status == 200) {
-        alert("비밀번호가 변경되었습니다.")
-        win_close()
-    } else {
-        alert(JSON.stringify(result))
-        window.location.reload()
-    }
-
-}
 
 // 아이디 찾기
 async function findID() {
@@ -321,7 +267,6 @@ async function handleResetPasswordEmail() {
 // 비밀번호 초기화 이메일 인증 후 비밀번호 수정
 async function handleResetPasswordChange() {
     const userpk = new URLSearchParams(window.location.search).get("uid")
-
     const password1 = document.getElementById("password1").value
     const password2 = document.getElementById("password2").value
 
@@ -346,7 +291,6 @@ async function handleResetPasswordChange() {
     })
 
     const result = await response.json()
-
 
     if (response.status == 200) {
         alert("비밀번호가 변경되었습니다.")

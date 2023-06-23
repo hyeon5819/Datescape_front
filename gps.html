@@ -19,7 +19,8 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col">
-                <h3 class="fw-bold">우리 동네 명소</h3>
+                <p style="color: gray; margin-bottom: 3px;">내 주변의 명소를 찾아보세요</p>
+                <h3 class="fw-bold mb-3">우리 동네 명소</h3>
                 <li class="d-flex align-items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor"
                         class="bi bi-geo-alt me-1" viewBox="0 0 16 16">
@@ -29,6 +30,17 @@
                     </svg>
                     <p id="mylocation" style="margin: 0;"></p>
                 </li>
+                <div class="dropdown mt-4">
+                    <button id="dist" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="border-radius: 10px;">
+                        반경 2km
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="gps.html?dist=2&/">반경 2km</a></li>
+                        <li><a class="dropdown-item" href="gps.html?dist=5&/">반경 5km</a></li>
+                        <li><a class="dropdown-item" href="gps.html?dist=10&/">반경 10km</a></li>
+                    </ul>
+                </div>
 
             </div>
             <div class="col">
@@ -46,6 +58,7 @@
         crossorigin="anonymous"></script>
     <script src="../components/urls.js"></script>
     <script src="../components/api_key.js"></script>
+    <script src="../static/js/api.js"></script>
     <script src="../static/js/gps_api.js"></script>
     <script src="../static/js/navbar.js"></script>
 </body>

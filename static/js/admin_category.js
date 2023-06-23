@@ -15,7 +15,7 @@ if (!access) {
 /*list받기 */
 async function categoryGet(ids) {
     serch_list = ids
-    const response = await fetch(`${back_base_url}/reports/childcategory?request_type=${serch_list}&/`, {
+    const response = await fetch(`${back_base_url}/reports/childcategory/?request_type=${serch_list}&/`, {
         method: "GET",
         headers: {
             Authorization: `Bearer ${access}`,
@@ -26,7 +26,6 @@ async function categoryGet(ids) {
         response_data = await response.json()
         var datas = response_data["datas"]
         var names = response_data["name"]
-        console.log(datas)
         createList(datas, names)
         return;
     } else {
@@ -34,7 +33,6 @@ async function categoryGet(ids) {
     }
 }
 async function categorySave(datas) {
-    console.log(datas)
     const response = await fetch(`${back_base_url}/reports/category/`, {
         method: 'POST',
         headers: {
@@ -48,7 +46,6 @@ async function categorySave(datas) {
     });
 
     if (response.status == 200) {
-        console.log("저장완료")
         return;
     } else {
         alert(response.status);
@@ -57,7 +54,6 @@ async function categorySave(datas) {
 
 /*list 로 box만들기*/
 function createList(lists, names) {
-    console.log(lists.length)
     if (!lists.length) {
         parant_card = createParentBox("0")
     }
@@ -100,8 +96,6 @@ function createParentBox(id) {
     card_box.appendChild(col_category_detail)
     col_category_detail.appendChild(card_h100)
     card_h100.appendChild(card_body)
-
-
     var parent_is_html = document.createElement('il')
     parent_is_html.innerHTML = id
     var create_check = document.createElement("button")
@@ -213,7 +207,6 @@ function child_delet(event) {
 }
 //부모삭제
 function parent_delet(event) {
-    console.log("1")
     if (event.target.checked) {
         del = document.createElement("del")
         del.appendChild(event.target.nextSibling.nextSibling)
@@ -258,34 +251,31 @@ function save_datas() {
         }
         else {
             var parent_id = list_box.firstChild.innerHTML
-            console.log(list_box.firstChild.nextSibling.nextSibling.nextSibling)
             var parent_name = check_info(list_box.firstChild.nextSibling.nextSibling.nextSibling)
             parent_data = [parent_id, parent_name]
 
-        }
 
 
-        child_data = []
-        child_boxs = list_box.getElementsByTagName("br")
-        for (i = 0; i < child_boxs.length; i++) {
-            child_id = child_boxs[i].nextSibling.className
-            if (child_id.length == 0) {
-                child_id = 0
+
+            child_data = []
+            child_boxs = list_box.getElementsByTagName("br")
+            for (j = 0; j < child_boxs.length; j++) {
+                child_id = child_boxs[j].nextSibling.className
+                if (child_id.length == 0) {
+                    child_id = 0
+                }
+                child_name = check_info(child_boxs[j].nextSibling)
+                parent_child_data = child_boxs[j].nextSibling.nextSibling.nextSibling.value
+                child_data = child_data.concat([[child_id, child_name, parent_child_data]])
             }
-            child_name = check_info(child_boxs[i].nextSibling)
-            parent_child_data = child_boxs[i].nextSibling.nextSibling.nextSibling.value
-            child_data = child_data.concat([[child_id, child_name, parent_child_data]])
-        }
-        send_datas = send_datas.concat([[parent_data, child_data]])
+            send_datas = send_datas.concat([[parent_data, child_data]])
 
+        }
     }
-    console.log(send_datas)
-    console.log("work")
     categorySave(send_datas)
 }
 
 function check_info(html_place) {
-    console.log(html_place.checked)
     if (html_place.checked) {
         return_value = html_place.nextSibling.value
     }

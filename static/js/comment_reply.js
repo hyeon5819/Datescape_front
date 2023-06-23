@@ -1,3 +1,5 @@
+
+
 // 대댓글 토글
 function replyToggle(comment_id) {
     const toggle = document.getElementById(`reply_toggle${comment_id}`)
@@ -38,7 +40,6 @@ async function replyCreate(comment_id) {
             })
             const data = await response.json()
             if (response.status == 200) {
-                console.log(data)
                 const beforeReply = document.getElementById(`reply_toggle${comment_id}`)
                 beforeReply.remove()
                 reply(comment_id)
@@ -61,7 +62,6 @@ async function replyCreate(comment_id) {
         })
         const data = await response.json()
         if (response.status == 200) {
-            console.log(data)
             const beforeReply = document.getElementById(`reply_toggle${comment_id}`)
             beforeReply.remove()
             reply(comment_id)
@@ -127,7 +127,6 @@ async function reply(comment_id) {
         method: "GET",
     })
     const data = await response.json()
-    console.log(data)
 
     const replyDiv = document.getElementById(`comment_reply${comment_id}`)
 

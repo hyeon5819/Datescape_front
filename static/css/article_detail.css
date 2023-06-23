@@ -122,7 +122,7 @@ body {
     background-color: #f1da72
 }
 
-.reply{
+.reply {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -130,12 +130,30 @@ body {
     font-size: x-small;
 }
 
-.reply_hr{
+.reply_hr {
     width: 100%;
     margin-bottom: 0px;
 }
 
-.reply_btn{
+.reply_btn {
     border: 0;
     background-color: white;
+}
+
+#tag_box {
+    text-align: center;
+    border: 1px solid rgba(200, 200, 200, 0.5);
+    padding: 10px;
+    margin: 0 auto;
+    width: 50%;
+    border-radius: 25px;
+}
+
+#tag_box a {
+    font-size: 1.5rem;
+    color: #000;
+}
+
+#tag_box a:hover {
+    font-weight: 700;
 }

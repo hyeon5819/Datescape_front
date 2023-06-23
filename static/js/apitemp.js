@@ -5,6 +5,16 @@ let payload = localStorage.getItem("payload");
 let payload_parse = JSON.parse(payload);
 let current_user = payload_parse.username;
 let login_type = payload_parse.login_type;
+let last_login = payload_parse.last_login;
+let current_ = Math.floor((new Date()).getTime() / 1000)
+let exp = payload_parse.exp
+
+if (current_ > exp) {
+    alert("대기 시간 초과로 자동 로그아웃 되었습니다.")
+    handleLogout()
+}
+
+
 
 // 이메일 유효성 검사
 function CheckEmail(str) {

@@ -83,7 +83,8 @@ window.onload = async () => {
     function createPagination(totalPages, currentPage) {
         const wrapper = document.querySelector('.pagination-wrapper')
         wrapper.innerHTML = ''
-
+        currentPage = Number(currentPage)
+        totalPages = Number(totalPages)
         if (totalPages > 1) {
             const pagination = document.createElement('ul')
             pagination.setAttribute('class', 'pagination justify-content-center')

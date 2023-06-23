@@ -72,7 +72,7 @@ window.onload = async () => {
     const payload = localStorage.getItem("payload");
     const payload_parse = JSON.parse(payload)
     let detailButtons = document.querySelector('#detail-buttons')
-    if (data.user === payload_parse.username) {
+    if (data.user === payload_parse.nickname) {
         detailButtons.innerHTML = `
         <button class="btn btn-outline-secondary" type="button" id="article_bookmark" onclick="articleBookMark(${articleId})">북마크</button>
         <a href="${front_base_url}/templates/article_update.html?id=${articleId}&/" button

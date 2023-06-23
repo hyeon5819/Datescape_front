@@ -139,3 +139,21 @@ body {
     border: 0;
     background-color: white;
 }
+
+#tag_box {
+    text-align: center;
+    border: 1px solid rgba(200, 200, 200, 0.5);
+    padding: 10px;
+    margin: 0 auto;
+    width: 50%;
+    border-radius: 25px;
+}
+
+#tag_box a {
+    font-size: 1.5rem;
+    color: #000;
+}
+
+#tag_box a:hover {
+    font-weight: 700;
+}

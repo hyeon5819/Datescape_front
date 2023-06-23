@@ -26,16 +26,19 @@
         <!-- 게시글 전체 form -->
     </div><!-- e:add_html -->
     <!-- Slider main container -->
-    <div class="swiper">
+    <div class="swiper mt-5" id="swiper">
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper" id="near-articles">
-            <!-- Slides -->
         </div>
         <!-- If we need pagination -->
         <div class="swiper-pagination"></div>
         <!-- If we need navigation buttons -->
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev">
+            <img src="../static/images/btn/btn_slider_prev.png" alt="">
+        </div>
+        <div class="swiper-button-next">
+            <img src="../static/images/btn/btn_slider_next.png" alt="">
+        </div>
     </div>
     <div class="container text-center mt-5">
         <div class="row row-cols-1 row-cols-md-2">
@@ -117,32 +120,6 @@
     <script src="../static/js/comment.js"></script>
     <script src="../static/js/comment_reply.js"></script>
     <script src="../static/js/report_button.js"></script>
-    <script>
-        const swiper = new Swiper('.swiper', {
-            // Optional parameters
-            direction: 'horizontal',
-            loop: true,
-            slidesPerView: 3,
-
-            // If we need pagination
-            pagination: {
-                el: '.swiper-pagination',
-            },
-
-            // Navigation arrows
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-
-            // And if we need scrollbar
-            scrollbar: {
-                el: '.swiper-scrollbar',
-            },
-            allowTouchMove: false,
-        });
-
-    </script>
 </body>
 
 </html>

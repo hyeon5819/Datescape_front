@@ -40,16 +40,18 @@ window.onload = async () => {
 
                 articleHtml += `
             <div class="col article_detail" onclick="detail_page(${article.id})">
-                <div class="score_box">평점:${article.score}</div>
                 <div class="card h-100">
-                    <img text-align:center;" src="${image_url}${article.main_image}" class="card-img-top" alt="...">
+                <div style="width: 282px; height: 234px;" >
+                    <img text-align:center;" src="${image_url}${article.main_image}" class="card-img-top cardimg" alt="...">
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">${article.title}</h5>
-                        <p class="card-text content">${article.content}</p>
-                    </div><!-- e:body -->
+                        <h5 class="card-title cardtitle">${article.title}</h5>
+                        <p class="card-text content" style="color:gray;">${article.content}</p>
+                        <span class="text-muted"><small>${tag_add}</small></span>
+                        </div><!-- e:body -->
                     <div class="card-footer d-flex justify-content-between">
                         <span class="text-muted">${article.user}</span>
-                        <span class="text-muted">${tag_add}</span>
+                        <span  style="color:#FFBF00;">⭐️ ${article.score}</span>
                     </div><!-- e:footer -->
                 </div>
             </div>

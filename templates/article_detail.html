@@ -26,7 +26,7 @@
         <!-- 게시글 전체 form -->
     </div><!-- e:add_html -->
     <!-- Slider main container -->
-    <div class="swiper mt-5">
+    <div class="swiper mt-5" id="swiper">
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper" id="near-articles">
         </div>
@@ -120,31 +120,6 @@
     <script src="../static/js/comment.js"></script>
     <script src="../static/js/comment_reply.js"></script>
     <script src="../static/js/report_button.js"></script>
-    <script>
-        const swiper = new Swiper('.swiper', {
-            // Optional parameters
-            direction: 'horizontal',
-            loop: true,
-            slidesPerView: 1,
-
-            // If we need pagination
-            pagination: {
-                el: '.swiper-pagination',
-            },
-
-            // Navigation arrows
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-
-            // And if we need scrollbar
-            scrollbar: {
-                el: '.swiper-scrollbar',
-            },
-            allowTouchMove: false,
-        });
-    </script>
 </body>
 
 </html>

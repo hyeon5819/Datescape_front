@@ -35,7 +35,7 @@ function kcpRequestPay(useremail, username, price) {
                     const formData = new FormData();
 
                     formData.append('emoticon_id', emoticonId)
-                    formData.append('user_id', userId)
+                    formData.append('imp_uid', rsp.imp_uid)
 
                     const response = await fetch(`${back_base_url}/emoticons/payment/`, {
                         headers: {
@@ -45,12 +45,11 @@ function kcpRequestPay(useremail, username, price) {
                         body: formData,
                     });
                     const data = await response.json();
-
                     if (response.status == 200) { // DB저장 성공시
                         alert('결제 완료!')
                         window.location.reload();
                     } else { // 결제완료 후 DB저장 실패시
-                        alert(`error:[${response.status}]\n결제요청이 승인된 경우 관리자에게 문의바랍니다.`);
+                        alert(`backend error:[${response.status}]\nmessage:[${data.message}]\n결제요청이 승인된 경우 관리자에게 문의바랍니다.`);
                         // DB저장 실패시 status에 따라 추가적인 작업 가능성
                     }
                 } else if (rsp.success == false) { // 결제 실패시

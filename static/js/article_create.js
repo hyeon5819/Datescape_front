@@ -144,11 +144,17 @@ window.onload = function () {
                 } else {
                     const tagli = document.createElement('div')
                     tagli.setAttribute("class", "tag_add")
-                    tagli.addEventListener('click', function () {
-                        tagli.remove()
-                    })
                     tagli.textContent = tagname
                     ul.appendChild(tagli)
+
+                    const tagDel = document.createElement('img')
+                    tagDel.addEventListener('click', function () {
+                        tagli.remove()
+                    })
+                    tagDel.src = 'https://www.shareicon.net/data/512x512/2015/12/04/682349_button_512x512.png'
+                    tagDel.setAttribute('class', 'tag_del')
+                    tagli.appendChild(tagDel)
+
                     searchInput.value = ''
                 }
             }

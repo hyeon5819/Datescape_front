@@ -59,6 +59,28 @@ async function injectNavbar() {
             const adminButton = document.getElementById("admin")
             adminButton.style.display = "block"
         }
+
+        const access = localStorage.getItem('access')
+        const response = await fetch(`${back_base_url}/alarms/unread/`, {
+            headers: {
+                Authorization: `Bearer ${access}`,
+            },
+            method: "GET",
+        })
+        const data = await response.json()
+        const alarmA = document.getElementById('alarm')
+        if (data.unread == true) {
+            // alarmA.childNodes
+            alarmA.href = `alarm.html?id=${payload_parse.user_id}&/`
+            alarmA.childNodes[0].src = "../static/images/new_alarm.png"
+            alarmA.style.display = "block"
+        }
+        else {
+            // alarmA.childNodes
+            alarmA.href = `alarm.html?id=${payload_parse.user_id}&/`
+            alarmA.childNodes[0].src = "../static/images/none_alarm.png"
+            alarmA.style.display = "block"
+        }
     }
 }
 

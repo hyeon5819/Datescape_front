@@ -16,9 +16,10 @@ async function injectNavbar() {
     const payload = localStorage.getItem("payload");
     let payload_parse = JSON.parse(payload);
     let current_ = Math.floor((new Date()).getTime() / 1000)
-    let exp = payload_parse.exp
+
 
     if (payload) {
+        let exp = payload_parse.exp
         if (current_ > exp) {
             alert("대기 시간 초과로 자동 로그아웃 되었습니다.")
             handleLogout()

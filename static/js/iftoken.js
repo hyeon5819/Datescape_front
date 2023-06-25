@@ -5,7 +5,9 @@ if (token) {
     window.location.href = `${front_base_url}/`
 }
 
-// 이메일 유효성 검사
+
+
+/** 이메일 유효성 검사 */
 function CheckEmail(str) {
     var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
     if (!reg_email.test(str)) {
@@ -14,6 +16,18 @@ function CheckEmail(str) {
         return true;
     }
 }
+
+/** 아이디 유효성 검사 */
+function checkID(str) {
+    console.log("아이디유효성검사")
+    var regExp = /^[a-z]+[a-z0-9]{5,19}$/g;
+    if (!regExp.test(str)) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
 
 function win_close() {
     window.close()
@@ -73,6 +87,13 @@ async function handleSignin() {
     const username = document.getElementById("username").value
     const password1 = document.getElementById("password1").value
     const password2 = document.getElementById("password2").value
+
+    if (!checkID(username)) {
+        alert("아이디는 소문자, 소문자+숫자 조합만 사용가능합니다.")
+        window.location.reload()
+        return false;
+    }
+
     if (!email || !username || !password1 || !password2) {
         alert("공란 잘못된입력입니다. 확인해주세요.");
         window.location.reload();
@@ -89,7 +110,7 @@ async function handleSignin() {
         window.location.reload();
         return false
     }
-    if (!checkPw(password1 || password2)) {
+    if (!checkPw(password2)) {
         window.location.reload();
         return false
     } else if (true) {
@@ -112,7 +133,7 @@ async function handleSignin() {
     let result = await response.json();
 
     if (response.status == 201) {
-        alert("로그인 전에 가입하신 이메일 주소로 인증메일이 도착했습니다.          10분 내로 확인해 주세요!")
+        alert("로그인전에 가입하신 이메일 주소로 인증메일이 도착했습니다.          10분 내로 확인해 주세요!")
         window.location.replace(`${front_base_url}/templates/logintemp.html`)
     } else {
         alert(JSON.stringify(result))
@@ -236,6 +257,8 @@ async function findID() {
 async function handleResetPasswordEmail() {
     const email = document.getElementById("email").value
 
+    alert("⏳잠시만 기다려 주세요")
+
     if (!email) {
         alert("가입하신 이메일을 입력해주세요")
         window.location.reload()
@@ -266,6 +289,7 @@ async function handleResetPasswordEmail() {
 
 // 비밀번호 초기화 이메일 인증 후 비밀번호 수정
 async function handleResetPasswordChange() {
+    var regExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
     const userpk = new URLSearchParams(window.location.search).get("uid")
     const password1 = document.getElementById("password1").value
     const password2 = document.getElementById("password2").value
@@ -277,6 +301,14 @@ async function handleResetPasswordChange() {
         alert("공란 잘못된입력입니다. 확인해주세요.")
         window.location.reload()
     }
+
+    else if (!regExp.test(password2)) {
+        alert("비번 유효성 검사 실패")
+        return false;
+    }
+
+    alert("⏳잠시만 기다려 주세요")
+
     const response = await fetch(`${back_base_url}/users/password/reset/`, {
         headers: {
             "Content-Type": "application/json",
@@ -289,13 +321,16 @@ async function handleResetPasswordChange() {
         })
 
     })
+    alert("⏳잠시만 기다려 주세요")
 
     const result = await response.json()
 
     if (response.status == 200) {
+        alert("⏳잠시만 기다려 주세요")
         alert("비밀번호가 변경되었습니다.")
         win_close()
     } else {
+        alert("⏳잠시만 기다려 주세요")
         alert(JSON.stringify(result))
         window.location.reload()
     }

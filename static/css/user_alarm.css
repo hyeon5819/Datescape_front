@@ -1,0 +1,13 @@
+.card-text {
+    cursor: pointer;
+    display: inline-block;
+}
+
+.card-text:hover {
+    text-indent: 2px;
+}
+
+.card-img-top {
+    width: 20px;
+    margin-right: 10px;
+}

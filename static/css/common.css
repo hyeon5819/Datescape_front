@@ -8,3 +8,31 @@ body {
 header {
     margin-bottom: 100px;
 }
+
+.pop_up {
+    position: fixed;
+    bottom: 50%;
+    right: 60px;
+    width: 100px;
+    height: 100px;
+}
+
+.pop_up img {
+    width: 100px;
+    height: 100px;
+}
+
+.test {
+    animation: doongdoong .5s linear infinite alternate both;
+    transition: all;
+}
+
+@keyframes doongdoong {
+    0% {
+        bottom: 50%;
+    }
+
+    100% {
+        bottom: 60%;
+    }
+}

@@ -1,27 +1,24 @@
 token = localStorage.getItem("access")
+/*상세보기 url */
 function detail_page(article_id) {
     location.href = `${front_base_url}/templates/article_detail.html?id=${article_id}&/`
 }
 
+list_range_html = document.getElementById('list-range-html')
 window.onload = async () => {
-    let card_box = document.querySelector('#card_box')
-
-    function handleScoreFilter(event) {
-        event.preventDefault();
-
-        const score = event.target.dataset.score;
-        fetchArticles(1, score);
+    let get_list = document.getElementById('get-list')
+    get_list.onclick = function (e) {
+        const min_score = inputLeft.value;
+        const max_score = inputRight.value;
+        fetchArticles(1, min_score, max_score);
     }
 
-    document.querySelectorAll('.dropdown-item').forEach((item) => {
-        item.addEventListener('click', handleScoreFilter);
-    });
 
-    async function fetchArticles(pageNumber, score = null) {
+    async function fetchArticles(pageNumber, min_score = null, max_score = null) {
         let url = `${back_base_url}/articles/?page=${pageNumber}`;
 
-        if (score !== null) {
-            url += `&score=${score}`;
+        if (min_score !== null) {
+            url += `&score=${min_score},${max_score}`;
         }
 
         articleHtml = '' // 변수 초기화
@@ -47,7 +44,7 @@ window.onload = async () => {
                     <div class="card-body">
                         <h5 class="card-title cardtitle">${article.title}</h5>
                         <p class="card-text content" style="color:gray;">${article.content}</p>
-                        <span class="text-muted"><small>${tag_add}</small></span>
+                        <span class="text-muted"><small class="content">${tag_add}</small></span>
                         </div><!-- e:body -->
                     <div class="card-footer d-flex justify-content-between">
                         <span class="text-muted">${article.user}</span>
@@ -134,3 +131,71 @@ window.onload = async () => {
 
     fetchArticles(1)
 }
+
+
+var inputLeft = document.getElementById('input-left')
+var inputRight = document.getElementById('input-right')
+
+var thumbLeft = document.querySelector('.slider>.thumb.left')
+var thumbRight = document.querySelector('.slider>.thumb.right')
+var range = document.querySelector('.slider>.range')
+
+function setLeftValue() {
+    var _this = inputLeft,
+        min = parseInt(_this.min),
+        max = parseInt(_this.max);
+
+    _this.value = Math.min(parseInt(_this.value), parseInt(inputRight.value));
+    console.log(_this.value)
+    var percent = ((_this.value - min) / (max - min)) * 100;
+    thumbLeft.style.left = percent + "%";
+    range.style.left = percent + "%";
+    list_range_html.innerHTML = inputLeft.value + "-" + inputRight.value
+}
+setLeftValue();
+
+function setRightValue() {
+    var _this = inputRight,
+        min = parseInt(_this.min),
+        max = parseInt(_this.max);
+    console.log(_this.value)
+    _this.value = Math.max(parseInt(_this.value), parseInt(inputLeft.value));
+
+    var percent = ((_this.value - min) / (max - min)) * 100;
+
+    thumbRight.style.right = (100 - percent) + "%";
+    range.style.right = (100 - percent) + "%";
+    list_range_html.innerHTML = inputLeft.value + "-" + inputRight.value
+}
+setRightValue();
+
+
+inputLeft.addEventListener("input", setLeftValue)
+inputRight.addEventListener("input", setRightValue)
+
+inputLeft.addEventListener("mouseover", function () {
+    thumbLeft.classList.add("hover")
+})
+inputLeft.addEventListener("mouseout", function () {
+    thumbLeft.classList.remove("hover")
+})
+inputLeft.addEventListener("mousedown", function () {
+    thumbLeft.classList.add("active")
+})
+inputLeft.addEventListener("mouseup", function () {
+    thumbLeft.classList.remove("active")
+})
+
+
+inputRight.addEventListener("mouseover", function () {
+    thumbRight.classList.add("hover")
+})
+inputRight.addEventListener("mouseout", function () {
+    thumbRight.classList.remove("hover")
+})
+inputRight.addEventListener("mousedown", function () {
+    thumbRight.classList.add("active")
+})
+inputRight.addEventListener("mouseup", function () {
+    thumbRight.classList.remove("active")
+})

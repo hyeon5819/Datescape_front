@@ -7,7 +7,6 @@
     <title>게시글목록 | DateScape</title>
     <script src="../components/urls.js"></script>
     <script src="../static/js/apitemp.js"></script>
-    <script src="../static/js/article_list.js"></script>
     <link rel="stylesheet" href="../static/css/common.css">
     <link rel="stylesheet" href="../static/css/article_list.css">
     <link rel="stylesheet" href="../static/css/style.css">
@@ -25,28 +24,27 @@
 <body style="background-color:#fffff5;">
     <header></header>
     <div class="w-75 mx-auto">
-        <h3 class="fw-bold mb-2" style="text-align:center;">명소 찾기</h3>
+        <h3 class="fw-bold mb-2" style="text-align:center;">둘러보기</h3>
         <p style="text-align: center; color: gray; margin: 0;">일상에서 벗어나 새로운 데이트 명소를 찾아보세요</p>
         <div class="content_box d-flex justify-content-between mt-5 mb-5">
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-bs-toggle="dropdown" data-bs-ripple-effect="true" aria-expanded="false">
-                    평점별 보기
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#" data-score="10">평점 10점</a></li>
-                    <li><a class="dropdown-item" href="#" data-score="9">평점 9점</a></li>
-                    <li><a class="dropdown-item" href="#" data-score="8">평점 8점</a></li>
-                    <li><a class="dropdown-item" href="#" data-score="7">평점 7점</a></li>
-                    <li><a class="dropdown-item" href="#" data-score="6">평점 6점</a></li>
-                    <li><a class="dropdown-item" href="#" data-score="5">평점 5점</a></li>
-                    <li><a class="dropdown-item" href="#" data-score="4">평점 4점</a></li>
-                    <li><a class="dropdown-item" href="#" data-score="3">평점 3점</a></li>
-                    <li><a class="dropdown-item" href="#" data-score="2">평점 2점</a></li>
-                    <li><a class="dropdown-item" href="#" data-score="1">평점 1점</a></li>
-                    <li><a class="dropdown-item" href="#" data-score="0">평점 0점</a></li>
-                </ul>
-            </div><!-- e:dropdown -->
+
+            <div class="middle">
+                <div class="multi-range-slider">
+                    <!-- 진짜 슬라이더 -->
+                    <input type="range" id="input-left" min="0" max="10" value="0" />
+                    <input type="range" id="input-right" min="0" max="10" value="10" />
+
+                    <!-- 커스텀 슬라이더 -->
+                    <div class="slider">
+                        <div class="track"></div>
+                        <div class="range"></div>
+                        <div class="thumb left"></div>
+                        <div class="thumb right"></div>
+                    </div>
+                </div>
+                <p id="list-range-html"> </p>
+                <button id="get-list"> 불러오기
+            </div><!-- e:middle -->
             <div class="article_btn">
                 <a href="/templates/article_create.html" class="btn btn-primary">게시글
                     작성하기</a>
@@ -59,6 +57,8 @@
     <div class="pagination-wrapper">
     </div>
     <footer></footer>
+
+    <script src="../static/js/article_list.js"></script>
     <script src="../static/js/navbar.js"></script>
 </body>
 

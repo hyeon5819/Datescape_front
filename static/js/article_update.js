@@ -68,19 +68,21 @@ async function articleLoad() {
         })
     });
 
-    // main_image.files = data.main_image
-    // image = data.image
-
-    // 기존태그 클릭시 제거하는거 추가 필요
+    // 기존태그 넣어주기
     let ul = document.getElementById("tag_ul")
     data.tags.forEach(element => {
         const tag = document.createElement("div")
         tag.setAttribute('class', 'tag_add')
         tag.innerText = element.tag
         ul.appendChild(tag)
-        tag.addEventListener('click', function () {
+
+        const tagDel = document.createElement('img')
+        tagDel.addEventListener('click', function () {
             tag.remove()
         })
+        tagDel.src = 'https://www.shareicon.net/data/512x512/2015/12/04/682349_button_512x512.png'
+        tagDel.setAttribute('class', 'tag_del')
+        tag.appendChild(tagDel)
     });
 
     // 저장버튼 클릭
@@ -169,11 +171,17 @@ window.onload = function () {
                 } else {
                     const tagli = document.createElement('div')
                     tagli.setAttribute("class", "tag_add")
-                    tagli.addEventListener('click', function () {
-                        tagli.remove()
-                    })
                     tagli.textContent = tagname
                     ul.appendChild(tagli)
+
+                    const tagDel = document.createElement('img')
+                    tagDel.addEventListener('click', function () {
+                        tagli.remove()
+                    })
+                    tagDel.src = 'https://www.shareicon.net/data/512x512/2015/12/04/682349_button_512x512.png'
+                    tagDel.setAttribute('class', 'tag_del')
+                    tagli.appendChild(tagDel)
+
                     searchInput.value = ''
                 }
             }

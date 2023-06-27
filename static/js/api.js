@@ -23,12 +23,25 @@ async function getRandom(option) {
 function selectOption(x) {
     if (x == 1) {
         document.getElementById('option').innerHTML = "article"
+    } else if (x == 0) {
+        document.getElementById('option').innerHTML = "all"
     } else if (x == 2) {
         document.getElementById('option').innerHTML = "tag"
     } else {
         document.getElementById('option').innerHTML = "location"
     }
 }
+
+// 엔터로 검색하기
+var input = document.getElementById("search");
+
+input.addEventListener("keyup", function (event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        document.getElementById("button-addon2").click();
+    }
+});
+
 
 async function submitSearch() {
     const option = document.getElementById('option').innerHTML

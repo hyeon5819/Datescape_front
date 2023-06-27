@@ -3,7 +3,7 @@ const type = urlParams.get('type');
 const id = urlParams.get('id');
 const request_type = { 1: "user", 2: "article", 3: "comment" }
 const type_name = { 1: "유저", 2: "게시글", 3: "댓글" }
-document.title = "DateScape | " + type_name[type] + " 신고 작성 페이지"
+document.title = "신고 작성 페이지" + type_name[type] + " | DateScape"
 document.getElementsByClassName("report-title")[0].insertAdjacentText("afterbegin", type_name[type] + " ")
 
 //카테고리 가져요기

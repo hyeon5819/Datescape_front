@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DateScape | 게시글 작성 페이지</title>
+    <title>게시글 작성 페이지 | DateScape</title>
     <link rel="stylesheet" href="../static/css/common.css">
     <script src="../components/urls.js"></script>
     <script src="../static/js/apitemp.js"></script>
@@ -35,6 +35,11 @@
                 <label for="content" class="form-label">주소 <em style="color:red;font-weight:700;"> * </em></label>
                 <input type="text" class="form-control" id="roadAddress" name="road_address" placeholder="필수입력값입니다"
                     readonly required />
+                <div id="map" class="mt-5"></div><!-- e:map -->
+                <p><em>지도를 클릭하여 위치를 새로조절 할 수 있습니다.</em></p>
+                <div id=" clickLatlng">
+
+                </div><!-- e:clickLatlng -->
             </div>
             <div class="mb-3">
                 <label for="content" class="form-label">평점 <em style="color:red; font-weight:700;"> * </em></label>
@@ -49,8 +54,14 @@
             <div class="mb-3">
                 <label for="tag" class="form-label">태그<em style="color:darkgrey ;"> * Enter : 태그
                         추가</em></label>
-                <div for="tag" class="form-control" style="display: flex;flex-direction: row;">
-                    <div id="tag_ul" style="display: flex;flex-direction: row;">
+                <div class="mb-2">
+                    <span style="color: gray; font-size: small;">오늘의 태그</span>
+                    <span id="taday-tag" class="weekly-tag"></span>
+                    <span style="color: gray; font-size: small; margin-left: 15px;">내일의 태그</span>
+                    <span id="tomorrow-tag" class="weekly-tag"></span>
+                </div>
+                <div for="tag" class="form-control">
+                    <div id="tag_ul">
                     </div><!-- e:tag_ul -->
                     <input type="text" class="form-control" id="tags" aria-describedby="tagHelp" />
                 </div>
@@ -91,6 +102,8 @@
     <footer></footer>
     <script src="../static/js/article_create.js"></script>
     <script src="../static/js/navbar.js"></script>
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4562c5b2a0c36251186c55048c3ce7f0&libraries=services"></script>
 </body>
 
 </html>

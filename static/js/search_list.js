@@ -12,10 +12,13 @@ async function loadSearch() {
   document.getElementById('option').innerHTML = option
   const search_list = document.getElementById('search-list')
   search_list.innerHTML = ''
-  response.results.forEach(article => {
-    var jibun = article.jibun_address
-    var place = jibun.split(' ')
-    search_list.innerHTML += `
+  if (response.count === 0) {
+    search_list.innerHTML += `<h4>'${search}'에 대한 검색 결과가 없습니다.</h4>`
+  } else {
+    response.results.forEach(article => {
+      var jibun = article.jibun_address
+      var place = jibun.split(' ')
+      search_list.innerHTML += `
         <div class="col" >
         <div class="card text-bg-dark border-light rounded-4" style="height:300px; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}&/';">
         <img src="${article.main_image}" class="card-img cardimg mh-100 rounded-4" alt="..." >
@@ -38,8 +41,9 @@ async function loadSearch() {
         </div>
         </div>
         `
-  });
-  createPagination(Math.ceil(response.count / 9), page) // 페이지 수 수정
+    });
+    createPagination(Math.ceil(response.count / 9), page) // 페이지 수 수정
+  }
 }
 loadSearch()
 

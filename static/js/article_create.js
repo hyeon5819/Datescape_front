@@ -2,6 +2,19 @@ if (!localStorage.getItem("access")) {
     alert("로그인이 필요합니다.")
     window.location.href = `${front_base_url}/templates/logintemp.html`
 }
+
+async function getWeeklyTags() {
+    const response = await fetch(`${back_base_url}/articles/weekly-tags/`)
+
+    if (response.status == 200) {
+        const response_json = await response.json()
+        return response_json
+    } else {
+        alert("불러오는데 실패하였습니다.")
+    }
+}
+
+
 const access = localStorage.getItem("access")
 // 대표 이미지 선택 시 미리보기
 function getMainImageFiles(e) {
@@ -127,7 +140,15 @@ async function PostArticle(formData) {
 }
 
 
-window.onload = function () {
+window.onload = async function () {
+    // 오늘의 태그 생성
+    const weeklytags = await getWeeklyTags()
+    console.log(weeklytags[0])
+    const todaytag = document.getElementById('taday-tag')
+    todaytag.innerText = `# ${weeklytags[0]['tag']}`
+    const tomorrow = document.getElementById('tomorrow-tag')
+    tomorrow.innerText = `# ${weeklytags[1]['tag']}`
+
     // 엔터로 태그 추가
     searchInput.addEventListener('keypress', function (event) {
         if (event.key === 'Enter') {

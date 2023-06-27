@@ -97,7 +97,11 @@ async function injectFooter(img) {
     const alarmPopup = document.getElementById('alarm_popup')
     alarmPopup.href = `${front_base_url}/user_alarm.html`
     alarmPopup.setAttribute('style', 'display: block;')
-    alarmPopup.childNodes[1].src = img
+    if (img.split('/')[img.split('/').length - 1] == "new_alarm.png") {
+        alarmPopup.childNodes[1].src = `${front_base_url}/static/images/new.png`
+    } else {
+        alarmPopup.childNodes[1].src = `${front_base_url}/static/images/none.png`
+    }
 }
 
 

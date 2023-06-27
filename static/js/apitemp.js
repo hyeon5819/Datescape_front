@@ -9,14 +9,17 @@ let last_login = payload_parse.last_login;
 let current_ = Math.floor((new Date()).getTime() / 1000)
 let exp = payload_parse.exp
 
-if (current_ > exp) {
-    alert("대기 시간 초과로 자동 로그아웃 되었습니다.")
-    handleLogout()
-}
+console.log(exp - current_)
+
+// if (!token) {
+//     alert("로그인이 필요합니다.")
+//     window.location.href = `${front_base_url}/templates/logintemp.html`
+// }
 
 
 
-// 이메일 유효성 검사
+
+/** 아이디 유효성 검사 */
 function CheckEmail(str) {
     var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
     if (!reg_email.test(str)) {
@@ -30,7 +33,38 @@ function win_close() {
     window.close()
 }
 
-// 비밀번호 유효성 검사
+/** 아이디 유효성 검사 */
+function checkID() {
+    console.log("아이디유효성검사")
+    let id = $("#username").val();
+    let number = id.search(/[0-9]/g);
+    let english = id.search(/[a-z]/ig);
+
+    if (id.length < 10 || id.length > 20) {
+        alert("8자리 ~ 20자리 이내로 입력해주세요.");
+        return false;
+
+    } else if (id.search(/\s/) != -1) {
+        alert("아이디는 공백 없이 입력해주세요.");
+        return false;
+
+    } else if (!english) {
+        alert("영문만 가능합니다.");
+        return false;
+    }
+    else if (number < 0) {
+        alert("숫자로는 아이디를 생성할수 없습니다.");
+        return false;
+    } else if (number < 0 || english < 0) {
+        alert("영문,숫자,특수문자를 혼합하여 입력해주세요.");
+        return false;
+    } else {
+        alert("비밀번호가 정상적으로 입력되었습니다.");
+        return true;
+    }
+}
+
+/** 비밀번호 유효성 검사 */
 function checkPw() {
     let id = $("#username").val();
     let pw = $("#password1").val();
@@ -84,10 +118,12 @@ async function handleSignin() {
     const username = document.getElementById("username").value
     const password1 = document.getElementById("password1").value
     const password2 = document.getElementById("password2").value
+
     if (!email || !username || !password1 || !password2) {
         alert("공란 잘못된입력입니다. 확인해주세요.")
         window.location.reload()
-    } else if (!checkPw(password1 || password2)) {
+    }
+    else if (!checkPw(password1 || password2)) {
         alert("비번 유효성 검사 잘못된입력입니다. 확인해주세요.")
         window.location.reload()
     } else if (password2 !== password1) {
@@ -97,6 +133,9 @@ async function handleSignin() {
         alert("이메일 형식이 아닙니다.");
         email_.focus();
         return false;
+    } else if (!checkID(username)) {
+        alert("아이디 유효성 검사 잘못된입력입니다. 확인해주세요.")
+        window.location.reload()
     }
 
     if (checkPw) {
@@ -203,13 +242,41 @@ async function handleLogin() {
 
 }
 
+// 로그인 연장
+// async function refresh() {
+//     const refresh = localStorage.getItem("refresh")
+
+//     const response = await fetch(`${back_base_url}/users/token/refresh/`, {
+//         headers: {
+//             "Content-Type": "application/json",
+
+//         },
+//         method: 'POST',
+//         body: JSON.stringify({
+//             "refresh": refresh
+//         })
+//     })
+
+
+
+//     if (response.status == 200) {
+//         alert("연장되었습니다.")
+//         window.location.href = `${front_base_url}`
+//     } else {
+//         alert(JSON.stringify(result))
+//         window.location.reload()
+//     }
+
+// }
+
+
 // 로그아웃
 async function handleLogout() {
     alert("로그아웃!")
     localStorage.removeItem("access")
     localStorage.removeItem("refresh")
     localStorage.removeItem("payload")
-    location.reload();
+    window.location.reload()
 }
 
 // 비번변경-로그인된 상태에서
@@ -242,7 +309,11 @@ async function pschange() {
 
     if (response.status == 200) {
         alert("비밀번호가 변경되었습니다.")
-        win_close()
+        opener.parent.location.reload();
+        window.close()
+        opener.parent.location.reload();
+        handleLogout()
+        opener.parent.location.reload();
     } else {
         alert(JSON.stringify(result))
         window.location.reload()

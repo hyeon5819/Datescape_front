@@ -32,6 +32,17 @@ function selectOption(x) {
     }
 }
 
+// 엔터로 검색하기
+var input = document.getElementById("search");
+
+input.addEventListener("keyup", function (event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        document.getElementById("button-addon2").click();
+    }
+});
+
+
 async function submitSearch() {
     const option = document.getElementById('option').innerHTML
     const search = document.getElementById('search').value

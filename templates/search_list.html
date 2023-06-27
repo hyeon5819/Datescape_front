@@ -21,6 +21,7 @@
                 <button id="option" class="btn btn-outline-secondary dropdown-toggle" type="button"
                     data-bs-toggle="dropdown" aria-expanded="false" style="border-color: #CFD4D9;">article</button>
                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" onclick="selectOption(0)">all</a></li>
                     <li><a class="dropdown-item" href="#" onclick="selectOption(1)">article</a></li>
                     <li><a class="dropdown-item" href="#" onclick="selectOption(2)">tag</a></li>
                     <li><a class="dropdown-item" href="#" onclick="selectOption(3)">location</a></li>
@@ -31,7 +32,7 @@
                     style="border-color: #CFD4D9; color: #6E757C;"><i class="fas fa-search"></i></button>
             </div>
         </div>
-        <h4 class="fw-semibold">검색 결과🔍</h4>
+        <h4 class="fw-semibold">검색 결과 🔍</h4>
         <div id="search-list" class="row row-cols-1 row-cols-md-3 g-4 mt-3"></div>
         <div class="pagination-wrapper">
         </div>

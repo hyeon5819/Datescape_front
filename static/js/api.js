@@ -23,6 +23,8 @@ async function getRandom(option) {
 function selectOption(x) {
     if (x == 1) {
         document.getElementById('option').innerHTML = "article"
+    } else if (x == 0) {
+        document.getElementById('option').innerHTML = "all"
     } else if (x == 2) {
         document.getElementById('option').innerHTML = "tag"
     } else {

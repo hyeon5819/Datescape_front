@@ -70,32 +70,36 @@ async function injectNavbar() {
         const data = await response.json()
         const alarmA = document.getElementById('alarm')
         if (data.unread == true) {
-            // alarmA.childNodes
             alarmA.href = `${front_base_url}/user_alarm.html`
             alarmA.childNodes[0].src = "../static/images/new_alarm.png"
             alarmA.style.display = "block"
         }
         else {
-            // alarmA.childNodes
             alarmA.href = `${front_base_url}/user_alarm.html`
             alarmA.childNodes[0].src = "../static/images/none_alarm.png"
             alarmA.style.display = "block"
         }
+        injectFooter(alarmA.childNodes[0].src)
     }
 }
 
-injectNavbar();
 
-async function injectFooter() {
+async function injectFooter(img) {
     fetch("../footer.html").then(response => {
         return response.text()
     })
         .then(data => {
             document.querySelector("footer").innerHTML = data;
         })
+    let footerHtml = await fetch("../navbar.html")
+    let data = await footerHtml.text()
+
+    const alarmPopup = document.getElementById('alarm_popup')
+    alarmPopup.href = `${front_base_url}/user_alarm.html`
+    alarmPopup.setAttribute('style', 'display: block;')
+    alarmPopup.childNodes[1].src = img
 }
 
-injectFooter()
 
 function handleLogout() {
     alert("로그아웃!")
@@ -104,3 +108,6 @@ function handleLogout() {
     localStorage.removeItem("payload")
     window.location.href = `${front_base_url}/index.html`
 }
+
+
+injectNavbar();

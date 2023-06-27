@@ -288,6 +288,8 @@ async function loadArticleList(location) {
         direction: 'horizontal',
         loop: true,
         slidesPerView: 1,
+        // effect: 'fade',
+        // autoplay: { delay: 5000, },
 
         // If we need pagination
         pagination: {

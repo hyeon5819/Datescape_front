@@ -47,7 +47,7 @@ window.onload = async () => {
                     <div class="card-body">
                         <h5 class="card-title cardtitle">${article.title}</h5>
                         <p class="card-text content" style="color:gray;">${article.content}</p>
-                        <span class="text-muted"><small>${tag_add}</small></span>
+                        <span class="text-muted"><small class="content">${tag_add}</small></span>
                         </div><!-- e:body -->
                     <div class="card-footer d-flex justify-content-between">
                         <span class="text-muted">${article.user}</span>

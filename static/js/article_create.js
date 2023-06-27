@@ -206,13 +206,14 @@ window.onload = async function () {
     //주소가져오기
     //게시글을저장하면 작성한 게시글 페이지로 이동 시키기
     document.getElementById("roadAddress").addEventListener("click", function () { //주소입력칸을 클릭하면
-
+        let map_size = document.querySelector("#map")
         //카카오 지도 발생
         new daum.Postcode({
             oncomplete: function (data) { //선택시 입력값 세팅
                 document.getElementById("roadAddress").value = data.roadAddress // 도로명 주소 넣기
                 //좌표지도출력부분
-                var map = new kakao.maps.Map(document.getElementById('map'), {
+                map_size.style = "width:100%; height:350px;"
+                map = new kakao.maps.Map(document.getElementById('map'), {
                     center: new kakao.maps.LatLng(37.502327, 127.0444447), // 지도의 중심좌표
                     level: 3 // 지도의 확대 레벨
                 });

@@ -76,11 +76,21 @@ async function emoticonDetail() {
 
     // 결제창 함수 넣어주기
     const buyButton = document.getElementById('buy_emoticon')
-    buyButton.setAttribute('onclick', `kcpRequestPay('${userEmail}', '${userName}', '${emoticonPrice}')`)
-    buyButton.setAttribute('class', "btn btn-primary")
+    if (response.title == '기본') {
+        buyButton.disabled = true
+        buyButton.style.display = 'none'
+    } else {
+        buyButton.setAttribute('onclick', `kcpRequestPay('${userEmail}', '${userName}', '${emoticonPrice}')`)
+        buyButton.setAttribute('class', "btn btn-primary")
+    }
 
     // 구매했는지 여부 표시하기
-    if (response.buy == true) {
+    if (response.title == '기본') {
+        buyButton.setAttribute('class', "btn btn-black")
+        buyButton.disabled = true
+        buyButton.style.display = 'none'
+    }
+    else if (response.buy == true) {
         buyButton.setAttribute('class', "btn btn-black")
         buyButton.innerText = '구매완료'
         buyButton.disabled = true
@@ -91,7 +101,11 @@ async function emoticonDetail() {
 
     // 금액
     const price = document.getElementById('price')
-    price.innerText = `💳${response.price}`
+    if (response.title == '기본') {
+        price.innerText = ''
+    } else {
+        price.innerText = `💳${response.price}`
+    }
 }
 
 

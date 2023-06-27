@@ -1,4 +1,4 @@
-// // // 배포
+// 배포
 const back_base_url = `https://back.datescape.shop`
 
 const front_base_url = `https://datescape.shop`

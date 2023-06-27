@@ -145,11 +145,11 @@
 }
 
 .tag_add {
-    cursor: pointer;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 5px 5px 5px 5px;
-    margin: 0px 5px 0px 5px;
+    margin: 0px 5px 7px 5px;
+    display: inline-block;;
 }
 
 .tag_div {
@@ -157,6 +157,12 @@
     border: 2px solid #ccc;
     overflow: hidden;
     background: #fff;
+}
+
+.tag_del {
+    cursor: pointer;
+    width: 20px;
+    margin: 0px 0px 2px 5px;
 }
 
 .w-btn {

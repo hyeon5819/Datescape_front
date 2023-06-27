@@ -9,15 +9,13 @@ let last_login = payload_parse.last_login;
 let current_ = Math.floor((new Date()).getTime() / 1000)
 let exp = payload_parse.exp
 
-if (!token) {
-    alert("로그인이 필요합니다.")
-    window.location.href = `${front_base_url}/templates/logintemp.html`
-}
+console.log(exp - current_)
 
-if (current_ > exp) {
-    alert("대기 시간 초과로 자동 로그아웃 되었습니다.")
-    handleLogout()
-}
+// if (!token) {
+//     alert("로그인이 필요합니다.")
+//     window.location.href = `${front_base_url}/templates/logintemp.html`
+// }
+
 
 
 
@@ -243,6 +241,34 @@ async function handleLogin() {
     }
 
 }
+
+// 로그인 연장
+// async function refresh() {
+//     const refresh = localStorage.getItem("refresh")
+
+//     const response = await fetch(`${back_base_url}/users/token/refresh/`, {
+//         headers: {
+//             "Content-Type": "application/json",
+
+//         },
+//         method: 'POST',
+//         body: JSON.stringify({
+//             "refresh": refresh
+//         })
+//     })
+
+
+
+//     if (response.status == 200) {
+//         alert("연장되었습니다.")
+//         window.location.href = `${front_base_url}`
+//     } else {
+//         alert(JSON.stringify(result))
+//         window.location.reload()
+//     }
+
+// }
+
 
 // 로그아웃
 async function handleLogout() {

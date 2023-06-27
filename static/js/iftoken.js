@@ -1,11 +1,9 @@
 let token = localStorage.getItem("access")
 
-if (token) {
-    alert("접근할수 없는 페이지 입니다.")
-    window.location.href = `${front_base_url}/`
-}
-
-
+// if (token) {
+//     alert("iftoken: 접근할수 없는 페이지 입니다.");
+//     window.location.href = `${front_base_url}`
+// }
 
 /** 이메일 유효성 검사 */
 function CheckEmail(str) {

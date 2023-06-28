@@ -1,8 +1,21 @@
 function detail_page(article_id) {
   location.href = `${front_base_url}/templates/article_detail.html?id=${article_id}&/`
 }
+async function getWeeklyTags() {
+  const response = await fetch(`${back_base_url}/articles/weekly-tags/`)
 
+  if (response.status == 200) {
+    const response_json = await response.json()
+    return response_json
+  } else {
+    alert("불러오는데 실패하였습니다.")
+  }
+}
 async function loadMain() {
+  const weeklytags = await getWeeklyTags()
+  tag_name = document.getElementById("today-tag")
+  tag_name.innerHTML = "오늘의 태그 #" + weeklytags[0]['tag']
+
   response_1 = await getRandom('article')
   const articles1 = document.getElementById('articles-1')
   articles1.innerHTML = ''

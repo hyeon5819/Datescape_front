@@ -16,7 +16,12 @@ async function injectNavbar() {
     const payload = localStorage.getItem("payload");
     let payload_parse = JSON.parse(payload);
     let current_ = Math.floor((new Date()).getTime() / 1000)
-    let exp = payload_parse.exp
+    try { let exp = payload_parse.exp }
+    catch {
+        let exp = 0
+    }
+
+
 
     if (payload) {
         if (current_ > exp) {
@@ -81,6 +86,9 @@ async function injectNavbar() {
         }
         injectFooter(alarmA.childNodes[0].src)
     }
+    else {
+        noninjectFooter()
+    }
 }
 
 
@@ -104,6 +112,15 @@ async function injectFooter(img) {
     }
 }
 
+async function noninjectFooter() {
+    fetch("../footer.html").then(response => {
+        return response.text()
+    })
+        .then(data => {
+            document.querySelector("footer").innerHTML = data;
+        })
+    let footerHtml = await fetch("../navbar.html")
+}
 
 function handleLogout() {
     alert("로그아웃!")

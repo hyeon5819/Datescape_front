@@ -39,7 +39,15 @@ async function emoticonCreate() {
         } else if (response.status == 401) {
             alert("로그인한 사용자만 이용 가능합니다.");
         } else {
-            alert("잘못 된 요청입니다.");
+            if (data.title[0].includes("글자 수가 50 이하")) {
+                alert("이모티콘 이름은 50자 이내로 작성 해주세요.");
+            }
+            else if (data.title[0].includes("이모티콘 제목")) {
+                alert("입력하신 이름은 이미 등록된 이름입니다.\n다른 이름을 입력해주세요.");
+            }
+            else {
+                alert(data.title[0])
+            }
         }
     }
 }

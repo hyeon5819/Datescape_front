@@ -143,7 +143,6 @@ async function PostArticle(formData) {
 window.onload = async function () {
     // 오늘의 태그 생성
     const weeklytags = await getWeeklyTags()
-    console.log(weeklytags[0])
     const todaytag = document.getElementById('taday-tag')
     todaytag.innerText = `# ${weeklytags[0]['tag']}`
     const tomorrow = document.getElementById('tomorrow-tag')

@@ -43,8 +43,7 @@ window.onload = async () => {
             </div><!-- e:title_box -->
             <div id="image_box">
             </div><!-- e:image_box -->
-            <div class="content_box mb-5">
-                ${data.content}
+            <div class="content_box mb-5" id="article-content">
             </div><!-- e:content_box -->
             <div class="map_box">
                 <div id="tag_box" class="mb-5">
@@ -60,6 +59,8 @@ window.onload = async () => {
                 `
     }
     add_html.innerHTML = articleHtml
+    const article_content = document.getElementById(`article-content`)
+    article_content.innerText = data.content
     // 태그 출력부분
     let tag_box = document.querySelector('#tag_box')
     let tagHtml = ``

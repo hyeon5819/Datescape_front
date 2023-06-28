@@ -4,14 +4,15 @@ if (!access) {
     alert("로그인이 필요합니다.")
     window.location.href = `${front_base_url}/templates/logintemp.html`
 } else {
-    const payload = localStorage.getItem("payload");
-    const payloadParse = JSON.parse(payload)
-
-    if (payloadParse.is_admin == false) {
-        alert("관리자만 접근 가능할것입니다.")
-        // window.location.href = `${front_base_url}/`
-    }
+    // const payload = localStorage.getItem("payload");
+    // const payloadParse = JSON.parse(payload)
+    // console.log(payloadParse)
+    // if (payloadParse.is_admin == false) {
+    //     window.location.href = `${front_base_url}/`
+    // }
+    alert("관리자만 접근 가능할것입니다.") // 임시 오픈, 추후 위에걸로 바꾸기
 }
+
 /*list받기 */
 async function categoryGet(ids) {
     serch_list = ids

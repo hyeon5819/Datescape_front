@@ -29,6 +29,7 @@ window.onload = async () => {
 
         if (response.status === 200) {
             console.log(data.results.length)
+            card_box.innerHTML = ``
             for (let i = 0; i < data.results.length; i++) {
                 console.log(i)
                 const article = data.results[i]
@@ -58,7 +59,6 @@ window.onload = async () => {
                 card_box.innerHTML += articleHtml
                 const article_content = document.getElementById(`content-${article.id}`)
                 article_content.innerText = article.content
-
 
             }
 

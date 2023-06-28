@@ -7,7 +7,6 @@ if (!localStorage.getItem("access")) {
     const payloadParse = JSON.parse(payload)
 
     if (payloadParse.is_admin == false) {
-        alert("관리자만 접근 가능합니다.")
-        window.location.href = `${front_base_url}/`
+        alert("관리자만 접근 가능할것입니다.")
+        // window.location.href = `${front_base_url}/`
     }
-}

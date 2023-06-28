@@ -14,6 +14,7 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../static/css/common.css">
+    <link rel="stylesheet" href="../static/css/style.css">
     <style>
         label:hover {
             cursor: pointer;
@@ -27,30 +28,34 @@
     <div class="container text-center mt-5">
         <h3 class="fw-bold mb-2" style="text-align:center;">이모티콘 만들기</h3>
         <p style="text-align: center; color: gray; margin: 0;">자신만의 이모티콘을 제작하고 판매해보세요</p>
-        <button class="btn btn-outline-info text-black mt-4 mb-4"
-            onclick="window.location.href='/templates/emoticon_templist.html'">신청한 리스트 보기</button>
-
-        <form style="display: flex; flex-direction: column; margin: auto; width: 50%;">
-            <input type="text" name="title" id="title" placeholder="이모티콘 제목" /><br>
-
-            <!---->
-            <div class="button">
-                <label for="image">
-                    이미지 등록
-                </label>
+        <div class="container-md text-center" style="width: 1000px;">
+            <div class="row justify-content-end ">
+                <button onclick="location.href='/templates/emoticon_templist.html'"
+                    class="w-btn w-btn-sky mt-4 mb-4 col-3" type="button" style="width: 20%;">신청한 리스트 보기</button>
             </div>
-            <input type="file" id="image" name="image" accept="image/*" onchange="loadFile(this)" style="display: none;"
-                multiple>
+            <form style="display: flex; flex-direction: column; margin: auto; width: 50%;">
+                <label for="title" class="form-label text-md-start">이모티콘 이름</label>
+                <input class="form-control" type="text" name="title" id="title" placeholder="이모티콘 이름을 적어주세요." /><br>
+
+                <!---->
+                <div class="button text-md-start">
+                    <label for="image">
+                        이미지 등록하기
+                    </label>
+                </div>
+                <input type="file" id="image" name="image" accept="image/*" onchange="loadFile(this)"
+                    style="display: none;" multiple>
+                <!---->
+
+
+                <!-- <input type="file" onchange="handleFileSelect(event)" name="image" id="image" accept="image/*" multiple /><br> -->
+            </form>
+
             <!---->
-
-
-            <!-- <input type="file" onchange="handleFileSelect(event)" name="image" id="image" accept="image/*" multiple /><br> -->
-        </form>
-
-        <!---->
-        <div class="image-show" id="image-show"></div>
-        <!---->
-        <button class="btn btn-outline-info text-black mt-3" type="button" onclick="emoticonCreate()">제출</button>
+            <div class="image-show" id="image-show"></div>
+            <!---->
+            <button class="w-btn-outline w-btn-blue-outline mt-3" type="button" onclick="emoticonCreate()">제출</button>
+        </div>
     </div>
 
     <footer></footer>

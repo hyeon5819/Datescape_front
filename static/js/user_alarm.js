@@ -10,7 +10,6 @@ async function userAlarm() {
 
     const data = await response.json()
 
-    console.log(data)
 
     let unreadAlarms = null
 

@@ -43,7 +43,7 @@ window.onload = async () => {
                     </div>
                     <div class="card-body">
                         <h5 class="card-title cardtitle">${article.title}</h5>
-                        <p class="card-text content" style="color:gray;">${article.content}</p>
+                        <p class="card-text content" id="content-${article.id}" style="color:gray;"></p>
                         <span class="text-muted"><small class="content">${tag_add}</small></span>
                         </div><!-- e:body -->
                     <div class="card-footer d-flex justify-content-between">
@@ -53,8 +53,13 @@ window.onload = async () => {
                 </div>
             </div>
             `
+                card_box.innerHTML += articleHtml
+                const article_content = document.getElementById(`content-${article.id}`)
+                article_content.innerText = article.content
+
             }
-            card_box.innerHTML = articleHtml
+
+
 
 
 
@@ -146,7 +151,6 @@ function setLeftValue() {
         max = parseInt(_this.max);
 
     _this.value = Math.min(parseInt(_this.value), parseInt(inputRight.value) - 1);
-    console.log(_this.value)
     var percent = ((_this.value - min) / (max - min)) * 100;
     thumbLeft.style.left = percent + "%";
     range.style.left = percent + "%";
@@ -158,7 +162,6 @@ function setRightValue() {
     var _this = inputRight,
         min = parseInt(_this.min),
         max = parseInt(_this.max);
-    console.log(_this.value)
     _this.value = Math.max(parseInt(_this.value), parseInt(inputLeft.value) + 1);
 
     var percent = ((_this.value - min) / (max - min)) * 100;

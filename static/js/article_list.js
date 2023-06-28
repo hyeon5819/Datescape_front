@@ -9,7 +9,7 @@ window.onload = async () => {
     let get_list = document.getElementById('get-list')
     get_list.onclick = function (e) {
         const min_score = inputLeft.value;
-        const max_score = inputRight.value;
+        const max_score = inputRight.value - 1;
         fetchArticles(1, min_score, max_score);
     }
 

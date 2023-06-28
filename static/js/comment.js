@@ -153,6 +153,26 @@ async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbt
             userEmoticonButtonSpan.innerText = user_emoticon.title
             userEmoticonButton.appendChild(userEmoticonButtonSpan)
         });
+        const getEmoticonGo = document.createElement('li')
+        getEmoticonGo.setAttribute('class', 'nav-item')
+        getEmoticonGo.setAttribute('style', 'margin-right: 0px; margin-left: auto;')
+        userEmoticonList.appendChild(getEmoticonGo)
+
+        const getEmoticonButton = document.createElement('button')
+        getEmoticonButton.setAttribute('style', 'border: none;')
+        getEmoticonGo.appendChild(getEmoticonButton)
+        getEmoticonButton.addEventListener('click', function () {
+            if (confirm("이모티콘 상점으로 이동하시겠습니까?")) {
+                window.location.href = `${front_base_url}/templates/emoticon_list.html`
+            } else {
+                return false;
+            }
+        })
+
+        const getEmoticonSpan = document.createElement('span')
+        getEmoticonSpan.setAttribute('class', 'emoticon')
+        getEmoticonSpan.innerText = '+이모티콘 구경하기'
+        getEmoticonButton.appendChild(getEmoticonSpan)
     }
     emoticonPopup.style.display = 'block'
     const emotiBtn = document.getElementById(emoticonbtn)

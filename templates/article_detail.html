@@ -40,7 +40,7 @@
             <img src="../static/images/btn/btn_slider_next.png" alt="">
         </div>
     </div>
-    <div class="container text-center mt-5">
+    <div class="container text-center mt-5" style="width: 80%;">
         <div class="row row-cols-1 row-cols-md-2">
             <div id="comment-image" class="col">
             </div>
@@ -67,12 +67,16 @@
                     <img style="width: 200px;" src="" alt="" id="use_emoticon">
                 </div>
                 <!--사용 된 이모티콘-->
-                <div>
-                    <input type="text" class="form-control  mb-5" placeholder="댓글 입력" id="comment_content"
-                        aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" style="width: 105px;" type="button"
-                        onclick="emoticonButtonList('user_emoticon_list' , 'emoticon_popup', 'emoticonbtn', 'emoticon_images', 'use_emoticon', 'comment_content')"
-                        id="emoticonbtn">이모티콘</button>
+                <div style="display: flex; justify-content: center;">
+                    <div style="display: flex; justify-content: center; width: 80%;">
+                        <input type="text" class="form-control  mb-5" style="width: 80%;" placeholder="댓글 입력"
+                            id="comment_content" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" style="width: 20%; height: 38px;" type="button"
+                            onclick="emoticonButtonList('user_emoticon_list' , 'emoticon_popup', 'emoticonbtn', 'emoticon_images', 'use_emoticon', 'comment_content')"
+                            id="emoticonbtn">이모티콘</button>
+                    </div>
+                </div>
+                <div style="margin-top: -30px;">
                     <button class="btn btn-outline-secondary" style="width: 70px;" type="button"
                         id="comment_create">등록</button>
                 </div>
@@ -83,7 +87,8 @@
             <div>
                 <div style="height: 0px;">
                     <div class="card text-center;"
-                        style="position: relative; z-index: 1; margin-top: -17px; display: none;" id="emoticon_popup">
+                        style="position: relative; z-index: 1; margin-top: -400px; margin-left: 50px; display: none;"
+                        id="emoticon_popup">
                         <div class="card-header">
                             <ul class="nav nav-tabs card-header-tabs" id="user_emoticon_list">
                             </ul>

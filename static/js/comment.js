@@ -153,6 +153,26 @@ async function emoticonButtonList(user_emoticon_list, emoticon_popup, emoticonbt
             userEmoticonButtonSpan.innerText = user_emoticon.title
             userEmoticonButton.appendChild(userEmoticonButtonSpan)
         });
+        const getEmoticonGo = document.createElement('li')
+        getEmoticonGo.setAttribute('class', 'nav-item')
+        getEmoticonGo.setAttribute('style', 'margin-right: 0px; margin-left: auto;')
+        userEmoticonList.appendChild(getEmoticonGo)
+
+        const getEmoticonButton = document.createElement('button')
+        getEmoticonButton.setAttribute('style', 'border: none;')
+        getEmoticonGo.appendChild(getEmoticonButton)
+        getEmoticonButton.addEventListener('click', function () {
+            if (confirm("이모티콘 상점으로 이동하시겠습니까?")) {
+                window.location.href = `${front_base_url}/templates/emoticon_list.html`
+            } else {
+                return false;
+            }
+        })
+
+        const getEmoticonSpan = document.createElement('span')
+        getEmoticonSpan.setAttribute('class', 'emoticon')
+        getEmoticonSpan.innerText = '+이모티콘 구경하기'
+        getEmoticonButton.appendChild(getEmoticonSpan)
     }
     emoticonPopup.style.display = 'block'
     const emotiBtn = document.getElementById(emoticonbtn)
@@ -227,8 +247,10 @@ async function commentUpdate(type_id, type, parent_id) {
     const commentPValue = commentP.innerText
 
     const commentUsedEmoticon = comment.childNodes[1].firstChild
+    console.log(commentUsedEmoticon)
     const commentUsedEmoticonId = commentUsedEmoticon.alt
     const commentUsedEmoticonSrc = commentUsedEmoticon.src
+    commentUsedEmoticon.style.display = 'none'
 
     const emoticonDiv = document.createElement('div')
     emoticonDiv.setAttribute('class', 'card text-center')
@@ -237,7 +259,7 @@ async function commentUpdate(type_id, type, parent_id) {
     updateCommentEmoticon.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover; margin: auto;')
     updateCommentEmoticon.setAttribute('class', 'emoticon')
     updateCommentEmoticon.setAttribute('id', `${type}_update_use_emoticon`)
-    if (commentUsedEmoticonSrc == undefined) {
+    if (commentUsedEmoticonSrc == undefined | commentUsedEmoticonSrc == '') {
         updateCommentEmoticon.removeAttribute('src')
         updateCommentEmoticon.removeAttribute('alt')
         updateCommentEmoticon.removeAttribute('style')
@@ -251,8 +273,6 @@ async function commentUpdate(type_id, type, parent_id) {
         updateCommentEmoticon.removeAttribute('alt')
         updateCommentEmoticon.removeAttribute('style')
     });
-    emoticonDiv.appendChild(updateCommentEmoticon)
-    updateCommentEmoticon.style.display = 'none'
 
     const updateEmoticonButton = document.createElement('button')
     updateEmoticonButton.innerText = '이모티콘'
@@ -303,6 +323,7 @@ async function commentUpdate(type_id, type, parent_id) {
     updateCommentInput.setAttribute('id', `${type}_update_input${type_id}`)
     updateCommentInput.value = commentPValue
 
+    comment.childNodes[1].insertBefore(updateCommentEmoticon, comment.childNodes[1].lastChild)
     comment.childNodes[1].insertBefore(updateCommentInput, comment.childNodes[1].lastChild)
     comment.childNodes[1].insertBefore(emoticonDiv, comment.childNodes[1].lastChild)
 
@@ -335,7 +356,7 @@ async function commentUpdateConfirm(type_id, type, parent_id) {
             } else if (type == "reply") {
                 formData.append(`content`, commentUpdateContent);
             }
-            formData.append(`${type_id}`, `${type_id}`);
+            formData.append(`${type}_id`, `${type_id}`);
             formData.append(`use_emoticon`, commentUpdateEmoticon);
 
             const response = await fetch(`${back_base_url}/articles/${parent_id}/${type}s/`, {

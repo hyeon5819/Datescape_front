@@ -31,6 +31,7 @@ async function GetArticle(formData) {
     })
     if (response.status == 200) {
         data = await response.json();
+        
         for (let i = 0; i < data.length; i++) {
             const article = data[i]
             articleHtml += `

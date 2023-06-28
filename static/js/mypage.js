@@ -8,6 +8,7 @@ function detail_page(article_id) {
     location.href = `${front_base_url}/templates/article_detail.html?id=${article_id}&/`
 }
 async function GetArticle(formData) {
+    const myPage = document.getElementById("my_page")
     articleHtml = ``
     const response = await fetch(`${back_base_url}/users/profile/article/`, {
         headers: {
@@ -51,6 +52,7 @@ async function GetComment(formData) {
         body: formData,
     })
     if (response.status == 200) {
+        const myPage = document.getElementById("my_page")
         data = await response.json();
         for (let i = 0; i < data.length; i++) {
             const comment = data[i]
@@ -77,6 +79,7 @@ async function GetComment(formData) {
     }
 }
 async function GetBookmark(formData) {
+    const myPage = document.getElementById("my_page")
     bookmarkHtml = ``
     const response = await fetch(`${back_base_url}/users/profile/bookmark/`, {
         headers: {
@@ -112,6 +115,7 @@ async function GetBookmark(formData) {
     }
 }
 async function GetEmoticonBuy(formData) {
+
     const response = await fetch(`${back_base_url}/users/profile/emoticon/buy`, {
         headers: {
             Authorization: `Bearer ${access}`,

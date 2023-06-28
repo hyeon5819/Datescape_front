@@ -79,11 +79,11 @@ async function injectNavbar() {
             alarmA.childNodes[0].src = "../static/images/none_alarm.png"
             alarmA.style.display = "block"
         }
-        injectFooter(alarmA.childNodes[0].src)
+
     }
 }
 
-
+injectFooter(alarmA.childNodes[0].src)
 async function injectFooter(img) {
     fetch("../footer.html").then(response => {
         return response.text()

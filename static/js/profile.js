@@ -1,67 +1,21 @@
 let access = localStorage.getItem("access")
 
-
 window.onload = async function () {
     getmyprofile()
-    if (access) {
-        onuser_activite()
-    }
-
 }
-async function handleLogout() {
-    alert("로그아웃!")
-    localStorage.removeItem("access")
-    localStorage.removeItem("refresh")
-    localStorage.removeItem("payload")
-    window.location.href = `${front_base_url}/index.html`;
-}
-
-// 테스트
-function autologout() {
-    confirm("60초뒤 로그아웃 됩니다. 연장을 원하시면 확인을 눌러주세요")
-}
-
-// 자동로그인 테스트
-var logoutUser = false;
-var timeoutHnd = null;
-var logouTimeInterval = 24 * 60 * 60 * 1000; // 24 hour -> ms
-function onuser_activite() {
-    if (logoutUser) {
-        OnTimeoutReached();
-    }
-    else {
-        ResetLogOutTimer();
-    }
-}
-
-// 타임아웃 도달
-function OnTimeoutReached() {
-    logoutUser = true;
-    handleLogout()
-    alert("자동로그아웃되었습니다. 다시 로그인 해주세요!");
-    window.location.href = "/";
-}
-function ResetLogOutTimer() {
-    clearTimeout(timeoutHnd);
-    // set new timer
-    timeoutHnd = setTimeout('OnTimeoutReached();', logouTimeInterval);
-}
-
-
-document.body.onclick = onuser_activite;
-timeoutHnd = setTimeout('OnTimeoutReached();', logouTimeInterval);
-
 
 // 프로필 수정페이지 팝업
 function profileedit_win_open() {
     let url = "/templates/profileedit.html";
     let name = "프로필 수정 페이지";
-    let option = "width = 500, height = 500, top = 100, left = 200, location = no";
+    let option = "width = 550, height = 600, top = 100, left = 200, location = no";
     window.open(url, name, option)
 }
 
 // my프로필 정보 가져오기
 async function getmyprofile() {
+
+    console.log("getmyprofile")
     let payload = localStorage.getItem("payload")
     let payload_parse = JSON.parse(payload);
     let access = localStorage.getItem("access")
@@ -101,7 +55,6 @@ async function getmyprofile() {
         image.setAttribute("src", "../static/images/default.png")
     }
 }
-
 // 일반로그인 회원 => 프로필이미지 있음
 // 소셜로그인 회원 => 초기 세팅 - 프로필이미지 없음, 프로필이미지url있음
 // 프로필수정시, 프로필 이미지 있음

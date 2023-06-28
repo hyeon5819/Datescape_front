@@ -113,5 +113,4 @@ function handleLogout() {
     window.location.href = `${front_base_url}/index.html`
 }
 
-
 injectNavbar();

@@ -10,8 +10,8 @@
     <title>메인페이지 | DateScape</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
     <title>Document</title>
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="../static/css/common.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/common.css">
     <script src="../static/js/apitemp.js"></script>
     <script type="module" src="/static/js/index.js"></script>
 
@@ -22,8 +22,8 @@
     <div class="m-5">
         <div style="margin: 70px 0px 70px 0px; height: 120px; position: relative;">
             <div class="input-group my-5 position-absolute top-0 start-50 translate-middle">
-                <button class="btn btn-outline-secondary dropdown-toggle" id="option" type="button"
-                    data-bs-toggle="dropdown" aria-expanded="false" style="border-color: #CFD4D9;">all</button>
+                <button class="btn dropdown-sky dropdown-toggle" id="option" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="border-color: #CFD4D9;">all</button>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#" onclick="selectOption(0)">all</a></li>
                     <li><a class="dropdown-item" href="#" onclick="selectOption(1)">article</a></li>
@@ -37,9 +37,11 @@
             </div>
         </div>
         <div class="my-5 d-flex justify-content-end">
-            <button onclick="location.href='/templates/article_create.html'" class="w-btn w-btn-sky" type="button">게시글
+            <button onclick="location.href='/templates/article_create.html'" class="w-btn w-btn-sky add-shadow"
+                type="button">게시글
                 작성하기</button>
-            <button onclick="location.href='/gps.html'" class="w-btn w-btn-sky" type="button">내 주변 명소</button>
+            <button onclick="location.href='/gps.html'" class="w-btn w-btn-sky add-shadow" type="button">내 주변
+                명소</button>
         </div>
         <div class="my-5">
             <h4 class="fw-semibold">화창한 날 가고 싶은 여행지 ✈️</h4>

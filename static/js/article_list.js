@@ -28,14 +28,17 @@ window.onload = async () => {
         const data = await response.json()
 
         if (response.status === 200) {
+            console.log(data.results.length)
+            card_box.innerHTML = ``
             for (let i = 0; i < data.results.length; i++) {
+                console.log(i)
                 const article = data.results[i]
                 let tag_add = ''
                 for (let a = 0; a < article.tags.length; a++) {
                     tag_add += '#' + article.tags[a].tag + ' '
                 }
 
-                articleHtml += `
+                articleHtml = `
             <div class="col article_detail" onclick="detail_page(${article.id})">
                 <div class="card h-100">
                 <div style="width: 282px; height: 234px;" >

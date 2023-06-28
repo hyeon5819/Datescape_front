@@ -14,6 +14,9 @@ async function injectNavbar() {
     window.setTimeout('window.location.reload()', 3600000);
 
     const payload = localStorage.getItem("payload");
+    if (payload == null) {
+        injectFooter()
+    }
     let payload_parse = JSON.parse(payload);
     let current_ = Math.floor((new Date()).getTime() / 1000)
     let exp = payload_parse.exp
@@ -23,7 +26,6 @@ async function injectNavbar() {
             alert("대기 시간 초과로 자동 로그아웃 되었습니다.")
             handleLogout()
         }
-
     }
 
     if (payload) {
@@ -94,16 +96,17 @@ async function injectFooter(img) {
     let footerHtml = await fetch("../navbar.html")
     let data = await footerHtml.text()
 
-    const alarmPopup = document.getElementById('alarm_popup')
-    alarmPopup.href = `${front_base_url}/user_alarm.html`
-    alarmPopup.setAttribute('style', 'display: block;')
-    if (img.split('/')[img.split('/').length - 1] == "new_alarm.png") {
-        alarmPopup.childNodes[1].src = `${front_base_url}/static/images/new.png`
-    } else {
-        alarmPopup.childNodes[1].src = `${front_base_url}/static/images/none.png`
+    if (img != undefined) {
+        const alarmPopup = document.getElementById('alarm_popup')
+        alarmPopup.href = `${front_base_url}/user_alarm.html`
+        alarmPopup.setAttribute('style', 'display: block;')
+        if (img.split('/')[img.split('/').length - 1] == "new_alarm.png") {
+            alarmPopup.childNodes[1].src = `${front_base_url}/static/images/new.png`
+        } else {
+            alarmPopup.childNodes[1].src = `${front_base_url}/static/images/none.png`
+        }
     }
 }
-
 
 function handleLogout() {
     alert("로그아웃!")

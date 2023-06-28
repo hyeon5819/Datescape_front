@@ -16,7 +16,12 @@ async function injectNavbar() {
     const payload = localStorage.getItem("payload");
     let payload_parse = JSON.parse(payload);
     let current_ = Math.floor((new Date()).getTime() / 1000)
-    let exp = payload_parse.exp
+    try { let exp = payload_parse.exp }
+    catch {
+        let exp = 0
+    }
+
+
 
     if (payload) {
         if (current_ > exp) {
@@ -81,6 +86,9 @@ async function injectNavbar() {
         }
         injectFooter(alarmA.childNodes[0].src)
     }
+    else {
+        noninjectFooter()
+    }
 }
 
 
@@ -97,9 +105,22 @@ async function injectFooter(img) {
     const alarmPopup = document.getElementById('alarm_popup')
     alarmPopup.href = `${front_base_url}/user_alarm.html`
     alarmPopup.setAttribute('style', 'display: block;')
-    alarmPopup.childNodes[1].src = img
+    if (img.split('/')[img.split('/').length - 1] == "new_alarm.png") {
+        alarmPopup.childNodes[1].src = `${front_base_url}/static/images/new.png`
+    } else {
+        alarmPopup.childNodes[1].src = `${front_base_url}/static/images/none.png`
+    }
 }
 
+async function noninjectFooter() {
+    fetch("../footer.html").then(response => {
+        return response.text()
+    })
+        .then(data => {
+            document.querySelector("footer").innerHTML = data;
+        })
+    let footerHtml = await fetch("../navbar.html")
+}
 
 function handleLogout() {
     alert("로그아웃!")
@@ -108,6 +129,5 @@ function handleLogout() {
     localStorage.removeItem("payload")
     window.location.href = `${front_base_url}/index.html`
 }
-
 
 injectNavbar();

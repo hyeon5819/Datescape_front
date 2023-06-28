@@ -173,12 +173,16 @@
     padding: 10px 25px;
     border-radius: 15px;
     font-family: "paybooc-Light", sans-serif;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     text-decoration: none;
     font-weight: 500;
     transition: 0.25s;
     margin-left: 10px;
 }
+
+.add-shadow {
+    box-shadow: 0px 7px 15px rgba(0, 0, 0, 0.15);
+}
+
 
 .w-btn-sky {
     background-color: #2FA4FF;
@@ -194,6 +198,42 @@
 .w-btn:active {
     transform: scale(1.2);
 }
+
+.w-btn-outline {
+    position: relative;
+    padding: 8px 20px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.25s;
+    margin-left: 10px;
+}
+
+.w-btn-blue-outline {
+    border: 1px solid #2FA4FF;
+    color: #2FA4FF;
+    background-color: #fffff3;
+
+}
+
+
+.w-btn-blue-outline:hover {
+    background-color: #2FA4FF;
+    color: white;
+}
+
+.w-btn-outline:hover {
+    letter-spacing: 1px;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.w-btn-outline:active {
+    transform: scale(1.2);
+}
+
+
 
 .swiper-button-prev,
 .swiper-button-next {
@@ -257,4 +297,14 @@
     border-radius: 15px;
     font-size: small;
     padding: 3px 7px 3px 7px;
+}
+
+.dropdown-sky {
+    background-color: white;
+    color: gray;
+}
+
+.dropdown-sky:hover {
+    background-color: #2FA4FF;
+    color: white;
 }

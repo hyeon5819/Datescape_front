@@ -11,11 +11,19 @@ header {
 
 .pop_up {
     position: fixed;
-    bottom: 50%;
-    right: 60px;
+    bottom: 20%;
+    right: 50px;
     width: 100px;
     height: 100px;
 }
+
+.pop_up a {}
+
+.pop_up a:nth-child(1) {}
+
+.pop_up a:nth-child(2) {}
+
+.pop_up a:nth-child(3) {}
 
 .pop_up img {
     width: 100px;

@@ -12,7 +12,7 @@ header {
 .pop_up {
     position: fixed;
     bottom: 20%;
-    right: 50px;
+    right: 10px;
     width: 100px;
     height: 100px;
 }
@@ -26,8 +26,8 @@ header {
 .pop_up a:nth-child(3) {}
 
 .pop_up img {
-    width: 100px;
-    height: 100px;
+    width: 50px !important;
+    height: 50px !important;
 }
 
 .test {

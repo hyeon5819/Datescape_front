@@ -44,7 +44,11 @@ async function getEmoticonList() {
             detailButton.innerText = '보러가기'
 
             let price = document.createElement('p')
-            price.innerText = '💳' + element.price
+            if (element.title == '기본') {
+                price.innerText = '💳 기본'
+            } else {
+                price.innerText = '💳' + element.price
+            }
 
             emoticons.appendChild(col)
             col.appendChild(card)

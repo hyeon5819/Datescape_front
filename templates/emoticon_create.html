@@ -27,21 +27,23 @@
 
     <div class="container text-center mt-5">
         <h3 class="fw-bold mb-2" style="text-align:center;">이모티콘 만들기</h3>
-        <p style="text-align: center; color: gray; margin: 0;">자신만의 이모티콘을 제작하고 판매해보세요</p>
+        <h5 style="text-align: center; color: gray; margin: 0;">자신만의 이모티콘을 제작하고 판매해보세요</h5><br>
         <div class="container-md text-center" style="width: 1000px;">
             <div class="row justify-content-end ">
                 <button onclick="location.href='/templates/emoticon_templist.html'"
                     class="w-btn w-btn-sky mt-4 mb-4 col-3" type="button" style="width: 20%;">신청한 리스트 보기</button>
             </div>
             <form style="display: flex; flex-direction: column; margin: auto; width: 50%;">
-                <label for="title" class="form-label text-md-start">이모티콘 이름</label>
+                <label for="title" class="form-label text-md-start">이모티콘 이름<em style="color:darkgrey ;"> * 50자
+                        이내</em></label>
                 <input class="form-control" type="text" name="title" id="title" placeholder="이모티콘 이름을 적어주세요." /><br>
 
                 <!---->
                 <div class="button text-md-start">
                     <label for="image">
-                        이미지 등록하기
-                    </label>
+                        이미지 등록하기<em style="color:darkgrey ;"> * 복수 이미지 가능</em><br>
+                    </label><br><br>
+                    <em style="color:darkgrey ;">* 아래는 현재 선택된 이모티콘 이미지입니다.</em>
                 </div>
                 <input type="file" id="image" name="image" accept="image/*" onchange="loadFile(this)"
                     style="display: none;" multiple>
@@ -55,6 +57,19 @@
             <div class="image-show" id="image-show"></div>
             <!---->
             <button class="w-btn-outline w-btn-blue-outline mt-3" type="button" onclick="emoticonCreate()">제출</button>
+        </div>
+        <br>
+        <div class="text-start" style="display: flex; justify-content: center;">
+            <em style=" color:darkgrey;">
+                *<span>&nbsp;</span> 이모티콘에 등록할 이미지는 복수 업로드가 가능합니다. <br>
+                *<span>&nbsp;</span> 이미지 재업로드시 기존 업로드는 초기화되므로 다시 선택해주셔야 합니다. <br>
+                *<span>&nbsp;</span> 이모티콘은 판매자인 클라이언트와 서비스를 제공하는 서버의 수익성을 고려하여 구현됐습니다. <br>
+                <span>&nbsp;&nbsp;</span>-무분별한 등록을 제한하기 위해 최초 등록시 신청중인 상태로 저장됩니다. <br>
+                <span>&nbsp;&nbsp;</span>-신청한 리스트 보기를 통해 조회할 수 있으며 이모티콘 수정은 신청중 상태일때만 수정 및 삭제가 가능합니다. <br>
+                <span>&nbsp;&nbsp;</span>-등록 승인시 상품화로 간주하여 클라이언트가 추가적인 수정 및 삭제를 진행할 수 없습니다. <br>
+                <span>&nbsp;&nbsp;</span>-판매중인 이모티콘은 어떠한 이유로 판매중단 될 수 있습니다. <br>
+                <span>&nbsp;&nbsp;</span>-수익성을 고려하여 구현됐기 때문에 관리자페이지를 통해 이모티콘별 판매량 조회 및 월 판매수익을 확인할 수 있습니다. <br>
+            </em>
         </div>
     </div>
 

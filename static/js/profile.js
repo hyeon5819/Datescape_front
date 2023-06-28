@@ -20,7 +20,6 @@ async function getmyprofile() {
     let payload_parse = JSON.parse(payload);
     let access = localStorage.getItem("access")
     const login_type = payload_parse.login_type
-    console.log(login_type)
 
     const response = await fetch(`${back_base_url}/users/profile/`, {
         headers: {

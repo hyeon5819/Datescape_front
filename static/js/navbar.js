@@ -14,7 +14,7 @@ async function injectNavbar() {
     window.setTimeout('window.location.reload()', 3600000);
 
     const payload = localStorage.getItem("payload");
-  
+
     if (payload == null) {
         injectFooter()
     }
@@ -92,9 +92,9 @@ async function injectNavbar() {
         }
         injectFooter(alarmA.childNodes[0].src)
     }
-//     else {
-//         noninjectFooter()
-//     }
+    //     else {
+    //         noninjectFooter()
+    //     }
 }
 
 

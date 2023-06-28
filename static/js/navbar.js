@@ -16,12 +16,18 @@ async function injectNavbar() {
     const payload = localStorage.getItem("payload");
     let payload_parse = JSON.parse(payload);
     let current_ = Math.floor((new Date()).getTime() / 1000)
-    let exp = payload_parse.exp
 
     if (payload) {
+        let exp = payload_parse.exp
         if (current_ > exp) {
             alert("대기 시간 초과로 자동 로그아웃 되었습니다.")
             handleLogout()
+        }
+
+        if (exp - current_ < 100) {
+            if (confirm("곧 자동 로그아웃됩니다. 연장하시겠습니까?")) {
+                refresh()
+            }
         }
 
     }
@@ -97,10 +103,109 @@ async function injectFooter() {
 
 injectFooter()
 
-function handleLogout() {
-    alert("로그아웃!")
-    localStorage.removeItem("access")
-    localStorage.removeItem("refresh")
-    localStorage.removeItem("payload")
-    window.location.href = `${front_base_url}/index.html`
+// function handleLogout() {
+//     localStorage.removeItem("access")
+//     localStorage.removeItem("refresh")
+//     localStorage.removeItem("payload")
+//     window.location.reload()
+// }
+
+async function handleLogout() {
+    const refresh = localStorage.getItem("refresh")
+    const response = await fetch(`${back_base_url}/users/logout/`, {
+        headers: {
+            "Content-Type": "application/json",
+
+        },
+        method: 'POST',
+        body: JSON.stringify({
+            "refresh": refresh
+        })
+    })
+
+    const result = await response.json()
+
+    if (response.status == 200) {
+        localStorage.removeItem("access")
+        localStorage.removeItem("refresh")
+        localStorage.removeItem("payload")
+        alert("서비스를 이용해 주셔서 감사합니다.")
+        window.location.href = `${front_base_url}`
+    } else {
+        alert(JSON.stringify(result))
+        window.location.href = `${front_base_url}`
+    }
 }
+
+// 로그인 연장
+async function refresh() {
+    const refresh = localStorage.getItem("refresh")
+
+    const response = await fetch(`${back_base_url}/users/token/refresh/`, {
+        headers: {
+            "Content-Type": "application/json",
+
+        },
+        method: 'POST',
+        body: JSON.stringify({
+            "refresh": refresh
+        })
+    })
+    const result = await response.json()
+
+    if (response.status == 200) {
+        localStorage.setItem("access", result.access);
+
+        const base64Url = result.access.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        localStorage.setItem("payload", jsonPayload);
+        alert("연장되었습니다.")
+        window.location.href = `${front_base_url}`
+    } else {
+        alert(JSON.stringify(result))
+        window.location.reload()
+    }
+
+}
+
+async function isLogin() {
+    let access = localStorage.getItem("access")
+
+    // if (!access) {
+    //     alert("isLn: 로그인 후 이용가능합니다.");
+    //     window.location.href = `${front_base_url}/templates/logintemp.html`
+    // } else {
+    // alert("isLn: 확인중");
+    if (access) {
+        const response = await fetch(`${back_base_url}/users/islogin/`, {
+            headers: {
+                Authorization: `Bearer ${access}`,
+            },
+            method: "GET",
+        });
+        const result = await response.json()
+
+        if (response.status == 200) {
+            console.log("common")
+            console.log("is_admin:" + result.is_admin)
+            console.log(result)
+            localStorage.setItem("is_admin", result.is_admin)
+            return result.is_admin;
+        } else {
+            // alert(response.status);
+            alert("isLogin: 접근할수 없는 페이지 입니다.");
+            window.location.href = `${front_base_url}/templates/logintemp.html`
+        }
+    }
+
+    // }
+}
+
+// isLogin();
+
+// var is_admin = isLogin()
+// console.log(is_admin)

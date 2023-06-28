@@ -14,8 +14,10 @@ async function injectNavbar() {
     window.setTimeout('window.location.reload()', 3600000);
 
     const payload = localStorage.getItem("payload");
-
-
+  
+    if (payload == null) {
+        injectFooter()
+    }
 
     if (payload) {
         let payload_parse = JSON.parse(payload);
@@ -90,9 +92,9 @@ async function injectNavbar() {
         }
         injectFooter(alarmA.childNodes[0].src)
     }
-    else {
-        noninjectFooter()
-    }
+//     else {
+//         noninjectFooter()
+//     }
 }
 
 
@@ -106,25 +108,28 @@ async function injectFooter(img) {
     let footerHtml = await fetch("../navbar.html")
     let data = await footerHtml.text()
 
-    const alarmPopup = document.getElementById('alarm_popup')
-    alarmPopup.href = `${front_base_url}/user_alarm.html`
-    alarmPopup.setAttribute('style', 'display: block;')
-    if (img.split('/')[img.split('/').length - 1] == "new_alarm.png") {
-        alarmPopup.childNodes[1].src = `${front_base_url}/static/images/new.png`
-    } else {
-        alarmPopup.childNodes[1].src = `${front_base_url}/static/images/none.png`
+    if (img != undefined) {
+        const alarmPopup = document.getElementById('alarm_popup')
+        alarmPopup.href = `${front_base_url}/user_alarm.html`
+        alarmPopup.setAttribute('style', 'display: block;')
+        if (img.split('/')[img.split('/').length - 1] == "new_alarm.png") {
+            alarmPopup.childNodes[1].src = `${front_base_url}/static/images/new.png`
+        } else {
+            alarmPopup.childNodes[1].src = `${front_base_url}/static/images/none.png`
+        }
     }
 }
 
-async function noninjectFooter() {
-    fetch("../footer.html").then(response => {
-        return response.text()
-    })
-        .then(data => {
-            document.querySelector("footer").innerHTML = data;
-        })
-    let footerHtml = await fetch("../navbar.html")
-}
+
+// async function noninjectFooter() {
+//     fetch("../footer.html").then(response => {
+//         return response.text()
+//     })
+//         .then(data => {
+//             document.querySelector("footer").innerHTML = data;
+//         })
+//     let footerHtml = await fetch("../navbar.html")
+// }
 
 // function handleLogout() {
 //     localStorage.removeItem("access")

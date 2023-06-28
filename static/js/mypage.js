@@ -9,6 +9,18 @@ function detail_page(article_id) {
 }
 async function GetArticle(formData) {
     const myPage = document.getElementById("my_page")
+    myPage.innerHTML = `
+    <div class="col" style="cursor: pointer;" onclick="detail_page)">
+        <div class="card">
+
+            <div class="card-body">
+                <h5 class="card-title"> 작성한 게시글이 존재하지 않습니다</h5>
+                <p class="card-text content"></p>
+            </div>
+
+        </div>
+    </div><!-- e:col -->
+    `
     articleHtml = ``
     const response = await fetch(`${back_base_url}/users/profile/article/`, {
         headers: {
@@ -43,6 +55,19 @@ async function GetArticle(formData) {
     }
 }
 async function GetComment(formData) {
+    const myPage = document.getElementById("my_page")
+    myPage.innerHTML = `
+    <div class="col" style="cursor: pointer;" onclick="detail_page)">
+        <div class="card">
+
+            <div class="card-body">
+                <h5 class="card-title"> 작성한 댓글이 존재하지 않습니다</h5>
+                <p class="card-text content"></p>
+            </div>
+
+        </div>
+    </div><!-- e:col -->
+    `
     commentHtml = ``
     const response = await fetch(`${back_base_url}/users/profile/comment/`, {
         headers: {
@@ -80,6 +105,18 @@ async function GetComment(formData) {
 }
 async function GetBookmark(formData) {
     const myPage = document.getElementById("my_page")
+    myPage.innerHTML = `
+    <div class="col" style="cursor: pointer;" onclick="detail_page)">
+        <div class="card">
+
+            <div class="card-body">
+                <h5 class="card-title"> 북마크를 한 적이 없습니다</h5>
+                <p class="card-text content"></p>
+            </div>
+
+        </div>
+    </div><!-- e:col -->
+    `
     bookmarkHtml = ``
     const response = await fetch(`${back_base_url}/users/profile/bookmark/`, {
         headers: {
@@ -115,7 +152,6 @@ async function GetBookmark(formData) {
     }
 }
 async function GetEmoticonBuy(formData) {
-
     const response = await fetch(`${back_base_url}/users/profile/emoticon/buy`, {
         headers: {
             Authorization: `Bearer ${access}`,

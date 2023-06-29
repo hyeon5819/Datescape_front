@@ -76,7 +76,9 @@ window.onload = async () => {
         event.preventDefault()
         const page = event.target.getAttribute('data-page')
         await removeArticles()
-        fetchArticles(page)
+        const min_score = inputLeft.value;
+        const max_score = inputRight.value - 1;
+        fetchArticles(page, min_score, max_score);
     }
     async function removeArticles() {
         const articleList = document.querySelector('#card_box')
@@ -101,7 +103,7 @@ window.onload = async () => {
 
                 const prevLink = document.createElement('a')
                 prevLink.href = '#'
-                prevLink.setAttribute('data-page', currentPage - 1)
+                prevLink.setAttribute('data-page', 1)
                 prevLink.innerHTML = '&laquo'
                 prevLink.addEventListener('click', getPageData)
                 prev.appendChild(prevLink)
@@ -129,7 +131,7 @@ window.onload = async () => {
 
                 const nextLink = document.createElement('a')
                 nextLink.href = '#'
-                nextLink.setAttribute('data-page', currentPage + 1)
+                nextLink.setAttribute('data-page', totalPages)
                 nextLink.innerHTML = '&raquo'
                 nextLink.addEventListener('click', getPageData)
                 next.appendChild(nextLink)

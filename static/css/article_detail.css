@@ -52,6 +52,9 @@ body {
 
 .title_box .title_right button:nth-child(3) {}
 
+.click_img {
+    cursor: pointer;
+}
 
 #image_box {
     display: flex;

@@ -153,13 +153,16 @@ async function handleLogout() {
     const result = await response.json()
 
     if (response.status == 200) {
+        alert("서비스를 이용해 주셔서 감사합니다.")
         localStorage.removeItem("access")
         localStorage.removeItem("refresh")
         localStorage.removeItem("payload")
-        alert("서비스를 이용해 주셔서 감사합니다.")
         window.location.href = `${front_base_url}`
     } else {
         alert(JSON.stringify(result))
+        localStorage.removeItem("access")
+        localStorage.removeItem("refresh")
+        localStorage.removeItem("payload")
         window.location.href = `${front_base_url}`
     }
 }

@@ -76,7 +76,9 @@ window.onload = async () => {
         event.preventDefault()
         const page = event.target.getAttribute('data-page')
         await removeArticles()
-        fetchArticles(page)
+        const min_score = inputLeft.value;
+        const max_score = inputRight.value - 1;
+        fetchArticles(page, min_score, max_score);
     }
     async function removeArticles() {
         const articleList = document.querySelector('#card_box')

@@ -101,7 +101,7 @@ window.onload = async () => {
 
                 const prevLink = document.createElement('a')
                 prevLink.href = '#'
-                prevLink.setAttribute('data-page', currentPage - 1)
+                prevLink.setAttribute('data-page', 1)
                 prevLink.innerHTML = '&laquo'
                 prevLink.addEventListener('click', getPageData)
                 prev.appendChild(prevLink)
@@ -129,7 +129,7 @@ window.onload = async () => {
 
                 const nextLink = document.createElement('a')
                 nextLink.href = '#'
-                nextLink.setAttribute('data-page', currentPage + 1)
+                nextLink.setAttribute('data-page', totalPages)
                 nextLink.innerHTML = '&raquo'
                 nextLink.addEventListener('click', getPageData)
                 next.appendChild(nextLink)

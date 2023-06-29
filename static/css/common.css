@@ -44,3 +44,61 @@ header {
         bottom: 60%;
     }
 }
+
+.fade_in1 {
+    animation: fadein 2s;
+    /* chrome */
+    -webkit-animation: fadein 2s;
+    /* Safari and Chrome */
+    -moz-animation: fadein 2s;
+    /* Firefox */
+    -o-animation: fadein 2s;
+    /* Opera */
+}
+
+
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadein {
+
+    /* Firefox */
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadein {
+
+    /* Safari and Chrome */
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fadein {
+
+    /* Opera */
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

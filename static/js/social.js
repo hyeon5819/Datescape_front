@@ -112,5 +112,10 @@ export async function sendCode() {
             localStorage.setItem('payload', jsonPayload)
             window.location.href = urlWithoutQuery
         }
+        else {
+            const result = await response.json()
+            alert(JSON.stringify(result))
+            window.location.href = `${front_base_url}/`
+        }
     }
 }

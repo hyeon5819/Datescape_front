@@ -245,7 +245,8 @@ async function findID() {
         }
 
     } else {
-        alert("가입된 이메일이 없습니다. 다시확인해주세요.")
+        // alert("가입된 이메일이 없습니다. 다시확인해주세요.")/
+        alert(result)
         window.location.reload()
     }
 }

@@ -75,13 +75,18 @@ window.onload = async () => {
     let imageHtml = ``
     for (let i = 0; i < await data.image.length; i++) {
         imageHtml += `
-            <img src="${image_url}${data.image[i]["image"]}" alt="...">
-        `
-        // tag_add += '#' + data.results[i].tags[a].tag + ' '
+            <img class="click_img" src="${image_url}${data.image[i]["image"]}" alt="...">
+            `
+        let image_list = data.image[i]
     }
     image_box.innerHTML = imageHtml
     loadArticlePosition(data)
-
+    let click_img = document.getElementsByClassName('click_img');
+    for (let i = 0; i < click_img.length; i++) {
+        click_img.item(i).onclick = function () {
+            window.open(this.src, "popupImage", "width=100%", "height=100%");
+        };
+    }
     const payload = localStorage.getItem("payload");
     const payload_parse = JSON.parse(payload)
     let detailButtons = document.querySelector('#detail-buttons')

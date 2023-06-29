@@ -135,7 +135,7 @@ async function PostArticle(formData) {
 
         return;
     } else {
-        alert(response.status);
+        alert(response.status + "도로명 주소가 존재하지 않습니다.");
     }
 }
 
@@ -245,7 +245,7 @@ window.onload = async function () {
                             geocoder.coord2Address(latlng.getLng(), latlng.getLat(), function (result, status) {
                                 if (status === kakao.maps.services.Status.OK) {
                                     // 해당 위치의 지번 주소를 input 태그에 표시합니다
-                                    document.getElementById("roadAddress").value = result[0].address['address_name']
+                                    document.getElementById("roadAddress").value = result[0].address.address_name
                                 }
                             });
 

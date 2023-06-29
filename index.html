@@ -20,28 +20,31 @@
 <body>
     <header class="fade_in1"></header>
     <div class="m-5 fade_in1">
-        <div style="margin: 70px 0px 70px 0px; height: 120px; position: relative;">
-            <div class="input-group my-5 position-absolute top-0 start-50 translate-middle">
-                <button class="btn dropdown-sky dropdown-toggle" id="option" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false" style="border-color: #CFD4D9;">all</button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#" onclick="selectOption(0)">all</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="selectOption(1)">article</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="selectOption(2)">tag</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="selectOption(3)">location</a></li>
-                </ul>
-                <input placeholder="어디로 가볼까요?" id="search" type="text" class="form-control"
-                    aria-label="Text input with dropdown button">
-                <button class="btn border-start-0 bg-white" type="submit" id="button-addon2" onclick="submitSearch()"
-                    style="border-color: #CFD4D9; color: #6E757C;"><i class="fas fa-search"></i></button>
+        <div>
+            <div style="margin: 100px 0px 0px 0px; height: 100px; position: relative;">
+                <div class="input-group my-5 position-absolute top-0 start-50 translate-middle">
+                    <button class="btn dropdown-sky dropdown-toggle" id="option" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="border-color: #CFD4D9;">all</button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" onclick="selectOption(0)">all</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectOption(1)">article</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectOption(2)">tag</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectOption(3)">location</a></li>
+                    </ul>
+                    <input placeholder="어디로 가볼까요?" id="search" type="text" class="form-control"
+                        aria-label="Text input with dropdown button">
+                    <button class="btn border-start-0 bg-white" type="submit" id="button-addon2"
+                        onclick="submitSearch()" style="border-color: #CFD4D9; color: #6E757C;"><i
+                            class="fas fa-search"></i></button>
+                </div>
             </div>
-        </div>
-        <div class="my-5 d-flex justify-content-end">
-            <button onclick="location.href='/templates/article_create.html'" class="w-btn w-btn-sky add-shadow"
-                type="button">게시글
-                작성하기</button>
-            <button onclick="location.href='/gps.html'" class="w-btn w-btn-sky add-shadow" type="button">내 주변
-                명소</button>
+            <div class="d-flex justify-content-end" style="margin-bottom: 100px;">
+                <button onclick="location.href='/templates/article_create.html'" class="w-btn w-btn-sky add-shadow"
+                    type="button">게시글
+                    작성하기</button>
+                <button onclick="location.href='/gps.html'" class="w-btn w-btn-sky add-shadow" type="button">내 주변
+                    명소 찾아보기</button>
+            </div>
         </div>
         <div class="my-5">
             <h4 class="fw-semibold">이런 곳은 어떠신가요?</h4>
@@ -51,6 +54,11 @@
         <div class="my-5">
             <h4 class="fw-semibold" id="today-tag">오늘의 태그 #</h4>
             <div id="articles-2" class="row row-cols-5 my-3">
+            </div>
+        </div>
+        <div class="my-5">
+            <h4 class="fw-semibold" id="today-tag">최근에 다녀온 명소</h4>
+            <div id="articles-3" class="row row-cols-5 my-3">
             </div>
         </div>
     </div>

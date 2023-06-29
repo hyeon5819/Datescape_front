@@ -57,17 +57,6 @@ header {
 }
 
 
-/* .fade_in2 {
-    animation: fadein 2s 1s; */
-/* chrome */
-/* -webkit-animation: fadein 2s 1s; */
-/* Safari and Chrome */
-/* -moz-animation: fadein 2s 1s; */
-/* Firefox */
-/* -o-animation: fadein 2s 1s; */
-/* Opera */
-/* } */
-
 @keyframes fadein {
     0% {
         opacity: 0;

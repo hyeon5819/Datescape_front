@@ -135,7 +135,7 @@ async function PostArticle(formData) {
 
         return;
     } else {
-        alert(response.status);
+        alert(response.status + "도로명 주소가 존재하지 않습니다.");
     }
 }
 
@@ -211,6 +211,7 @@ window.onload = async function () {
             oncomplete: function (data) { //선택시 입력값 세팅
                 document.getElementById("roadAddress").value = data.roadAddress // 도로명 주소 넣기
                 //좌표지도출력부분
+                console.log(data.roadAddress, "출력돼요?")
                 map_size.style = "width:100%; height:350px;"
                 map = new kakao.maps.Map(document.getElementById('map'), {
                     center: new kakao.maps.LatLng(37.502327, 127.0444447), // 지도의 중심좌표
@@ -244,8 +245,11 @@ window.onload = async function () {
                             // Reverse Geocoding해서 지번 주소를 검색합니다 
                             geocoder.coord2Address(latlng.getLng(), latlng.getLat(), function (result, status) {
                                 if (status === kakao.maps.services.Status.OK) {
+                                    console.log(result[0], "출력돼요?")
+                                    console.log(result[0].road_address, "출력돼요?")
+                                    console.log(result[0].address.address_name, "출력돼요?")
                                     // 해당 위치의 지번 주소를 input 태그에 표시합니다
-                                    document.getElementById("roadAddress").value = result[0].address['address_name']
+                                    document.getElementById("roadAddress").value = result[0].address.address_name
                                 }
                             });
 

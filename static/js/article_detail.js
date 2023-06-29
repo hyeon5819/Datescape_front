@@ -78,7 +78,6 @@ window.onload = async () => {
             <img class="click_img" src="${image_url}${data.image[i]["image"]}" alt="...">
             `
         let image_list = data.image[i]
-        console.log(image_list)
     }
     image_box.innerHTML = imageHtml
     loadArticlePosition(data)

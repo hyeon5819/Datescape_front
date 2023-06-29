@@ -3,10 +3,10 @@ if (!localStorage.getItem("access")) {
     window.location.href = `${front_base_url}/templates/logintemp.html`
 }
 
-async function emoticonTempList() {
+async function emoticonBuyList() {
     const access = localStorage.getItem("access");
 
-    const response = await fetch(`${back_base_url}/emoticons/temp/`, {
+    const response = await fetch(`${back_base_url}/emoticons/`, {
         headers: {
             Authorization: `Bearer ${access}`,
         },
@@ -17,23 +17,6 @@ async function emoticonTempList() {
         response_json = await response.json();
 
         let emoticons = document.getElementById('emoticons')
-
-        if (response_json.length == 0) {
-            let card = document.createElement('div')
-            card.setAttribute('class', 'card')
-            card.setAttribute('style', 'width: 100%')
-
-            let cardBody = document.createElement('div')
-            cardBody.setAttribute('class', 'card-body')
-
-            let messageP = document.createElement('p')
-            messageP.setAttribute('class', 'card-text')
-            messageP.innerText = '신청한 이모티콘이 없습니다.'
-
-            emoticons.appendChild(card)
-            card.appendChild(cardBody)
-            cardBody.appendChild(messageP)
-        }
 
         response_json.forEach(element => {
             let col = document.createElement('div')
@@ -65,7 +48,7 @@ async function emoticonTempList() {
             emoticonCreator.innerText = '제작자: ' + element.creator_name
 
             let detailButton = document.createElement('button')
-            detailButton.setAttribute('onclick', `location.href='${front_base_url}/templates/emoticon_temp_detail.html?emoticon_id=${element.id}&/'`)
+            detailButton.setAttribute('onclick', `location.href='${front_base_url}/templates/emoticon_detail.html?emoticon_id=${element.id}&/'`)
             detailButton.setAttribute('class', 'btn btn-outline-dark btn-sm mt-3')
             detailButton.innerText = '보러가기'
 
@@ -84,4 +67,4 @@ async function emoticonTempList() {
 }
 
 
-emoticonTempList()
+emoticonBuyList()

@@ -160,6 +160,9 @@ async function handleLogout() {
         window.location.href = `${front_base_url}`
     } else {
         alert(JSON.stringify(result))
+        localStorage.removeItem("access")
+        localStorage.removeItem("refresh")
+        localStorage.removeItem("payload")
         window.location.href = `${front_base_url}`
     }
 }

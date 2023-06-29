@@ -1,5 +1,5 @@
 const urlParams = new URLSearchParams(window.location.search);
-dist = urlParams.get("dist");
+let dist = urlParams.get("dist");
 
 if (dist == null) {
     document.getElementById('dist').innerHTML = `반경 2km`

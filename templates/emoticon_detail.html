@@ -21,6 +21,7 @@
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
     <!-- 포트원 결제 -->
     <link rel="stylesheet" href="../static/css/common.css">
+    <link rel="stylesheet" href="../static/css/style.css">
 </head>
 
 <body>
@@ -41,9 +42,16 @@
         <br>
         <button id="buy_emoticon">구매하기</button> <!-- 결제하기 버튼 생성 -->
     </div>
+    <div class="text-start" style="display: flex; justify-content: center;">
+        <em style=" color:crimson; font-size: small;">* 현재 결제기능은 테스트 결제기능으로 실제 결제가 진행되지 않습니다. <br>
+            <span>&nbsp;&nbsp;</span>-결제사별 다소 차이가 있을 수 있어 결제완료 알림을 받으시더라도 당일
+            23시 30분 기준 취소처리가 진행됩니다. <br>
+            <span>&nbsp;&nbsp;</span>-취소처리가 되지 않아도 익일 오전중으로 담당자 확인 후 직접 취소처리를 진행하고 있으니 안심하시고 이용해주셔도 됩니다.</em><br>
+
+    </div>
     <div class="container text-center mt-3">
-        <button class="btn btn-primary mt-3"
-            onclick="location.href=`${front_base_url}/templates/emoticon_list.html`">리스트</button>
+        <button class="w-btn-outline w-btn-blue-outline mt-3" type="button"
+            onclick="window.history.back()">돌아가기</button>
     </div>
 
     <footer></footer>

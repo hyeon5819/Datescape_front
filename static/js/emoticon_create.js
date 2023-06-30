@@ -67,7 +67,7 @@ imageInput.addEventListener("change", function () {
 
         if (acceptFile.includes(fileName[fileName.length - 1])) {
         } else {
-            alert(`이미지 파일만 가능합니다!\n가능 확장자명: ${acceptFile}`)
+            alert(`이미지 파일만 가능합니다!`)
             imageInput.value = []
         }
     }

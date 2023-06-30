@@ -18,6 +18,23 @@ async function emoticonTempList() {
 
         let emoticons = document.getElementById('emoticons')
 
+        if (response_json.length == 0) {
+            let card = document.createElement('div')
+            card.setAttribute('class', 'card')
+            card.setAttribute('style', 'width: 100%')
+
+            let cardBody = document.createElement('div')
+            cardBody.setAttribute('class', 'card-body')
+
+            let messageP = document.createElement('p')
+            messageP.setAttribute('class', 'card-text')
+            messageP.innerText = '신청한 이모티콘이 없습니다.'
+
+            emoticons.appendChild(card)
+            card.appendChild(cardBody)
+            cardBody.appendChild(messageP)
+        }
+
         response_json.forEach(element => {
             let col = document.createElement('div')
             col.setAttribute('class', 'col')
@@ -49,7 +66,7 @@ async function emoticonTempList() {
 
             let detailButton = document.createElement('button')
             detailButton.setAttribute('onclick', `location.href='${front_base_url}/templates/emoticon_temp_detail.html?emoticon_id=${element.id}&/'`)
-            detailButton.setAttribute('class', 'btn btn-primary mt-3')
+            detailButton.setAttribute('class', 'btn btn-outline-dark btn-sm mt-3')
             detailButton.innerText = '보러가기'
 
             emoticons.appendChild(col)

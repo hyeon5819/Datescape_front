@@ -1,6 +1,15 @@
-// 이모티콘 리스트 가져오기
-async function getEmoticonList() {
-    const response = await fetch(`${back_base_url}/emoticons/list/`, {
+if (!localStorage.getItem("access")) {
+    alert("로그인이 필요합니다.")
+    window.location.href = `${front_base_url}/templates/logintemp.html`
+}
+
+async function emoticonBuyList() {
+    const access = localStorage.getItem("access");
+
+    const response = await fetch(`${back_base_url}/emoticons/`, {
+        headers: {
+            Authorization: `Bearer ${access}`,
+        },
         method: "GET",
     });
 
@@ -37,21 +46,11 @@ async function getEmoticonList() {
             let emoticonCreator = document.createElement('p')
             emoticonCreator.setAttribute('class', 'card-text')
             emoticonCreator.innerText = '제작자: ' + element.creator_name
-            emoticonCreator.addEventListener('click', function () {
-                window.location.href = `${front_base_url}/templates/emoticon_creator_list.html?id=${element.creator}&/`
-            })
 
             let detailButton = document.createElement('button')
             detailButton.setAttribute('onclick', `location.href='${front_base_url}/templates/emoticon_detail.html?emoticon_id=${element.id}&/'`)
-            detailButton.setAttribute('class', 'btn btn-outline-dark btn-sm mt-1')
+            detailButton.setAttribute('class', 'btn btn-outline-dark btn-sm mt-3')
             detailButton.innerText = '보러가기'
-
-            let price = document.createElement('p')
-            if (element.title == '기본') {
-                price.innerText = '💳 기본'
-            } else {
-                price.innerText = '💳' + element.price
-            }
 
             emoticons.appendChild(col)
             col.appendChild(card)
@@ -59,13 +58,13 @@ async function getEmoticonList() {
             card.appendChild(cardBody)
             cardBody.appendChild(emoticonTitle)
             cardBody.appendChild(emoticonCreator)
-            cardBody.appendChild(price)
             cardBody.appendChild(detailButton)
         });
+
     } else {
         alert(response.status);
     }
 }
 
 
-getEmoticonList()
+emoticonBuyList()

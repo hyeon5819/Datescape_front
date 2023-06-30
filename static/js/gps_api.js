@@ -11,10 +11,22 @@ if (dist == null) {
 async function loadMyPosition(position) {
     // 내 위치 표시
     var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-    var options = { //지도를 생성할 때 필요한 기본 옵션
-        center: new kakao.maps.LatLng(position.coords.latitude, position.coords.longitude), //지도의 중심좌표.(위도,경도)
-        level: 3 //지도의 레벨(확대, 축소 정도)
-    };
+    if (dist == 10) {
+        var options = { //지도를 생성할 때 필요한 기본 옵션
+            center: new kakao.maps.LatLng(position.coords.latitude, position.coords.longitude), //지도의 중심좌표.(위도,경도)
+            level: 9 //지도의 레벨(확대, 축소 정도)
+        };
+    } else if (dist == 5) {
+        var options = { //지도를 생성할 때 필요한 기본 옵션
+            center: new kakao.maps.LatLng(position.coords.latitude, position.coords.longitude), //지도의 중심좌표.(위도,경도)
+            level: 7 //지도의 레벨(확대, 축소 정도)
+        }
+    } else {
+        var options = { //지도를 생성할 때 필요한 기본 옵션
+            center: new kakao.maps.LatLng(position.coords.latitude, position.coords.longitude), //지도의 중심좌표.(위도,경도)
+            level: 6 //지도의 레벨(확대, 축소 정도)
+        }
+    }
     var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
     // 마커 위치 설정

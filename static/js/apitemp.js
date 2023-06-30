@@ -117,17 +117,17 @@ async function handleSignin() {
     }
     else if (!checkPw(password1 || password2)) {
         alert("비번 유효성 검사 잘못된입력입니다. 확인해주세요.")
-        window.location.reload()
+        // window.location.reload()
     } else if (password2 !== password1) {
         alert("비번 잘못된입력입니다. 확인해주세요.")
-        window.location.reload()
+        // window.location.reload()
     } else if (!CheckEmail(email)) { // 존재한다면 -1이 아닌 숫자가 반환됨
         alert("이메일 형식이 아닙니다.");
         email_.focus();
         return false;
     } else if (!checkID(username)) {
         alert("아이디 유효성 검사 잘못된입력입니다. 확인해주세요.")
-        window.location.reload()
+        // window.location.reload()
     }
 
     if (checkPw) {
@@ -155,7 +155,7 @@ async function handleSignin() {
         window.location.replace(`${front_base_url}/templates/logintemp.html`)
     } else {
         alert(JSON.stringify(result))
-        window.location.reload()
+        // window.location.reload()
     }
 
 }

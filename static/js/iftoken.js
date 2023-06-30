@@ -88,28 +88,28 @@ async function handleSignin() {
 
     if (!checkID(username)) {
         alert("아이디는 소문자, 소문자+숫자 조합만 사용가능합니다.")
-        window.location.reload()
+        // window.location.reload()
         return false;
     }
 
     if (!email || !username || !password1 || !password2) {
         alert("공란 잘못된입력입니다. 확인해주세요.");
-        window.location.reload();
+        // window.location.reload();
         return false
     }
     if (!CheckEmail(email)) {
         email_.focus();
         alert("이메일 형식이 아닙니다.");
-        window.location.reload();
+        // window.location.reload();
         return false
     }
     if (password2 !== password1) {
         alert("비번 잘못된입력입니다. 확인해주세요.");
-        window.location.reload();
+        // window.location.reload();
         return false
     }
     if (!checkPw(password2)) {
-        window.location.reload();
+        // window.location.reload();
         return false
     } else if (true) {
         alert("⏳잠시만 기다려 주세요")
@@ -327,7 +327,7 @@ async function handleResetPasswordChange() {
     if (response.status == 200) {
         alert("⏳잠시만 기다려 주세요")
         alert("비밀번호가 변경되었습니다.")
-        win_close()
+        window.location.href = `${front_base_url}/templates/logintemp.html`
     } else {
         alert("⏳잠시만 기다려 주세요")
         alert(JSON.stringify(result))

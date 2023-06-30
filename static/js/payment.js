@@ -15,7 +15,7 @@ function kcpRequestPay(useremail, username, price) {
 
             IMP.init("imp55467334"); // 가맹점 식별코드
             IMP.request_pay({
-                pg: 'kcp', // PG사 코드표에서 선택
+                pg: 'html5_inicis', // PG사 코드표에서 선택
                 pay_method: 'card', // 결제 방식
                 merchant_uid: "IMP" + makeMerchantUid + username, // 결제 고유 번호
                 name: `${emoticonName}`, // 제품명

@@ -194,7 +194,11 @@ async function commentCreate() {
             else {
                 const formData = new FormData();
                 formData.append("comment", commentContent);
-                formData.append("use_emoticon", commentEmoticon);
+                if (commentEmoticon == 'egg') {
+                    formData.append("use_emoticon", '');
+                } else {
+                    formData.append("use_emoticon", commentEmoticon);
+                }
 
                 const response = await fetch(`${back_base_url}/articles/${articleId}/comments/`, {
                     headers: {
@@ -214,8 +218,13 @@ async function commentCreate() {
             }
         } else {
             const formData = new FormData();
-            formData.append("comment", commentContent);
-            formData.append("use_emoticon", commentEmoticon);
+            if (commentEmoticon == 'egg') {
+                formData.append("comment", '!#%&(*^$@' + commentContent);
+                formData.append("use_emoticon", '');
+            } else {
+                formData.append("comment", commentContent);
+                formData.append("use_emoticon", commentEmoticon);
+            }
 
             const response = await fetch(`${back_base_url}/articles/${articleId}/comments/`, {
                 headers: {
@@ -247,7 +256,6 @@ async function commentUpdate(type_id, type, parent_id) {
     const commentPValue = commentP.innerText
 
     const commentUsedEmoticon = comment.childNodes[1].firstChild
-    console.log(commentUsedEmoticon)
     const commentUsedEmoticonId = commentUsedEmoticon.alt
     const commentUsedEmoticonSrc = commentUsedEmoticon.src
     commentUsedEmoticon.style.display = 'none'
@@ -435,8 +443,6 @@ async function commentDelete(comment_id) {
 async function commentView() {
     const response_comment = await getComment();
 
-    // 이모티콘 이미지 보기
-
     // 등록버튼 함수 넣어주기
     const commentCreateButton = document.getElementById("comment_create")
 
@@ -483,11 +489,25 @@ async function commentView() {
             commentDiv.appendChild(commentEmoticon)
         }
 
-        const commentP = document.createElement("p")
-        commentP.innerText = element.comment
-        commentP.setAttribute('style', 'font-size: 20px;')
-        commentP.setAttribute('id', `comment_contentP${element.id}`)
-        commentDiv.appendChild(commentP)
+        if (element.comment.includes('!#%&(*^$@')) {
+            commentEmoticon.setAttribute('src', `https://lh3.googleusercontent.com/RxYXrd8Owa7gSCTtHtrxVpwoZwTgq8MwGgIWpdXGyfesLm6ecoMl2u5BkWuClujC6YvL`)
+            commentEmoticon.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover;')
+            commentEmoticon.setAttribute('class', 'emoticon')
+            commentDiv.appendChild(commentEmoticon)
+
+            const commentP = document.createElement("p")
+            commentP.innerText = element.comment.split('!#%&(*^$@')[1]
+            commentP.setAttribute('style', 'font-size: 20px;')
+            commentP.setAttribute('id', `comment_contentP${element.id}`)
+            commentDiv.appendChild(commentP)
+        } else {
+            const commentP = document.createElement("p")
+            commentP.innerText = element.comment
+            commentP.setAttribute('style', 'font-size: 20px;')
+            commentP.setAttribute('id', `comment_contentP${element.id}`)
+            commentDiv.appendChild(commentP)
+        }
+
 
         const replyDiv = document.createElement("div")
         replyDiv.setAttribute('id', `comment_reply${element.id}`)
@@ -596,19 +616,75 @@ commentInputBox.addEventListener("input", function () {
     if (valueSplit.length >= 2) {
         for (let i = 1; i < valueSplit.length; i++) {
             if (valueSplit[i - 1] in emojiTagDic) {
-                valueSplit[i - 1] = emojiTagDic[valueSplit[i - 1]]
+                let emojiNum = i - 1
+                valueSplit[emojiNum] = emojiTagDic[valueSplit[emojiNum]]
 
-                // 리스트 마지막 '' 제거
-                valueSplit.splice(i, 1)
-
-                commentInputBox.value = ''
-                for (let i = 0; i < valueSplit.length; i++) {
-                    if (i >= valueSplit.length - 2) {
-                        commentInputBox.value += valueSplit[i]
-                    } else {
-                        commentInputBox.value += valueSplit[i] + ":"
+                let commentInputChange = ''
+                for (let a = 0; a < valueSplit.length; a++) {
+                    if (a == emojiNum) {
+                        commentInputChange += valueSplit[emojiNum]
+                    }
+                    else if (a == emojiNum - 1) {
+                        commentInputChange += valueSplit[a]
+                    }
+                    else if (a == emojiNum + 1) {
+                        commentInputChange += valueSplit[a]
+                    }
+                    else {
+                        commentInputChange += valueSplit[a] + ':'
                     }
                 };
+                commentInputBox.value = commentInputChange
+                break
+            }
+            else if (valueSplit[i - 1] == 'egg') {
+                let emojiNum = i - 1
+                valueSplit[emojiNum] = '🥚'
+
+                let commentInputChange = ''
+                for (let a = 0; a < valueSplit.length; a++) {
+                    if (a == emojiNum) {
+                        commentInputChange += valueSplit[emojiNum]
+
+                        const image_input_box = document.getElementById('use_emoticon')
+
+                        if (image_input_box.alt != 'none') {
+                            image_input_box.removeAttribute('src')
+                            image_input_box.removeAttribute('alt')
+                            image_input_box.removeAttribute('style')
+
+                            image_input_box.setAttribute('src', `https://lh3.googleusercontent.com/RxYXrd8Owa7gSCTtHtrxVpwoZwTgq8MwGgIWpdXGyfesLm6ecoMl2u5BkWuClujC6YvL`)
+                            image_input_box.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover; margin: auto;')
+                            image_input_box.setAttribute('id', 'use_emoticon')
+                            image_input_box.setAttribute('alt', `egg`)
+                            image_input_box.addEventListener('click', function () {
+                                image_input_box.removeAttribute('src')
+                                image_input_box.removeAttribute('alt')
+                                image_input_box.removeAttribute('style')
+                            })
+                        } else {
+                            image_input_box.setAttribute('src', `https://lh3.googleusercontent.com/RxYXrd8Owa7gSCTtHtrxVpwoZwTgq8MwGgIWpdXGyfesLm6ecoMl2u5BkWuClujC6YvL`)
+                            image_input_box.setAttribute('style', 'width: 130px; height: 130px; object-fit: cover; margin: auto;')
+                            image_input_box.setAttribute('id', 'use_emoticon')
+                            image_input_box.setAttribute('alt', `egg`)
+                            image_input_box.addEventListener('click', function () {
+                                image_input_box.removeAttribute('src')
+                                image_input_box.removeAttribute('alt')
+                                image_input_box.removeAttribute('style')
+                            })
+                        }
+                    }
+                    else if (a == emojiNum - 1) {
+                        commentInputChange += valueSplit[a]
+                    }
+                    else if (a == emojiNum + 1) {
+                        commentInputChange += valueSplit[a]
+                    }
+                    else {
+                        commentInputChange += valueSplit[a] + ':'
+                    }
+                };
+                commentInputBox.value = commentInputChange
                 break
             }
         };

@@ -1,11 +1,20 @@
 // 이모티콘 리스트 가져오기
-async function getEmoticonList() {
-    const response = await fetch(`${back_base_url}/emoticons/list/`, {
+async function getCreatorEmoticonList() {
+    const urlParams = new URLSearchParams(window.location.search);
+    let creatorId = urlParams.get("id");
+    if (creatorId == "null") {
+        creatorId = 0
+    }
+
+    const response = await fetch(`${back_base_url}/emoticons/creator/${creatorId}/null/`, {
         method: "GET",
     });
 
     if (response.status == 200) {
         response_json = await response.json();
+
+        const pageTitle = document.getElementById('creator')
+        pageTitle.innerText = `"${response_json[0].creator_name}"님의 제작 이모티콘들`
 
         let emoticons = document.getElementById('emoticons')
 
@@ -38,7 +47,7 @@ async function getEmoticonList() {
             emoticonCreator.setAttribute('class', 'card-text')
             emoticonCreator.innerText = '제작자: ' + element.creator_name
             emoticonCreator.addEventListener('click', function () {
-                window.location.href = `${front_base_url}/templates/emoticon_creator_list.html?id=${element.creator}&/`
+                alert("현재 보고 계신 제작자 입니다.")
             })
 
             let detailButton = document.createElement('button')
@@ -68,4 +77,4 @@ async function getEmoticonList() {
 }
 
 
-getEmoticonList()
+getCreatorEmoticonList()

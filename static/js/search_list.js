@@ -5,11 +5,17 @@ async function loadSearch() {
   const urlParams = new URLSearchParams(location.search);
   search = urlParams.get('search');
   option = urlParams.get('option');
+  let options = {
+    "article": "제목+내용",
+    "all": "전체",
+    "tag": "태그",
+    "location": "지역",
+  }
   const page = urlParams.get('page');
   const response = await getSearch(option, search, page)
   const searched = document.getElementById('search')
   searched.value = search
-  document.getElementById('option').innerHTML = option
+  document.getElementById('option').innerHTML = options[option]
   const search_list = document.getElementById('search-list')
   search_list.innerHTML = ''
   if (response.count === 0) {

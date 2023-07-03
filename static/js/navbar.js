@@ -82,18 +82,15 @@ async function injectNavbar() {
         if (data.unread == true) {
             alarmA.href = `${front_base_url}/user_alarm.html`
             alarmA.childNodes[0].src = "../static/images/new_alarm.png"
-            alarmA.style.display = "block"
+            alarmA.style.visibility = "visible"
         }
         else {
             alarmA.href = `${front_base_url}/user_alarm.html`
             alarmA.childNodes[0].src = "../static/images/none_alarm.png"
-            alarmA.style.display = "block"
+            alarmA.style.visibility = "visible"
         }
         injectFooter(alarmA.childNodes[0].src)
     }
-    //     else {
-    //         noninjectFooter()
-    //     }
 }
 
 
@@ -110,12 +107,19 @@ async function injectFooter(img) {
     if (img != undefined) {
         const alarmPopup = document.getElementById('alarm_popup')
         alarmPopup.href = `${front_base_url}/user_alarm.html`
-        alarmPopup.setAttribute('style', 'display: block;')
+        alarmPopup.setAttribute('style', 'visibility: visible;')
         if (img.split('/')[img.split('/').length - 1] == "new_alarm.png") {
             alarmPopup.childNodes[1].src = `${front_base_url}/static/images/new.png`
         } else {
             alarmPopup.childNodes[1].src = `${front_base_url}/static/images/none.png`
         }
+    }
+    if (payload) {
+        const chatButton = document.getElementById('chat_popup')
+        chatButton.setAttribute('style', 'visibility: visible;')
+        chatButton.addEventListener('click', function () {
+            window.open(`${front_base_url}/room.html`, "chat", "width: 200px; height: 500px")
+        })
     }
 }
 

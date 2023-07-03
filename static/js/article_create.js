@@ -57,6 +57,8 @@ function getImageFiles(e) {
     const docFrag = new DocumentFragment();
 
     if ([...files].length >= 10) {
+        let nowFiles = document.getElementById('images')
+        nowFiles.value = ''
         alert('이미지는 최대 9개 까지 업로드가 가능합니다.');
         return;
     }

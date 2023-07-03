@@ -37,13 +37,14 @@
                         <h3>반갑습니다 :)<br>회원가입으로 다양한 기능을 즐기세요</h3>
                         <dl class="user_info">
                             <dt>이메일(Email)</dt>
-                            <dd><input type="email" id="email" placeholder="email(email@email.com)를 입력해 주세요."
+                            <dd><input type="email" id="email" placeholder="인증 받으실 이메일주소를 입력해주세요."
                                     name="user_email" required></dd>
                             <dt>아이디(ID)</dt>
-                            <dd><input type="text" id="username" placeholder="아이디(ID)를 입력해 주세요." name="user_id"
-                                    required></dd>
+                            <dd><input type="text" id="username" placeholder="5~20자의 영문 소문자, 소문자+숫자만 사용 가능합니다." name="user_id"
+                                    required>
+                            </dd>
                             <dt>비밀번호(PW)</dt>
-                            <dd><input type="password" id="password1" placeholder="비밀번호(PW)를 입력해 주세요." name="user_pw"
+                            <dd><input type="password" id="password1" placeholder="8~20자의 영문, 숫자, 특수문자를 혼합하여 입력해주세요." name="user_pw"
                                     required>
                             </dd>
                             <dt>비밀번호 확인(PW Verify)</dt>
@@ -53,10 +54,10 @@
                         </dl><!-- e:user_info -->
                         <button type="button" onclick="handleSignin()">회원가입</button>
                         <div class="find">
-                            <a href="#">이메일(ID) 찾기</a>
-                            <a href="#">비밀번호 재설정</a>
+                            <a href="/templates/finduserid.html">이메일(ID) 찾기</a>
+                            <a href="/templates/reset_password_email.html">비밀번호 재설정</a>
                             <a href="/templates/logintemp.html">로그인 하기</a>
-                            <a href="/index.html">돌아가기</a>
+                            <a href="javascript:window.history.back();">돌아가기</a>
                         </div><!-- e:find -->
                     </div><!-- e:main_sign_up -->
                 </fieldset>

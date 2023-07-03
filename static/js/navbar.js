@@ -82,12 +82,12 @@ async function injectNavbar() {
         if (data.unread == true) {
             alarmA.href = `${front_base_url}/user_alarm.html`
             alarmA.childNodes[0].src = "../static/images/new_alarm.png"
-            alarmA.style.visibility = "visible"
+            alarmA.setAttribute('style', 'visibility: visible;')
         }
         else {
             alarmA.href = `${front_base_url}/user_alarm.html`
             alarmA.childNodes[0].src = "../static/images/none_alarm.png"
-            alarmA.style.visibility = "visible"
+            alarmA.setAttribute('style', 'visibility: visible;')
         }
         injectFooter(alarmA.childNodes[0].src)
     }
@@ -114,13 +114,15 @@ async function injectFooter(img) {
             alarmPopup.childNodes[1].src = `${front_base_url}/static/images/none.png`
         }
     }
-    if (payload) {
-        const chatButton = document.getElementById('chat_popup')
-        chatButton.setAttribute('style', 'visibility: visible;')
-        chatButton.addEventListener('click', function () {
-            window.open(`${front_base_url}/room.html`, "chat", "width: 200px; height: 500px")
-        })
-    }
+
+    // const payLoad = localStorage.getItem("payload")
+    // if (payLoad) {
+    //     const chatButton = document.getElementById('chat_popup')
+    //     chatButton.setAttribute('style', 'visibility: visible;')
+    //     chatButton.addEventListener('click', function () {
+    //         window.open(`${front_base_url}/room.html`, "chat", "width=500, height=620, top=50, left=50")
+    //     })
+    // }
 }
 
 

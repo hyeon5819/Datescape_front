@@ -128,3 +128,51 @@ function setThumbnail(event) {
 
     reader.readAsDataURL(event.target.files[0]);
 }
+
+/** 회원탈퇴 */
+function dropaccount() {
+    if (window.confirm("DateScape를 ESCAPE하시겠습니까?")) {
+        if (confirm("진짜로 탈퇴하실건가요?")) {
+            if (confirm("다시한번 생각해보시겠어요?")) {
+                // alert("다시 생각해 주세요")
+                deleteaccount()
+            } else {
+                alert("다행입니다. 계속 저희 서비스를 이용해주세요!^*^!")
+            }
+        } else {
+            alert("다행입니다. 계속 저희 서비스를 이용해주세요!^*^!")
+        }
+    } else {
+        alert("다행입니다. 계속 저희 서비스를 이용해주세요!^*^!")
+    }
+}
+
+function handleLogout() {
+    // alert("로그아웃!")
+    localStorage.removeItem("access")
+    localStorage.removeItem("refresh")
+    localStorage.removeItem("payload")
+    opener.location.href = `${front_base_url}/`
+}
+
+async function deleteaccount() {
+    const response = await fetch(`${back_base_url}/users/profile/`, {
+        headers: {
+            Authorization: `Bearer ${access}`,
+        },
+        method: 'DELETE',
+    })
+
+    const result = await response.json()
+    console.log(result)
+
+    if (response.status == 200) {
+        handleLogout()
+        alert("그동안 DateScape를 이용해주셔서 감사합니다.")
+        win_close()
+
+    } else {
+        alert(JSON.stringify(result))
+        window.location.reload()
+    }
+}

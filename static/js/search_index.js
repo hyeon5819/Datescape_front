@@ -16,6 +16,9 @@ async function loadMain() {
   tag_name = document.getElementById("today-tag")
   tag_name.innerHTML = "오늘의 태그 #" + weeklytags[0]['tag']
 
+  tag_name = document.getElementById("tomorrow-tag")
+  tag_name.innerHTML = "내일의 태그 #" + weeklytags[1]['tag']
+
   response_1 = await getRandom('article')
   const articles1 = document.getElementById('articles-1')
   articles1.innerHTML = ''

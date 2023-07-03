@@ -1,0 +1,72 @@
+body {
+    width: 485px !important;
+    height: 560px !important;
+    background-color: #FFFFF3 !important;
+    margin: 0 auto !important;
+    scroll-behavior: smooth;
+}
+
+header {
+    margin-bottom: 100px;
+}
+
+.chat-log{
+    overflow-y: scroll;
+    height: 500px;
+    display: flex; 
+    flex-direction: column;
+    padding-bottom: 20px;
+}
+
+.chat_div{
+    display: flex;
+    flex-direction: column;
+}
+
+.chat_nickname{
+    /* background-color: #2FA4FF; */
+    margin-top: 3px;
+}
+
+.chat_message{
+    background-color: #2FA4FF;
+    border-radius: 5px;
+    padding: 6px 10px 6px 10px;
+    margin: 3px 10px 3px 10px;
+    color: white;
+}
+
+.send_box{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.send_button{
+    border: none;
+    padding: 10px 25px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.25s;
+    margin-left: 10px;
+    background-color: #2FA4FF;
+    color: white;
+}
+
+.send_button-sky {
+    background-color: #2FA4FF;
+    color: white;
+}
+
+.send_button:hover {
+    letter-spacing: 1px;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.send_button:active {
+    transform: scale(1.2);
+}

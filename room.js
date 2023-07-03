@@ -9,7 +9,7 @@ const nickname = JSON.parse(localStorage.getItem("payload")).nickname
 
 const chatSocket = new WebSocket(
     'ws://'
-    + '127.0.0.1:8000'
+    + 'back.datescape.shop'
     + '/ws/chat/'
     + 'all'
     + '/'

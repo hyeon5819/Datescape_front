@@ -22,13 +22,13 @@ async function getRandom(option) {
 
 function selectOption(x) {
     if (x == 1) {
-        document.getElementById('option').innerHTML = "article"
+        document.getElementById('option').innerHTML = "제목+내용"
     } else if (x == 0) {
-        document.getElementById('option').innerHTML = "all"
+        document.getElementById('option').innerHTML = "전체"
     } else if (x == 2) {
-        document.getElementById('option').innerHTML = "tag"
+        document.getElementById('option').innerHTML = "태그"
     } else {
-        document.getElementById('option').innerHTML = "location"
+        document.getElementById('option').innerHTML = "지역"
     }
 }
 
@@ -44,9 +44,15 @@ input.addEventListener("keyup", function (event) {
 
 
 async function submitSearch() {
-    const option = document.getElementById('option').innerHTML
+    let option = document.getElementById('option').innerHTML
+    let options = {
+        "제목+내용": "article",
+        "전체": "all",
+        "태그": "tag",
+        "지역": "location",
+    }
     const search = document.getElementById('search').value
-    window.location.href = `${front_base_url}/templates/search_list.html?option=${option}&search=${search}&page=1&/`
+    window.location.href = `${front_base_url}/templates/search_list.html?option=${options[option]}&search=${search}&page=1&/`
 }
 
 async function getAddress(position) {

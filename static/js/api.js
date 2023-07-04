@@ -27,8 +27,10 @@ function selectOption(x) {
         document.getElementById('option').innerHTML = "전체"
     } else if (x == 2) {
         document.getElementById('option').innerHTML = "태그"
-    } else {
+    } else if (x == 3) {
         document.getElementById('option').innerHTML = "지역"
+    } else if (x == 4) {
+        document.getElementById('option').innerHTML = "작성자"
     }
 }
 
@@ -50,6 +52,7 @@ async function submitSearch() {
         "전체": "all",
         "태그": "tag",
         "지역": "location",
+        "작성자": "user"
     }
     const search = document.getElementById('search').value
     window.location.href = `${front_base_url}/templates/search_list.html?option=${options[option]}&search=${search}&page=1&/`

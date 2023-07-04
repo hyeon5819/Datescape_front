@@ -25,13 +25,13 @@ async function loadMain() {
   response_1.results.forEach(article => {
     var jibun = article.jibun_address
     var place = jibun.split(' ')
-    articles1.innerHTML += `
+    articles1HTML = `
         <div class="col " >
         <div class="card text-bg-dark border-light rounded-4" style="height:17rem; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}&/';">
         <img class="cardimg rounded-4" src="${article.main_image}" alt="..." >
         <div class="d-flex flex-column card-img-overlay img-cover p-4 text-shadow-1 rounded-4">
         <h4 class="card-title cardtitle fw-bold">${article.title}</h4>
-        <p class="card-text content mb-5">${article.content}</p>
+        <p class="card-text content mb-5" id="content1-${article.id}"></p>
         <ul class="d-flex list-unstyled mt-auto pt-5 mb-0">
               <li class="me-auto">
                 <small>${article.user}</small>
@@ -47,6 +47,9 @@ async function loadMain() {
         </div >
         </div >
         `
+    articles1.innerHTML += articles1HTML
+    const article1_content = document.getElementById(`content1-${article.id}`)
+    article1_content.innerText = article.content
   });
   response_2 = await getRandom('tag')
   const articles2 = document.getElementById('articles-2')
@@ -54,13 +57,13 @@ async function loadMain() {
   response_2.results.forEach(article => {
     var jibun = article.jibun_address
     var place = jibun.split(' ')
-    articles2.innerHTML += `
+    articles2HTML = `
     <div class="col " >
     <div class="card text-bg-dark border-light rounded-4" style="height:17rem; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}&/';">
     <img class="card-img cardimg rounded-4 mh-100" src="${article.main_image}" alt="..." >
     <div class="d-flex flex-column card-img-overlay img-cover p-4 text-shadow-1 rounded-4">
     <h4 class="card-title cardtitle fw-bold">${article.title}</h4>
-    <p class="card-text content mb-5">${article.content}</p>
+    <p class="card-text content mb-5" id="content2-${article.id}"></p>
     <ul class="d-flex list-unstyled mt-auto pt-5 mb-0">
           <li class="me-auto">
             <small>${article.user}</small>
@@ -76,6 +79,9 @@ async function loadMain() {
     </div >
     </div >
         `
+    articles2.innerHTML += articles2HTML
+    const article2_content = document.getElementById(`content2-${article.id}`)
+    article2_content.innerText = article.content
   });
 
   response_3 = await getRandom('update')
@@ -84,13 +90,13 @@ async function loadMain() {
   response_3.results.forEach(article => {
     var jibun = article.jibun_address
     var place = jibun.split(' ')
-    articles3.innerHTML += `
+    articles3HTML = `
     <div class="col " >
     <div class="card text-bg-dark border-light rounded-4" style="height:17rem; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}&/';">
     <img class="card-img cardimg rounded-4 mh-100" src="${article.main_image}" alt="..." >
     <div class="d-flex flex-column card-img-overlay img-cover p-4 text-shadow-1 rounded-4">
     <h4 class="card-title cardtitle fw-bold">${article.title}</h4>
-    <p class="card-text content mb-5">${article.content}</p>
+    <p class="card-text content mb-5" id="content3-${article.id}"></p>
     <ul class="d-flex list-unstyled mt-auto pt-5 mb-0">
           <li class="me-auto">
             <small>${article.user}</small>
@@ -106,6 +112,9 @@ async function loadMain() {
     </div >
     </div >
         `
+    articles3.innerHTML += articles3HTML
+    const article3_content = document.getElementById(`content3-${article.id}`)
+    article3_content.innerText = article.content
   });
 }
 loadMain()

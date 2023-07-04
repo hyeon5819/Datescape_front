@@ -22,28 +22,33 @@
     <div class="m-5 fade_in1">
         <div>
             <div style="margin: 100px 0px 0px 0px; height: 100px; position: relative;">
-                <div class="input-group my-5 position-absolute top-0 start-50 translate-middle">
-                    <button class="btn dropdown-sky dropdown-toggle" id="option" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false" style="border-color: #CFD4D9;">전체</button>
+                <div class="input-group my-4 position-absolute top-0 start-50 translate-middle-x" style="
+                width: 900px; height: 45px;">
+                    <button class="btn dropdown-sky dropdown-toggle px-3" id="option" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false" style="border-color: #CFD4D9;">전체</button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#" onclick="selectOption(0)">전체</a></li>
                         <li><a class="dropdown-item" href="#" onclick="selectOption(1)">제목+내용</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectOption(4)">작성자</a></li>
                         <li><a class="dropdown-item" href="#" onclick="selectOption(2)">태그</a></li>
                         <li><a class="dropdown-item" href="#" onclick="selectOption(3)">지역</a></li>
                     </ul>
                     <input placeholder="어디로 가볼까요?" id="search" type="text" class="form-control"
                         aria-label="Text input with dropdown button">
-                    <button class="btn border-start-0 bg-white" type="submit" id="button-addon2"
+                    <button class="btn border-start-0 bg-white px-3" type="submit" id="button-addon2"
                         onclick="submitSearch()" style="border-color: #CFD4D9; color: #6E757C;"><i
                             class="fas fa-search"></i></button>
                 </div>
             </div>
-            <div class="d-flex justify-content-end" style="margin-bottom: 100px;">
-                <button onclick="location.href='/templates/article_create.html'" class="w-btn w-btn-sky add-shadow"
-                    type="button">게시글
-                    작성하기</button>
-                <button onclick="location.href='/gps.html'" class="w-btn w-btn-sky add-shadow" type="button">내 주변
-                    명소 찾아보기</button>
+            <div style="margin-bottom: 150px; position: relative;">
+                <div class="d-flex justify-content-end position-absolute top-0 start-50 translate-middle-x"
+                    style="margin-bottom: 100px; width: 900px">
+                    <button onclick="location.href='/templates/article_create.html'" class="w-btn w-btn-sky add-shadow"
+                        type="button">게시글
+                        작성하기</button>
+                    <button onclick="location.href='/gps.html'" class="w-btn w-btn-sky add-shadow" type="button">내 주변
+                        명소 찾아보기</button>
+                </div>
             </div>
         </div>
         <div class="my-5">

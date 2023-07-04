@@ -31,7 +31,6 @@ window.onload = async () => {
             console.log(data.results.length)
             card_box.innerHTML = ``
             for (let i = 0; i < data.results.length; i++) {
-                console.log(i)
                 const article = data.results[i]
                 let tag_add = ''
                 for (let a = 0; a < article.tags.length; a++) {

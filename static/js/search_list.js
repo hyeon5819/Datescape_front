@@ -10,6 +10,7 @@ async function loadSearch() {
     "all": "전체",
     "tag": "태그",
     "location": "지역",
+    "user": "작성자"
   }
   const page = urlParams.get('page');
   const response = await getSearch(option, search, page)

@@ -49,22 +49,17 @@ async function isLogin(num) {
         // console.log(result)
 
         if (response.status == 200) {
-            console.log("common")
-            console.log("is_admin:" + result.is_admin)
             const is_admin = result.is_admin
-            console.log(is_admin)
             // if ()
             // console.log(result)
             // localStorage.setItem("is_admin", result.is_admin)
             if (is_admin == true) {
                 num = 2
-                console.log(2)
                 return num
 
             }
             else {
                 num = 3
-                console.log(3)
                 return num
             }
         } else {
@@ -78,15 +73,12 @@ async function isLogin(num) {
     }
 
     if (1) {
-        console.log("비로그인")
         return "AnonymousUser"
     }
     if (2) {
-        console.log("로그인관리자")
         return "Admin"
     }
     if (3) {
-        console.log("일반유저")
         return "User"
     }
 
@@ -97,18 +89,13 @@ async function isLogin(num) {
 export function find(num) {
     var num = num
     if (num == 1) {
-        console.log("비로그인")
         isLogin(1)
-        console.log("로그인통과?")
-
     }
     if (num == 2) {
-        console.log("관리자")
         isLogin(2)
 
     }
     if (num == 3) {
-        console.log("유저")
         isLogin(3)
 
     }

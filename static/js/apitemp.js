@@ -9,7 +9,6 @@ let last_login = payload_parse.last_login;
 let current_ = Math.floor((new Date()).getTime() / 1000)
 let exp = payload_parse.exp
 
-console.log(exp - current_)
 
 /** 이메일 유효성 검사 */
 function CheckEmail(str) {
@@ -27,7 +26,6 @@ function win_close() {
 
 /** 아이디 유효성 검사 */
 function checkID() {
-    console.log("아이디유효성검사")
     let id = $("#username").val();
     let number = id.search(/[0-9]/g);
     let english = id.search(/[a-z]/ig);

@@ -17,7 +17,6 @@ function CheckEmail(str) {
 
 /** 아이디 유효성 검사 */
 function checkID(str) {
-    console.log("아이디유효성검사")
     var regExp = /^[a-z]+[a-z0-9]{5,19}$/g;
     if (!regExp.test(str)) {
         return false;

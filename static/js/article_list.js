@@ -28,7 +28,6 @@ window.onload = async () => {
         const data = await response.json()
 
         if (response.status === 200) {
-            console.log(data.results.length)
             card_box.innerHTML = ``
             for (let i = 0; i < data.results.length; i++) {
                 const article = data.results[i]

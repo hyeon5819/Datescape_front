@@ -15,7 +15,6 @@ function profileedit_win_open() {
 // my프로필 정보 가져오기
 async function getmyprofile() {
 
-    console.log("getmyprofile")
     let payload = localStorage.getItem("payload")
     let payload_parse = JSON.parse(payload);
     let access = localStorage.getItem("access")
@@ -164,7 +163,6 @@ async function deleteaccount() {
     })
 
     const result = await response.json()
-    console.log(result)
 
     if (response.status == 200) {
         handleLogout()

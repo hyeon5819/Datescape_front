@@ -227,9 +227,6 @@ async function isLogin() {
         const result = await response.json()
 
         if (response.status == 200) {
-            console.log("common")
-            console.log("is_admin:" + result.is_admin)
-            console.log(result)
             localStorage.setItem("is_admin", result.is_admin)
             return result.is_admin;
         } else {

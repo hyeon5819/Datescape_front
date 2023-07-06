@@ -1,7 +1,21 @@
 token = localStorage.getItem("access")
 /*상세보기 url */
 function detail_page(article_id) {
-    location.href = `${front_base_url}/templates/article_detail.html?id=${article_id}&/`
+    if (localStorage.getItem("payload")) {
+        location.href = `${front_base_url}/templates/article_detail.html?id=${article_id}&/`
+    } else {
+        alert('로그인이 필요합니다!')
+        location.href = `${front_base_url}/templates/logintemp.html`
+    }
+}
+
+function create_page() {
+    if (localStorage.getItem("payload")) {
+        location.href = `${front_base_url}/templates/article_create.html`
+    } else {
+        alert('로그인이 필요합니다!')
+        location.href = `${front_base_url}/templates/logintemp.html`
+    }
 }
 
 list_range_html = document.getElementById('list-range-html')
@@ -28,7 +42,6 @@ window.onload = async () => {
         const data = await response.json()
 
         if (response.status === 200) {
-            console.log(data.results.length)
             card_box.innerHTML = ``
             for (let i = 0; i < data.results.length; i++) {
                 const article = data.results[i]
@@ -44,12 +57,12 @@ window.onload = async () => {
                     <img text-align:center;" src="${image_url}${article.main_image}" class="card-img-top cardimg" alt="...">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title cardtitle">${article.title}</h5>
+                        <h5 class="card-title cardtitle" id ="article-title-${article.id}"></h5>
                         <p class="card-text content" id="content-${article.id}" style="color:gray;"></p>
-                        <span class="text-muted"><small class="content">${tag_add}</small></span>
+                        <span class="text-muted"><small class="content" id ="article-tag-${article.id}"></small></span>
                         </div><!-- e:body -->
                     <div class="card-footer d-flex justify-content-between">
-                        <span class="text-muted">${article.user}</span>
+                        <span class="text-muted" id="article-user-${article.id}"></span>
                         <span  style="color:#FFBF00;">⭐️ ${article.score}</span>
                     </div><!-- e:footer -->
                 </div>
@@ -58,6 +71,12 @@ window.onload = async () => {
                 card_box.innerHTML += articleHtml
                 const article_content = document.getElementById(`content-${article.id}`)
                 article_content.innerText = article.content
+                const article_title = document.getElementById(`article-title-${article.id}`)
+                article_title.innerText = article.title
+                const article_user = document.getElementById(`article-user-${article.id}`)
+                article_user.innerText = article.user
+                const article_tag = document.getElementById(`article-tag-${article.id}`)
+                article_tag.innerText = tag_add
 
             }
 

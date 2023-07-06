@@ -5,7 +5,6 @@ if (!localStorage.getItem("access")) {
 } else {
     // const payload = localStorage.getItem("payload");
     // const payloadParse = JSON.parse(payload)
-    // console.log(payloadParse)
     // if (payloadParse.is_admin == false) {
     //     window.location.href = `${front_base_url}/`
     // }

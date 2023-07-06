@@ -35,23 +35,29 @@ async function GetArticle(formData) {
         for (let i = 0; i < data.length; i++) {
             const article = data[i]
             articleHtml = `
-            <div class="col" style="cursor: pointer;" onclick="detail_page(${article.id})">
-                <div class="card">
-                    <img src="${image_url}${article.main_image}" class="card-img-top" alt="...">
+            <div class="col article_detail" style = "cursor: pointer;" onclick="detail_page(${article.id})">
+                <div class="card h-100">
+                <div style="width: 254px; height: 234px;" >
+                    <img text-align:center;" src="${image_url}${article.main_image}" class="card-img-top cardimg" alt="...">
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">${article.title}</h5>
-                        <p class="card-text content" id="content-${article.id}"></p>
-                    </div>
-                    <div class="card-footer" style="text-align: center;>
-                        <small class="text-muted"">Name : ${article.user}</small>
-                    </div>
+                        <h5 class="card-title cardtitle" id ="article-title-${article.id}"></h5>
+                        <p class="card-text content" id="content-${article.id}" style="color:gray;"></p>
+                        </div><!-- e:body -->
+                    <div class="card-footer d-flex justify-content-between">
+                        <span class="text-muted" id="article-user-${article.id}"></span>
+                    </div><!-- e:footer -->
                 </div>
-            </div><!-- e:col -->
+            </div>
             `
 
             myPage.innerHTML += articleHtml
             const article_content = document.getElementById(`content-${article.id}`)
             article_content.innerText = article.content
+            const article_title = document.getElementById(`article-title-${article.id}`)
+            article_title.innerText = article.title
+            const article_user = document.getElementById(`article-user-${article.id}`)
+            article_user.innerText = article.user
         }
         return;
     } else {
@@ -87,22 +93,27 @@ async function GetComment(formData) {
         for (let i = 0; i < data.length; i++) {
             const comment = data[i]
             commentHtml = `
-            <div class="col" style="cursor: pointer;" onclick="detail_page(${comment.article_id})">
-                <div class="card">
-                    <img src="${image_url}${comment.article_main_image}" class="card-img-top" alt="...">
+            <div class="col article_detail" style = "cursor: pointer;" onclick="detail_page(${comment.article_id})">
+                <div class="card h-100">
+                <div style="width: 254px; height: 234px;" >
+                    <img text-align:center;" src="${image_url}${comment.article_main_image}" class="card-img-top cardimg" alt="...">
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">${comment.article_title}</h5>
-                        <p class="card-text content" id="comment-${comment.article_id}"></p>
-                    </div>
-                    <div class="card-footer" style="text-align: center;>
-                        <small class="text-muted">Name : ${comment.username}</small>
-                    </div>
-                </div>
-            </div><!-- e:col -->
-            `
+                        <h5 class="card-title cardtitle" id ="comment-title-${comment.article_id}"></h5>
+                        <p class="card-text content" id="comment-${comment.article_id}" style="color:gray;"></p>
+                        </div><!-- e:body -->
+                    <div class="card-footer d-flex justify-content-between">
+                        <span class="text-muted" id="comment-user-${comment.article_id}"></span>
+                </div >
+            </div >
+                `
             myPage.innerHTML += commentHtml
             const comment_content = document.getElementById(`comment-${comment.article_id}`)
             comment_content.innerText = comment.article_content
+            const comment_title = document.getElementById(`comment-title-${comment.article_id}`)
+            comment_title.innerText = comment.article_title
+            const comment_user = document.getElementById(`comment-user-${comment.article_id}`)
+            comment_user.innerText = comment.article_user
 
         }
         return;
@@ -113,21 +124,21 @@ async function GetComment(formData) {
 async function GetBookmark(formData) {
     const myPage = document.getElementById("my_page")
     myPage.innerHTML = `
-    <div class="col" style="cursor: pointer;" onclick="detail_page)">
-        <div class="card">
+                <div div class="col" style = "cursor: pointer;"" >
+                    <div class="card">
 
-            <div class="card-body">
-                <h5 class="card-title"> 북마크를 한 적이 없습니다</h5>
-                <p class="card-text content"></p>
-            </div>
+                        <div class="card-body">
+                            <h5 class="card-title"> 북마크를 한 적이 없습니다</h5>
+                            <p class="card-text content"></p>
+                        </div>
 
-        </div>
-    </div><!-- e:col -->
-    `
+                    </div>
+    </div>
+                `
     bookmarkHtml = ``
     const response = await fetch(`${back_base_url}/users/profile/bookmark/`, {
         headers: {
-            Authorization: `Bearer ${access}`,
+            Authorization: `Bearer ${access} `,
         },
         method: "GET",
         body: formData,
@@ -137,23 +148,29 @@ async function GetBookmark(formData) {
         myPage.innerHTML = ``
         for (let i = 0; i < data.length; i++) {
             const bookmark = data[i]
+            console.log(bookmark)
             bookmarkHtml = `
-            <div class="col" style="cursor: pointer;" onclick="detail_page(${bookmark.article_id})">
-                <div class="card">
-                    <img src="${image_url}${bookmark.article_main_image}" class="card-img-top" alt="...">
+            <div class="col article_detail" style = "cursor: pointer;" onclick="detail_page(${bookmark.article_id})">
+                <div class="card h-100">
+                <div style="width: 254px; height: 234px;" >
+                    <img text-align:center;" src="${image_url}${bookmark.article_main_image}" class="card-img-top cardimg" alt="...">
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">${bookmark.article_title}</h5>
-                        <p class="card-text content" id="bookmark-${bookmark.article_id}"></p>
-                    </div>
-                    <div class="card-footer" style="text-align: center;>
-                        <small class="text-muted">작성자 : ${bookmark.article_user}</small>
-                    </div>
-                </div>
-            </div><!-- e:col -->
-            `
+                        <h5 class="card-title cardtitle" id ="bookmark-title-${bookmark.article_id}"></h5>
+                        <p class="card-text content" id="bookmark-${bookmark.article_id}" style="color:gray;"></p>
+                        </div><!-- e:body -->
+                    <div class="card-footer d-flex justify-content-between">
+                        <span class="text-muted" id="bookmark-user-${bookmark.article_id}"></span>
+                </div >
+            </div >
+                `
             myPage.innerHTML += bookmarkHtml
             const bookmark_content = document.getElementById(`bookmark-${bookmark.article_id}`)
             bookmark_content.innerText = bookmark.article_content
+            const bookmark_title = document.getElementById(`bookmark-title-${bookmark.article_id}`)
+            bookmark_title.innerText = bookmark.article_title
+            const bookmark_user = document.getElementById(`bookmark-user-${bookmark.article_id}`)
+            bookmark_user.innerText = bookmark.article_user
 
         }
         return;
@@ -162,9 +179,9 @@ async function GetBookmark(formData) {
     }
 }
 async function GetEmoticonBuy(formData) {
-    const response = await fetch(`${back_base_url}/users/profile/emoticon/buy`, {
+    const response = await fetch(`${back_base_url} /users/profile / emoticon / buy`, {
         headers: {
-            Authorization: `Bearer ${access}`,
+            Authorization: `Bearer ${access} `,
         },
         method: "GET",
         body: formData,

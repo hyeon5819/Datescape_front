@@ -25,57 +25,82 @@ window.onload = async () => {
     if (response.status == 200) {
         articleHtml = `
         <div style="display: flex;" class="detail_title justify-content-between">
-            <h1 style="text-align:center; margin-top:50px">${data.title}</h1>
-            <button type="button" class="btn btn-outline-secondary " id="article-report-button">신고버튼</button>
+            <h1 class="fw-bold" style="text-align:center;" id="article-title"></h1>
+            <button type="button" class="btn btn-outline-secondary" id="article-report-button" style="height: 40px;">신고버튼</button>
         </div><!-- e:detail_title -->
         <div class="detail_box">
-            <div class="title_box">
-                <div class="title_left">
+            <div class="title_box mb-5">
+                <div class="title_left fw-semibold">
                     <p class="user">
-                        작성자: <span class="title_left_user">${data.user}</span>
+                        작성자: <span class="title_left_user" id="article-writer"></span>
                     </p><!-- e:user -->
                 </div><!-- e:title_left -->
-                <div class="title_center mb-5">
-                    <img src="${image_url}${data.main_image}" alt=""><!-- e:대표이미지 -->
-                </div><!-- e:title_center -->
+                <!-- e:title_center -->
                 <div class="title_right" id = "detail-buttons">
                 </div><!-- e:title_right -->
             </div><!-- e:title_box -->
+            <div class="title_center mb-5 mx-auto" style="height:400px; width: 85%;">
+                    <img src="${image_url}${data.main_image}" alt="" class="cardimg rounded mx-auto d-block"><!-- e:대표이미지 -->
+                </div>
+                <div class="pt-3 mx-auto" id="detail-image" style="width:85%;">
+                <p class="fw-bold fs-4" style="margin-right:10px;">상세 이미지 <em class="fs-6 fw-semibold" style="color:darkgrey;">* 클릭하면 크게 보실 수 있습니다.</em></p>
+                <hr class="mx-auto mb-4">
             <div id="image_box">
             </div><!-- e:image_box -->
-            <div class="content_box mb-5" id="article-content">
-            </div><!-- e:content_box -->
-            <div class="map_box">
-                <div id="tag_box" class="mb-5">
+            </div>
+            <div class="pt-3 mx-auto" id="detail-content" style="width:85%;">
+            <p class="fw-bold fs-4">내용</p>
+                <hr class="mx-auto mb-4">
+                <div id="tag_box" class="mb-3">
                 </div>
+            <div class="content_box mb-3 fs-5" id="article-content">
+            </div><!-- e:content_box -->
+            </div>
+            <div class="pt-3 mx-auto" id="detail-map" style="width:85%;">
+            <p class="fw-bold fs-4">주소</p>
+                <hr class="mx-auto mb-4">
+            <div class="map_box">
                 <div class="map_content">
                     <p class="fs-5">${data.road_address}</p>
                     <div id="map"></div>
-                    <p>주변 명소 확인을 클릭하시고 마커를 클릭하시면 더 자세한 정보가 나옵니다.</p>
-                    <button class="display_block btn btn-outline-secondary text-center mt-4" type="button" onclick="loadNearArticle(${data.coordinate_y},${data.coordinate_x})">주변 명소 확인</button>
+                    <p style="font-style: italic;color: palevioletred;">* 주변 명소 확인을 클릭하시고 마커를 클릭하시면 더 자세한 정보가 나옵니다. *</p>
+                    <button class="display_block btn btn-outline-secondary text-center" type="button" onclick="loadNearArticle(${data.coordinate_y},${data.coordinate_x})">주변 명소 확인</button>
                 </div>
         </div><!-- e:map_box -->
+        </div>
         </div><!-- e:detail_box -->
                 `
     }
     add_html.innerHTML = articleHtml
     const article_content = document.getElementById(`article-content`)
     article_content.innerText = data.content
+    const article_title = document.getElementById(`article-title`)
+    article_title.innerText = data.title
+    const article_user = document.getElementById(`article-writer`)
+    article_user.innerText = data.user
     // 태그 출력부분
     let tag_box = document.querySelector('#tag_box')
     let tagHtml = ``
     for (let i = 0; i < await data.tags.length; i++) {
-        tagHtml += `
-        <a href="${front_base_url}/templates/search_list.html?option=tag&search=${data.tags[i].tag}&page=1&/">#${data.tags[i].tag}</a>
+        tagHtml = `
+        <a class="weekly-tag" href="${front_base_url}/templates/search_list.html?option=tag&search=${data.tags[i].tag}&page=1&/" id="article-tag-${i}"></a>
         `
-        tag_box.innerHTML = tagHtml
+        tag_box.innerHTML += tagHtml
+        const article_tag = document.getElementById(`article-tag-${i}`)
+        article_tag.innerText = `#${data.tags[i].tag}`
     }
     //다중이미지 출력부분
     let image_box = document.querySelector('#image_box')
     let imageHtml = ``
+    if (data.image.length == 0) {
+        let detail_image = document.getElementById('detail-image')
+        detail_image.setAttribute('style', 'display : none;')
+    }
     for (let i = 0; i < await data.image.length; i++) {
         imageHtml += `
+        <div >
             <img class="click_img" src="${image_url}${data.image[i]["image"]}" alt="...">
+            </div>
             `
         let image_list = data.image[i]
     }
@@ -159,6 +184,7 @@ async function loadArticlePosition(position) {
     });
     // 마커가 지도 위에 표시되도록 설정
     myMarker.setMap(map);
+
 }
 
 /*게시글 주변 데이터 가져옴기 */
@@ -265,16 +291,16 @@ async function loadArticleList(location) {
     response.results.forEach(article => {
         var jibun = article.jibun_address
         var place = jibun.split(' ')
-        location_list.innerHTML += `
+        location_listHTML = `
         <div class="swiper-slide" >
             <div class="card text-bg-dark border-light rounded-4" style="height:300px; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}&/';">
             <img src="${article.main_image}" class="card-img cardimg mh-100 rounded-4" alt="..." >
                 <div class="card-img-overlay img-cover rounded-4" style="padding: 30px;">
-                    <h4 class="card-title card_title mt-3">${article.title}</h4>
-                    <p class="card-text content mb-5">${article.content}</p>
+                    <h4 class="card-title card_title mt-3" id="article-title-${article.id}"></h4>
+                    <p class="card-text content mb-5" id="article-${article.id}"></p>
                     <ul class="d-flex list-unstyled mt-auto pt-5 mb-0 align-items-end">
                         <li class="me-auto">
-                            <small>${article.user}</small>
+                            <small id="article-user-${article.id}"></small>
                         </li>
                         <li class="d-flex align-items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="0.9em" height="0.9em" fill="currentColor" class="bi bi-geo-alt-fill me-1" viewBox="0 0 16 16">
@@ -287,6 +313,13 @@ async function loadArticleList(location) {
             </div>
         </div>
         `
+        location_list.innerHTML += location_listHTML
+        const article_content = document.getElementById(`article-${article.id}`)
+        article_content.innerText = article.content
+        const article_title = document.getElementById(`article-title-${article.id}`)
+        article_title.innerText = article.title
+        const article_user = document.getElementById(`article-user-${article.id}`)
+        article_user.innerText = article.user
     });
 
     swiper = new Swiper('.swiper', {

@@ -1,6 +1,15 @@
 let search
 let option
 
+function detail_page(article_id) {
+  if (localStorage.getItem("payload")) {
+    location.href = `${front_base_url}/templates/article_detail.html?id=${article_id}&/`
+  } else {
+    alert('로그인이 필요합니다!')
+    location.href = `${front_base_url}/templates/logintemp.html`
+  }
+}
+
 async function loadSearch() {
   const urlParams = new URLSearchParams(location.search);
   search = urlParams.get('search');
@@ -25,16 +34,16 @@ async function loadSearch() {
     response.results.forEach(article => {
       var jibun = article.jibun_address
       var place = jibun.split(' ')
-      search_list.innerHTML += `
+      searchHTML = `
         <div class="col" >
-        <div class="card text-bg-dark border-light rounded-4" style="height:300px; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}&/';">
+        <div class="card text-bg-dark border-light rounded-4" style="height:300px; justify-content: center;" onclick="detail_page(${article.id})">
         <img src="${article.main_image}" class="card-img cardimg mh-100 rounded-4" alt="..." >
         <div class="card-img-overlay img-cover rounded-4" style="padding: 30px;">
-        <h4 class="card-title cardtitle mt-3">${article.title}</h4>
-        <p class="card-text content mb-5">${article.content}</p>
+        <h4 class="card-title cardtitle mt-3" id=search-title-${article.id}></h4>
+        <p class="card-text content mb-5" id=search-${article.id}></p>
         <ul class="d-flex list-unstyled mt-auto pt-5 mb-0 align-items-end">
               <li class="me-auto">
-                <small>${article.user}</small>
+                <small id=search-user-${article.id}></small>
               </li>
               <li class="d-flex align-items-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="0.9em" height="0.9em" fill="currentColor" class="bi bi-geo-alt-fill me-1" viewBox="0 0 16 16">
@@ -48,6 +57,14 @@ async function loadSearch() {
         </div>
         </div>
         `
+
+      search_list.innerHTML += searchHTML
+      const search_content = document.getElementById(`search-${article.id}`)
+      search_content.innerText = article.content
+      const search_title = document.getElementById(`search-title-${article.id}`)
+      search_title.innerText = article.title
+      const search_user = document.getElementById(`search-user-${article.id}`)
+      search_user.innerText = article.user
     });
     createPagination(Math.ceil(response.count / 9), page) // 페이지 수 수정
   }

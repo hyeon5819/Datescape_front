@@ -1,6 +1,21 @@
 function detail_page(article_id) {
-  location.href = `${front_base_url}/templates/article_detail.html?id=${article_id}&/`
+  if (localStorage.getItem("payload")) {
+    location.href = `${front_base_url}/templates/article_detail.html?id=${article_id}&/`
+  } else {
+    alert('로그인이 필요합니다!')
+    location.href = `${front_base_url}/templates/logintemp.html`
+  }
 }
+
+function create_page() {
+  if (localStorage.getItem("payload")) {
+    location.href = `${front_base_url}/templates/article_create.html`
+  } else {
+    alert('로그인이 필요합니다!')
+    location.href = `${front_base_url}/templates/logintemp.html`
+  }
+}
+
 async function getWeeklyTags() {
   const response = await fetch(`${back_base_url}/articles/weekly-tags/`)
 
@@ -27,7 +42,7 @@ async function loadMain() {
     var place = jibun.split(' ')
     articles1HTML = `
         <div class="col " >
-        <div class="card text-bg-dark border-light rounded-4" style="height:17rem; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}&/';">
+        <div class="card text-bg-dark border-light rounded-4" style="height:17rem; justify-content: center;" onclick="detail_page(${article.id})">
         <img class="cardimg rounded-4" src="${article.main_image}" alt="..." >
         <div class="d-flex flex-column card-img-overlay img-cover p-4 text-shadow-1 rounded-4">
         <h4 class="card-title cardtitle fw-bold">${article.title}</h4>
@@ -59,7 +74,7 @@ async function loadMain() {
     var place = jibun.split(' ')
     articles2HTML = `
     <div class="col " >
-    <div class="card text-bg-dark border-light rounded-4" style="height:17rem; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}&/';">
+    <div class="card text-bg-dark border-light rounded-4" style="height:17rem; justify-content: center;" onclick="detail_page(${article.id})">
     <img class="card-img cardimg rounded-4 mh-100" src="${article.main_image}" alt="..." >
     <div class="d-flex flex-column card-img-overlay img-cover p-4 text-shadow-1 rounded-4">
     <h4 class="card-title cardtitle fw-bold">${article.title}</h4>
@@ -92,7 +107,7 @@ async function loadMain() {
     var place = jibun.split(' ')
     articles3HTML = `
     <div class="col " >
-    <div class="card text-bg-dark border-light rounded-4" style="height:17rem; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}&/';">
+    <div class="card text-bg-dark border-light rounded-4" style="height:17rem; justify-content: center;" onclick="detail_page(${article.id})">
     <img class="card-img cardimg rounded-4 mh-100" src="${article.main_image}" alt="..." >
     <div class="d-flex flex-column card-img-overlay img-cover p-4 text-shadow-1 rounded-4">
     <h4 class="card-title cardtitle fw-bold">${article.title}</h4>

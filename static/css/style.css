@@ -308,20 +308,3 @@
     background-color: #2FA4FF;
     color: white;
 }
-
-.card-text {
-    cursor: pointer;
-}
-
-.card-text:hover {
-    text-decoration-line: underline;
-    color: #2FA4FF;
-    text-decoration-color: #2FA4FF;
-}
-
-.emoticon_creator:hover{
-    cursor: pointer;
-    color: #2FA4FF;
-    transition: 0.25s;
-    transform: scale(1.1);
-}

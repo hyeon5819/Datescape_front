@@ -36,12 +36,12 @@
                 <span>&nbsp;&nbsp;</span>-당일 취소처리가 되지 않더라도 익일 오전중으로 담당자 확인 후 직접 취소처리를 진행하고 있으니 안심하시고 이용해주셔도
                 됩니다. <br></em><br>
         </div>
-        <button onclick="location.href='/templates/emoticon_create.html'" class="w-btn w-btn-sky mt-5 mb-5 add-shadow"
-            type="button">이모티콘 만들기</button>
-        <button onclick="location.href='/templates/emoticon_templist.html'" class="w-btn w-btn-sky mt-5 mb-5 add-shadow"
-            type="button">신청한 이모티콘 보기</button>
-        <button onclick="location.href='/templates/emoticon_buy_list.html'" class="w-btn w-btn-sky mt-5 mb-5 add-shadow"
-            type="button">구매한 이모티콘 보기</button>
+        <button onclick="pageRender('create')" class="w-btn w-btn-sky mt-5 mb-5 add-shadow" type="button">이모티콘
+            만들기</button>
+        <button onclick="pageRender('templist')" class="w-btn w-btn-sky mt-5 mb-5 add-shadow" type="button">신청한 이모티콘
+            보기</button>
+        <button onclick="pageRender('emoticon_buy_list')" class="w-btn w-btn-sky mt-5 mb-5 add-shadow" type="button">구매한
+            이모티콘 보기</button>
         <button onclick="location.href='/templates/emoticon_creator.html'" class="w-btn w-btn-sky mt-5 mb-5 add-shadow"
             type="button">제작자별 이모티콘 보기</button>
         <div class="row row-cols-1 row-cols-md-4 g-4 mb-3 justify-content-center" id="emoticons">

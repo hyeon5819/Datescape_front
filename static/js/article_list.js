@@ -1,7 +1,21 @@
 token = localStorage.getItem("access")
 /*상세보기 url */
 function detail_page(article_id) {
-    location.href = `${front_base_url}/templates/article_detail.html?id=${article_id}&/`
+    if (localStorage.getItem("payload")) {
+        location.href = `${front_base_url}/templates/article_detail.html?id=${article_id}&/`
+    } else {
+        alert('로그인이 필요합니다!')
+        location.href = `${front_base_url}/templates/logintemp.html`
+    }
+}
+
+function create_page() {
+    if (localStorage.getItem("payload")) {
+        location.href = `${front_base_url}/templates/article_create.html`
+    } else {
+        alert('로그인이 필요합니다!')
+        location.href = `${front_base_url}/templates/logintemp.html`
+    }
 }
 
 list_range_html = document.getElementById('list-range-html')

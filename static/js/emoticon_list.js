@@ -1,3 +1,20 @@
+function pageRender(type) {
+    if (localStorage.getItem("payload")) {
+        if (type == "create") {
+            location.href = `${front_base_url}/templates/emoticon_create.html`
+        }
+        if (type == "templist") {
+            location.href = `${front_base_url}/templates/emoticon_templist.html`
+        }
+        if (type == "emoticon_buy_list") {
+            location.href = `${front_base_url}/templates/emoticon_buy_list.html`
+        }
+    } else {
+        alert('로그인이 필요합니다!')
+        location.href = `${front_base_url}/templates/logintemp.html`
+    }
+}
+
 // 이모티콘 리스트 가져오기
 async function getEmoticonList() {
     const response = await fetch(`${back_base_url}/emoticons/list/`, {

@@ -3,13 +3,13 @@ let token = localStorage.getItem("access")
 // 현재 로그인 유저
 let payload = localStorage.getItem("payload");
 let payload_parse = JSON.parse(payload);
-let current_user = payload_parse.username;
-let login_type = payload_parse.login_type;
-let last_login = payload_parse.last_login;
+let current_user = payload_parse ? payload_parse.username : undefined;
+// let current_user = payload_parse.username
+let login_type = payload_parse ? payload_parse.login_type : undefined;
+let last_login = payload_parse ? payload_parse.last_login : undefined;
 let current_ = Math.floor((new Date()).getTime() / 1000)
-let exp = payload_parse.exp
+let exp = payload_parse ? payload_parse.exp : undefined;
 
-console.log(exp - current_)
 
 /** 이메일 유효성 검사 */
 function CheckEmail(str) {
@@ -27,7 +27,6 @@ function win_close() {
 
 /** 아이디 유효성 검사 */
 function checkID() {
-    console.log("아이디유효성검사")
     let id = $("#username").val();
     let number = id.search(/[0-9]/g);
     let english = id.search(/[a-z]/ig);
@@ -48,7 +47,7 @@ function checkID() {
         alert("숫자로는 아이디를 생성할수 없습니다.");
         return false;
     } else if (number < 0 || english < 0) {
-        alert("영문,숫자,특수문자를 혼합하여 입력해주세요.");
+        alert("영문,숫자를 혼합하여 입력해주세요.");
         return false;
     } else {
         alert("비밀번호가 정상적으로 입력되었습니다.");
@@ -181,7 +180,7 @@ async function handleEmailResend() {
         alert("이메일을 확인해주세요.")
         window.location.replace(`${front_base_url}/templates/logintemp.html`)
     } else {
-        alert(JSON.stringify(result))
+        alert(JSON.stringify(result.error))
         window.location.reload()
     }
 
@@ -234,34 +233,6 @@ async function handleLogin() {
 
 }
 
-// 로그인 연장
-// async function refresh() {
-//     const refresh = localStorage.getItem("refresh")
-
-//     const response = await fetch(`${back_base_url}/users/token/refresh/`, {
-//         headers: {
-//             "Content-Type": "application/json",
-
-//         },
-//         method: 'POST',
-//         body: JSON.stringify({
-//             "refresh": refresh
-//         })
-//     })
-
-
-
-//     if (response.status == 200) {
-//         alert("연장되었습니다.")
-//         window.location.href = `${front_base_url}`
-//     } else {
-//         alert(JSON.stringify(result))
-//         window.location.reload()
-//     }
-
-// }
-
-
 // 로그아웃
 async function handleLogout() {
     alert("로그아웃!")
@@ -273,6 +244,7 @@ async function handleLogout() {
 
 // 비번변경-로그인된 상태에서
 async function pschange() {
+    let reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$/;
     const password1 = document.getElementById("password1").value
     const password2 = document.getElementById("password2").value
 
@@ -282,6 +254,12 @@ async function pschange() {
     } else if (!password1 || !password2) {
         alert("공란 잘못된입력입니다. 확인해주세요.")
         window.location.reload()
+    } else if (false === reg.test(password1 && password2)) {
+        alert('비밀번호는 8자 이상이어야 하며, \n숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.');
+        return false;
+    } else {
+        alert("비밀번호가 정상적으로 입력되었습니다.");
+        return true;
     }
 
     const response = await fetch(`${back_base_url}/users/password/change/`, {
@@ -307,7 +285,7 @@ async function pschange() {
         handleLogout()
         opener.parent.location.reload();
     } else {
-        alert(JSON.stringify(result))
+        alert(JSON.stringify(result.error))
         window.location.reload()
     }
 
@@ -385,6 +363,8 @@ async function handleResetPasswordEmail() {
 async function handleResetPasswordChange() {
     const userpk = new URLSearchParams(window.location.search).get("uid")
 
+    let reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+
     const password1 = document.getElementById("password1").value
     const password2 = document.getElementById("password2").value
 
@@ -394,7 +374,14 @@ async function handleResetPasswordChange() {
     } else if (!password1 || !password2) {
         alert("공란 잘못된입력입니다. 확인해주세요.")
         window.location.reload()
+    } else if (false === reg.test(password1 && password2)) {
+        alert('비밀번호는 8자 이상이어야 하며, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.');
+        return false;
+    } else {
+        alert("비밀번호가 정상적으로 입력되었습니다.");
+        return true;
     }
+
     const response = await fetch(`${back_base_url}/users/password/reset/`, {
         headers: {
             "Content-Type": "application/json",

@@ -61,5 +61,6 @@ function kcpRequestPay(useremail, username, price) {
         }
     } else { // 비회원 결제 불가            
         alert('로그인이 필요합니다!')
+        location.href = `${front_base_url}/templates/logintemp.html`
     }
 }

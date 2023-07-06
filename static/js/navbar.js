@@ -242,7 +242,6 @@ async function isLogin() {
 // isLogin();
 
 // var is_admin = isLogin()
-// console.log(is_admin)
 
 
 // const h1 = document.createElement("h1");

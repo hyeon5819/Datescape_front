@@ -3,7 +3,6 @@ async function isLogin(num) {
 
     var num = num
     let access = localStorage.getItem("access")
-    // console.log(access)
     if (!access) {
         const response = await fetch(`${back_base_url}/users/islogin/`, {
             headers: {
@@ -13,8 +12,6 @@ async function isLogin(num) {
         });
 
         const result = await response.json()
-        // console.log(result)
-        // console.log(typeof (result))
 
         // alert("response");
         // alert(result[0]);
@@ -23,7 +20,6 @@ async function isLogin(num) {
         // window.location.href = `${front_base_url}/templates/logintemp.html`
         const userornot = result[0]
 
-        // console.log(userornot)
 
         if (userornot == "AnonymousUser") {
             alert("로그인이 필요합니다.")
@@ -46,12 +42,10 @@ async function isLogin(num) {
         });
 
         const result = await response.json()
-        // console.log(result)
 
         if (response.status == 200) {
             const is_admin = result.is_admin
             // if ()
-            // console.log(result)
             // localStorage.setItem("is_admin", result.is_admin)
             if (is_admin == true) {
                 num = 2
@@ -110,65 +104,47 @@ find(1)
 
 // var is_admin = isLogin();
 
-// console.log("is_admin")
-// console.log("is_admin")
-// console.log(is_admin)
 
 // if (isLogin() == 3) {
-//     console.log("비로그인")
 // }
 
 // const promise = is_admin;
 // const getData = async () => {
 //     return promise.then((appData) => {
-//         console.log(appData);
 //         const data = is_admin
-//         console.log(data)
-//         console.log(typeof (data))
 //         return data
 //     })
 //     // return promise
 // };
 
 // const data = getData();
-// console.log(data)
 
 // const printResult = async () => {
 //     result = await getData();
-//     console.log(result)
 //     return getData()
 // };
 // printResult();
 
 // let print00 = printResult()
-// console.log(print00)
 
 // const promise = isLogin();
 // function getData() {
 //     return promise.then((appData) => {
-//         console.log("appData");
-//         console.log(appData);
-//         console.log(typeof (appData));
 //         var result = appData
-//         console.log(result)
 
 //         var con = result
 
 //         if (con == "AnonymousUser") {//비로그인
-//             console.log(1)
 //             alert("비로그인" + appData)
 //             // var appData = 1
-//             console.log(appData)
 //             return appData
 //         }
 //         else if (con == true) {//로그인+관리자
-//             console.log(2)
 //             alert("관리자" + appData)
 //             var appData = 2
 //             return appData
 //         }
 //         else {//로그인+일반유저
-//             console.log(3)
 //             alert("일반" + appData)
 //             var appData = 3
 //             return appData
@@ -179,7 +155,6 @@ find(1)
 // // getData()
 
 // let proj = getData();
-// console.log(proj)
 
 
 // async function printData() {
@@ -189,7 +164,6 @@ find(1)
 // }
 
 // let data = printData();
-// console.log(data)
 // function type_() {
 //     if ("AnonymousUser") {
 //         return 1
@@ -208,7 +182,6 @@ find(1)
 //     const promise = is_admin;
 //     const getData = () => {
 //         promise.then((is_admin) => {
-//             console.log(is_admin);
 //             setdata1(is_admin);
 //         });
 //     };

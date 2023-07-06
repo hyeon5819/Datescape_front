@@ -5,7 +5,6 @@ body {
 }
 
 .title_box {
-    margin-top: 50px;
     display: flex;
     justify-content: space-between;
 }
@@ -13,12 +12,12 @@ body {
 .title_box .title_left {}
 
 .title_box .title_left .user {
-    font-size: 2rem;
+    /* font-size: 2rem; */
     color: #a0a0a0
 }
 
 .title_box .title_left .user .title_left_user {
-    font-size: 1.8rem;
+    /* font-size: 1.8rem; */
     color: #2FA4FF;
 }
 
@@ -59,40 +58,37 @@ body {
 #image_box {
     display: flex;
     flex-flow: row wrap;
-    margin: 0 auto 50px;
-    padding: 25px 0 25px 40px;
-    width: 42%;
-    border: 1px solid rgba(200, 200, 200, 0.5);
+    margin: 20px auto 50px;
+    /* padding: 15px 20px 15px 20px; */
+    /* width: 90%; */
+    /* border: 1px solid rgba(200, 200, 200, 0.5); */
     border-radius: 25px;
 }
 
 #image_box img {
-    margin: 0 23px 20px 0;
-    width: 145px;
-    height: 145px;
-    border-radius: 25px;
-    border: 1px solid rgba(200, 200, 200, 0.5);
-    padding: 10px;
-    background-color: #fff;
-
+    margin: 0 20px 0 0;
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    /* padding: 10px; */
 }
 
 .content_box {
-    border: 1px solid rgba(200, 200, 200, 0.5);
-    border-radius: 25px;
-    width: 50%;
+    /* border: 1px solid rgba(200, 200, 200, 0.5); */
+    /* border-radius: 25px; */
     margin: 0 auto;
-    padding: 20px;
+    /* padding: 20px; */
     height: 200px;
     overflow-wrap: break-word;
     overflow-y: auto;
 }
 
 #map {
-    width: 500px;
+    width: 700px;
     height: 400px;
     left: 50%;
     transform: translateX(-50%);
+    margin: 20px 0 30px 0;
 }
 
 .map_box {
@@ -112,7 +108,7 @@ body {
 
 .map_box .map_content {
     text-align: center;
-    font-size: 1.8rem;
+    font-size: 1rem;
 }
 
 .comment_box {
@@ -144,17 +140,18 @@ body {
 }
 
 #tag_box {
-    text-align: center;
+    /* text-align: center;
     border: 1px solid rgba(200, 200, 200, 0.5);
     padding: 10px;
     margin: 0 auto;
     width: 50%;
-    border-radius: 25px;
+    border-radius: 25px; */
 }
 
 #tag_box a {
-    font-size: 1.5rem;
-    color: #000;
+    font-size: 1rem;
+    text-decoration: none;
+    /* color: #000; */
 }
 
 #tag_box a:hover {

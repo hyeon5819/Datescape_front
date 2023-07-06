@@ -30,11 +30,11 @@ async function loadMain() {
         <div class="card text-bg-dark border-light rounded-4" style="height:17rem; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}&/';">
         <img class="cardimg rounded-4" src="${article.main_image}" alt="..." >
         <div class="d-flex flex-column card-img-overlay img-cover p-4 text-shadow-1 rounded-4">
-        <h4 class="card-title cardtitle fw-bold">${article.title}</h4>
+        <h4 class="card-title cardtitle fw-bold" id="article1-title-${article.id}"></h4>
         <p class="card-text content mb-5" id="content1-${article.id}"></p>
         <ul class="d-flex list-unstyled mt-auto pt-5 mb-0">
               <li class="me-auto">
-                <small>${article.user}</small>
+                <small id="article1-user-${article.id}"></small>
               </li>
               <li class="d-flex align-items-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="0.9em" height="0.9em" fill="currentColor" class="bi bi-geo-alt-fill me-1" viewBox="0 0 16 16">
@@ -50,6 +50,10 @@ async function loadMain() {
     articles1.innerHTML += articles1HTML
     const article1_content = document.getElementById(`content1-${article.id}`)
     article1_content.innerText = article.content
+    const article1_title = document.getElementById(`article1-title-${article.id}`)
+    article1_title.innerText = article.title
+    const article1_user = document.getElementById(`article1-user-${article.id}`)
+    article1_user.innerText = article.user
   });
   response_2 = await getRandom('tag')
   const articles2 = document.getElementById('articles-2')
@@ -62,11 +66,11 @@ async function loadMain() {
     <div class="card text-bg-dark border-light rounded-4" style="height:17rem; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}&/';">
     <img class="card-img cardimg rounded-4 mh-100" src="${article.main_image}" alt="..." >
     <div class="d-flex flex-column card-img-overlay img-cover p-4 text-shadow-1 rounded-4">
-    <h4 class="card-title cardtitle fw-bold">${article.title}</h4>
+    <h4 class="card-title cardtitle fw-bold" id="article2-title-${article.id}"></h4>
     <p class="card-text content mb-5" id="content2-${article.id}"></p>
     <ul class="d-flex list-unstyled mt-auto pt-5 mb-0">
           <li class="me-auto">
-            <small>${article.user}</small>
+            <small id="article2-user-${article.id}"></small>
           </li>
           <li class="d-flex align-items-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="0.9em" height="0.9em" fill="currentColor" class="bi bi-geo-alt-fill me-1" viewBox="0 0 16 16">
@@ -82,6 +86,11 @@ async function loadMain() {
     articles2.innerHTML += articles2HTML
     const article2_content = document.getElementById(`content2-${article.id}`)
     article2_content.innerText = article.content
+    const article2_title = document.getElementById(`article2-title-${article.id}`)
+    article2_title.innerText = article.title
+    const article2_user = document.getElementById(`article2-user-${article.id}`)
+    article2_user.innerText = article.user
+
   });
 
   response_3 = await getRandom('update')
@@ -95,11 +104,11 @@ async function loadMain() {
     <div class="card text-bg-dark border-light rounded-4" style="height:17rem; justify-content: center;" onclick="location.href='${front_base_url}/templates/article_detail.html?id=${article.id}&/';">
     <img class="card-img cardimg rounded-4 mh-100" src="${article.main_image}" alt="..." >
     <div class="d-flex flex-column card-img-overlay img-cover p-4 text-shadow-1 rounded-4">
-    <h4 class="card-title cardtitle fw-bold">${article.title}</h4>
+    <h4 class="card-title cardtitle fw-bold" id="article3-title-${article.id}"></h4>
     <p class="card-text content mb-5" id="content3-${article.id}"></p>
     <ul class="d-flex list-unstyled mt-auto pt-5 mb-0">
           <li class="me-auto">
-            <small>${article.user}</small>
+            <small id="article3-user-${article.id}"></small>
           </li>
           <li class="d-flex align-items-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="0.9em" height="0.9em" fill="currentColor" class="bi bi-geo-alt-fill me-1" viewBox="0 0 16 16">
@@ -115,6 +124,10 @@ async function loadMain() {
     articles3.innerHTML += articles3HTML
     const article3_content = document.getElementById(`content3-${article.id}`)
     article3_content.innerText = article.content
+    const article3_title = document.getElementById(`article3-title-${article.id}`)
+    article3_title.innerText = article.title
+    const article3_user = document.getElementById(`article3-user-${article.id}`)
+    article3_user.innerText = article.user
   });
 }
 loadMain()

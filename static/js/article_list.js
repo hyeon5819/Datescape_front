@@ -43,12 +43,12 @@ window.onload = async () => {
                     <img text-align:center;" src="${image_url}${article.main_image}" class="card-img-top cardimg" alt="...">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title cardtitle">${article.title}</h5>
+                        <h5 class="card-title cardtitle" id ="article-title-${article.id}"></h5>
                         <p class="card-text content" id="content-${article.id}" style="color:gray;"></p>
-                        <span class="text-muted"><small class="content">${tag_add}</small></span>
+                        <span class="text-muted"><small class="content" id ="article-tag-${article.id}"></small></span>
                         </div><!-- e:body -->
                     <div class="card-footer d-flex justify-content-between">
-                        <span class="text-muted">${article.user}</span>
+                        <span class="text-muted" id="article-user-${article.id}"></span>
                         <span  style="color:#FFBF00;">⭐️ ${article.score}</span>
                     </div><!-- e:footer -->
                 </div>
@@ -57,6 +57,12 @@ window.onload = async () => {
                 card_box.innerHTML += articleHtml
                 const article_content = document.getElementById(`content-${article.id}`)
                 article_content.innerText = article.content
+                const article_title = document.getElementById(`article-title-${article.id}`)
+                article_title.innerText = article.title
+                const article_user = document.getElementById(`article-user-${article.id}`)
+                article_user.innerText = article.user
+                const article_tag = document.getElementById(`article-tag-${article.id}`)
+                article_tag.innerText = tag_add
 
             }
 

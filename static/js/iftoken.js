@@ -56,11 +56,11 @@ function checkPw() {
         return false;
 
     } else if (/(\w)\1\1\1/.test(pw)) {
-        alert('같은 문자를 4번 이상 사용하실 수 없습니다.');
+        alert("같은 문자를 4번 이상 사용할 수 없습니다.");
         return false;
 
     } else if (pw.search(id) > -1) {
-        alert("비밀번호에 아이디가 포함되었습니다.");
+        alert("비밀번호에는 아이디를 사용할 수 없습니다.");
         return false;
     } else {
         alert("비밀번호가 정상적으로 입력되었습니다.");
@@ -107,7 +107,7 @@ async function handleSignin() {
         // window.location.reload();
         return false
     }
-    if (!checkPw(password2)) {
+    if (!checkPw(password1 && password2)) {
         // window.location.reload();
         return false
     } else if (true) {
@@ -130,10 +130,10 @@ async function handleSignin() {
     let result = await response.json();
 
     if (response.status == 201) {
-        alert("로그인전에 가입하신 이메일 주소로 인증메일이 도착했습니다.          10분 내로 확인해 주세요!")
+        alert("로그인전에 가입하신 이메일 주소로 인증메일이 도착했습니다.\n10분 내로 확인해 주세요!")
         window.location.replace(`${front_base_url}/templates/logintemp.html`)
     } else {
-        alert(JSON.stringify(result))
+        alert(JSON.stringify(result[0]))
         window.location.reload()
     }
 
@@ -162,7 +162,7 @@ async function handleEmailResend() {
         alert("이메일을 확인해주세요.")
         window.location.replace(`${front_base_url}/templates/logintemp.html`)
     } else {
-        alert(JSON.stringify(result))
+        alert(JSON.stringify(result.error))
         window.location.reload()
     }
 
@@ -173,10 +173,15 @@ async function handleLogin() {
     const username = document.getElementById("username").value
     const password = document.getElementById("password1").value
 
-
-    if (!username || !password) {
+    if (!checkID(username)) {
+        alert("아이디는 소문자, 소문자+숫자 조합만 사용가능합니다.")
+        return false;
+    } else if (!username || !password) {
         alert("공란 잘못된입력입니다. 확인해주세요.")
         window.location.reload()
+    } else if (!checkPw(password)) {
+        window.location.reload()
+        return false
     }
 
     const response = await fetch(`${back_base_url}/users/log-in/`, {
@@ -207,7 +212,7 @@ async function handleLogin() {
         alert("로그인되었습니다.")
         window.location.replace(`${front_base_url}/index.html`)
     } else {
-        alert("인증이메일은 확인하셨나요? 아이디, 비밀번호를 정확히 입력해주세요.")
+        alert("인증이메일은 확인하셨나요?\n아이디, 비밀번호를 정확히 입력해주세요.\n회원가입을 아직 안하셨다면 간편로그인을 이용해보세요.")
         window.location.reload()
     }
 
@@ -245,7 +250,7 @@ async function findID() {
 
     } else {
         // alert("가입된 이메일이 없습니다. 다시확인해주세요.")/
-        alert(result)
+        alert(JSON.stringify(result.error))
         window.location.reload()
     }
 }
@@ -255,12 +260,12 @@ async function findID() {
 async function handleResetPasswordEmail() {
     const email = document.getElementById("email").value
 
-    alert("⏳잠시만 기다려 주세요")
-
     if (!email) {
         alert("가입하신 이메일을 입력해주세요")
         window.location.reload()
     }
+
+    alert("⏳잠시만 기다려 주세요⏳")
 
     const response = await fetch(`${back_base_url}/users/password/reset/`, {
         headers: {
@@ -280,7 +285,8 @@ async function handleResetPasswordEmail() {
         alert("비밀번호 재설정 링크를 보내드렸습니다. 이메일을 확인해주세요!")
 
     } else {
-        alert("가입된 이메일이 없습니다. 다시확인해주세요.")
+        // alert("가입된 이메일이 없습니다. 다시확인해주세요.")
+        alert(JSON.stringify(result.error))
         window.location.reload()
     }
 }
@@ -300,12 +306,13 @@ async function handleResetPasswordChange() {
         window.location.reload()
     }
 
-    else if (!regExp.test(password2)) {
-        alert("비번 유효성 검사 실패")
+    else if (false === regExp.test(password1 && password2)) {
+        alert('비밀번호는 8자 이상이어야 하며, \n숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.');
         return false;
+    } else {
+        alert("비밀번호가 정상적으로 입력되었습니다.");
+        // return true;
     }
-
-    alert("⏳잠시만 기다려 주세요")
 
     const response = await fetch(`${back_base_url}/users/password/reset/`, {
         headers: {
@@ -319,17 +326,15 @@ async function handleResetPasswordChange() {
         })
 
     })
-    alert("⏳잠시만 기다려 주세요")
 
     const result = await response.json()
 
     if (response.status == 200) {
-        alert("⏳잠시만 기다려 주세요")
         alert("비밀번호가 변경되었습니다.")
         window.location.href = `${front_base_url}/templates/logintemp.html`
     } else {
-        alert("⏳잠시만 기다려 주세요")
         alert(JSON.stringify(result))
+
         window.location.reload()
     }
 }

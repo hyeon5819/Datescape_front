@@ -11,6 +11,7 @@ function kcpRequestPay(useremail, username, price) {
     if (localStorage.getItem("access")) { // 회원만 결제 가능
         if (confirm("구매 하시겠습니까?")) { // 구매 클릭시 한번 더 확인하기
 
+
             const emoticonName = document.getElementById('title').innerText
 
             IMP.init("imp55467334"); // 가맹점 식별코드
@@ -36,6 +37,7 @@ function kcpRequestPay(useremail, username, price) {
 
                     formData.append('emoticon_id', emoticonId)
                     formData.append('imp_uid', rsp.imp_uid)
+                    formData.append('merchant_uid', "IMP" + makeMerchantUid + username)
 
                     const response = await fetch(`${back_base_url}/emoticons/payment/`, {
                         headers: {
